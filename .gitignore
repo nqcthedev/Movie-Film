@@ -1,0 +1,33 @@
+# dependencies
+/node_modules
+
+# vscode
+.vscode-root/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# idea
+.idea/
+
+# Local History for Visual Studio Code
+.history/
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+npm-debug.log
+
+# package-lock
+package-lock.json
+
+.env

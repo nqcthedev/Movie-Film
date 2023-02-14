@@ -1,6 +1,8 @@
-import React from 'react'
-
-const SideBar = () => {
+import React, { FC } from 'react'
+interface SideBarProps {
+  setMobileOpen: any
+}
+const SideBar:FC<SideBarProps> = ({setMobileOpen}) => {
   return (
     <div>SideBar</div>
   )

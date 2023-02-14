@@ -3,14 +3,12 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 
 const BASE_URL = import.meta.env.BASE_URL
-export const movieApi = createApi({
+export const movieApi: any = createApi({
   reducerPath:'movieApi',
   baseQuery:fetchBaseQuery({
     baseUrl:BASE_URL
   }),
   endpoints:(builder) => ({
-
-
     // Get Genders
     getGenders:builder.query({
       query:() => `/genre/movie/list?api_key=${BASE_URL}`,

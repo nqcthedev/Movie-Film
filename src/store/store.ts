@@ -2,15 +2,18 @@
 import { movieApi } from '@/services/movieApi';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
-
+import genreOrCategoryReducer from "../feature/currentGenreOrCategory"
+import authSlice from "../feature/auth" 
+import { apiSlice } from './apiSlice';
 
 export const store = configureStore({
   reducer: {
-    [movieApi.reducerPath]: movieApi.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    currentGenreOrCategory: genreOrCategoryReducer,
+    auth: authSlice,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(movieApi.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware),
     devTools: true,
 });
 

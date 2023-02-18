@@ -25,8 +25,9 @@ const Search = () => {
         onChange={handleQuery}
         variant="standard"
         placeholder="Search everything"
-        sx={{width:'400px'}}
+        sx={{width:'400px',}}
         InputProps={{
+          disableUnderline: true,
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />

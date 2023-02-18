@@ -1,3 +1,3 @@
 export interface ToggleColorModeType {
-  colorMode: any;
+  toggleColorMode: any;
 }

@@ -52,7 +52,7 @@ const Navbar: FC = () => {
               {/* <Menu /> */}
             </BoxIconButton>
           )}
-          <BoxIconButtonDark onClick={colorMode.colorMode.toggleColorMode}>
+          <BoxIconButtonDark onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7/> : <Brightness4/>}
           </BoxIconButtonDark>
           {!isMobile && <Search/>}
@@ -106,7 +106,6 @@ const Navbar: FC = () => {
               anchor="left"
               open={isMobileOpen}
               onClose={() => setIsMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-              // classes={{ paper: classes.drawerPaper }}
               ModalProps={{ keepMounted: true }}
             >
               <SideBar setMobileOpen={setIsMobileOpen} />

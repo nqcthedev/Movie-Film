@@ -2,6 +2,7 @@ import { useGetGenresQuery } from "@/app/redux/apiStore";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/store";
 import {
   Box,
+  IconButton,
   List,
   ListItemButton,
   ListSubheader,
@@ -9,17 +10,21 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { FC, Fragment, useEffect } from "react";
+import React, { FC, Fragment, useEffect, useMemo } from "react";
 
-import genresIcon from "../../../assets/genres"
+import genresIcon from "../../../assets/genres";
 import path from "@/app/routes/path";
 import classNames from "classnames";
-import {  useLocation, useNavigate } from "react-router-dom";
-import {  BoxImage, BoxLink } from "./SidebarStyled";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BoxImage, BoxLink } from "./SidebarStyled";
+import { blueLogo, redLogo } from "@/utils/logoDarkMode";
+import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
+import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
 interface SideBarProps {
   setMobileOpen: any;
 }
-
 
 const MenuItem = styled(ListItemButton)`
   display: flex;
@@ -36,10 +41,10 @@ const MenuItem = styled(ListItemButton)`
   &.active::before {
     content:'';
     position:absolute;
-    top:10px;
+    top:15px;
     right:0px;
     width:6px;
-    height:45px;
+    height:60px;
     background: linear-gradient(
       180deg,
       
@@ -49,11 +54,6 @@ const MenuItem = styled(ListItemButton)`
   }
 `;
 
-
-const redLogo =
-  "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
-const blueLogo =
-  "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
 const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
@@ -61,20 +61,57 @@ const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
   const { genreIdOrCategory } = useAppSelector(
     (state: RootState) => state.currentGenreOrCategory
   );
-  const Icons: any = genresIcon
-  console.log(Icons)
+  const Icons: any = genresIcon;
+  console.log(Icons);
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     setMobileOpen(false);
   }, [genreIdOrCategory]);
 
-
-  const categories = [
-    { label: 'Popular', value: 'popular',  path: path.popular, },
-    { label: 'Top Rated', value: 'top_rated',   path: path.topRate, },
-    { label: 'Upcoming', value: 'upcoming', path: path.upComming, },
-  ];
+  const categories = useMemo(() => {
+    return [
+      {
+        label: "Popular",
+        value: "popular",
+        path: path.popular,
+        icon: (
+          <LiveTvIcon
+            sx={{
+              width: "40px",
+              height: "40px",
+            }}
+          />
+        ),
+      },
+      {
+        label: "Top Rated",
+        value: "top_rated",
+        path: path.topRate,
+        icon: (
+          <StarHalfIcon
+            sx={{
+              width: "40px",
+              height: "40px",
+            }}
+          />
+        ),
+      },
+      {
+        label: "Upcoming",
+        value: "upcoming",
+        path: path.upComming,
+        icon: (
+          <PersonalVideoIcon
+            sx={{
+              width: "40px",
+              height: "40px",
+            }}
+          />
+        ),
+      },
+    ];
+  }, []);
 
   return (
     <>
@@ -82,7 +119,9 @@ const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
         <BoxImage src={theme.palette.mode === "light" ? redLogo : blueLogo} />
       </BoxLink>
       <List>
-        <ListSubheader sx={{fontWeight:'600'}}>Categories</ListSubheader>
+        <ListSubheader sx={{ fontWeight: "600", fontSize: "15px" }}>
+          Categories
+        </ListSubheader>
         <List>
           {categories.map((tab) => (
             <Fragment key={tab.value}>
@@ -91,17 +130,23 @@ const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
                   active: location.pathname.includes(tab.path as string),
                 })}
                 onClick={() => {
-                  navigate(tab.path)
+                  navigate(tab.path);
                 }}
               >
                 <Box display={"flex"} alignItems={"center"}>
-                <img src={Icons[tab.label.toLowerCase()]} height={30} />
+                  <IconButton
+                    sx={{
+                      color: theme.palette.mode === "dark" ? "#e81818" : "",
+                    }}
+                  >
+                    {tab.icon}
+                  </IconButton>
                   <Typography
-                    fontSize={"16px"}
+                    fontSize={"18px"}
                     lineHeight={"20px"}
-                    paddingLeft={'12px'}
+                    paddingLeft={"12px"}
                     color="#9EA9B7"
-                    fontWeight={'600'}
+                    fontWeight={"600"}
                   >
                     {tab.label}
                   </Typography>

@@ -27,7 +27,10 @@ export const BoxLink= styled(Link)(({ theme }: any) => ({
 }));
 
 export const BoxImage = styled('img')(({ theme }: any) => ({
-  width:'100%'
+  height:'120px',
+  objectFit:'contain',
+  width:'100%',
+  marginTop:'16px'
 }))
 
 export const BoxLinkTitle = styled(NavLink)(({ theme }: any) =>({

@@ -1,7 +1,7 @@
 import React, { useState, createContext } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { amber, common, deepOrange, grey } from "@mui/material/colors";
-export const ColorModeContext: any = createContext();
+import { amber, deepOrange, grey } from "@mui/material/colors";
+export const ColorModeContext: any = createContext(undefined);
 
 const ToggleColorMode = ({ children }: any) => {
  
@@ -50,23 +50,17 @@ const ToggleColorMode = ({ children }: any) => {
             //   default: '#212329',
             //   paper: '#212329',
             // },
-            // text: {
-            //   primary: '#fff',
-            //   secondary: grey[500],
-            // },
+            text: {
+              primary: '#FFFFFFFF',
+              secondary: grey[500],
+            },
           }),
     },
     typography: {
       fontFamily: [
-        'Oswald',
         'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
         'sans-serif',
       ].join(','),
-      body1: {
-        fontFamily: 'Poppins, Arial, sans-serif',
-      },
     },
   });
   

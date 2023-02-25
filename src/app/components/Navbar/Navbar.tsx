@@ -4,7 +4,6 @@ import {
   Box,
   IconButton,
   Tooltip,
-  useMediaQuery,
   useTheme,
   Menu as MenuWrapper,
   MenuItem,
@@ -21,12 +20,18 @@ import { ToggleColorModeType } from "@/types/Context";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Search from "../Search";
 import SideBar from "../SideBar";
+import palette from "@/styles/theme/palette";
+import ModalLogin from "../ModalLogin";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Navbar: FC = () => {
   const theme = useTheme();
   const colorMode: ToggleColorModeType = useContext(ColorModeContext);
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
+  const [isShowModalLoggin, setIsShowModalLoggin] = useState<boolean>(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleClose = () => setOpenModal(false);
+
   const handleMobileOpen = () => {
     setIsMobileOpen((preOpenMobile) => !preOpenMobile);
   };
@@ -34,13 +39,17 @@ const Navbar: FC = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleShowFormLogin = () => {
+    setOpenModal(true);
   };
   return (
     <>
@@ -81,17 +90,33 @@ const Navbar: FC = () => {
                 },
               }}
             >
-              <IconButton sx={{ margin: "0px 25px 0px 15px" }}>
+              <IconButton sx={{ margin: "0px 10px 0px 0px" }}>
                 <Badge badgeContent={17} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
             </MenuItem>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {isShowModalLoggin ? (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Typography
+                sx={{
+                  margin: "16px 0px",
+                  cursor: "pointer",
+                  "&:hover": {
+                    transition: "color .5s ease-out",
+                    color: palette.primary.lighter,
+                  },
+                }}
+                onClick={handleShowFormLogin}
+              >
+                Đăng nhập
+              </Typography>
+            )}
             <MenuWrapper
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -142,6 +167,7 @@ const Navbar: FC = () => {
         >
           <SideBar setMobileOpen={setIsMobileOpen} />
         </Drawer>
+        <ModalLogin open={openModal} handleOpen={handleShowFormLogin} handleClose={handleClose} />
       </Box>
     </>
   );

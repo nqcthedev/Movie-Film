@@ -1,5 +1,4 @@
 
-import { movieApi } from '@/services/movieApi';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import genreOrCategoryReducer from "../feature/currentGenreOrCategory"

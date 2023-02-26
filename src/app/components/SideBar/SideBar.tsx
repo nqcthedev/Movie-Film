@@ -13,15 +13,15 @@ import {
 import React, { FC, Fragment, useEffect, useMemo } from "react";
 
 import genresIcon from "../../../assets/genres";
-import path from "@/app/routes/path";
+
 import classNames from "classnames";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BoxImage, BoxLink } from "./SidebarStyled";
 import { blueLogo, redLogo } from "@/utils/logoDarkMode";
-import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
+import { PATH_ROUTER } from "@/app/routes/path";
 interface SideBarProps {
   setMobileOpen: any;
 }
@@ -74,7 +74,7 @@ const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
       {
         label: "Popular",
         value: "popular",
-        path: path.popular,
+        path: PATH_ROUTER.popular,
         icon: (
           <LiveTvIcon
             sx={{
@@ -87,7 +87,7 @@ const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
       {
         label: "Top Rated",
         value: "top_rated",
-        path: path.topRate,
+        path: PATH_ROUTER.toprate,
         icon: (
           <StarHalfIcon
             sx={{
@@ -100,7 +100,7 @@ const SideBar: FC<SideBarProps> = ({ setMobileOpen }) => {
       {
         label: "Upcoming",
         value: "upcoming",
-        path: path.upComming,
+        path: PATH_ROUTER.upcomming,
         icon: (
           <PersonalVideoIcon
             sx={{

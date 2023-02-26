@@ -1,4 +1,4 @@
-import { apiSlice } from "@/store/apiSlice";
+import { apiSlice } from "@/redux/slices/apiSlice";
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 console.log(tmdbKey);
 export const genreApiSlice: any = apiSlice.injectEndpoints({

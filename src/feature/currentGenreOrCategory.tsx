@@ -1,4 +1,4 @@
-import { GenreState } from "@/types/Genre";
+import { GenreState } from "@/interface/Genre";
 import { createSlice } from "@reduxjs/toolkit";
 
 

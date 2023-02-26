@@ -16,7 +16,7 @@ import { BoxIconButtonDark } from "./NavbarStyled";
 
 import { Brightness4, Brightness7, Menu } from "@mui/icons-material";
 import { ColorModeContext } from "@/utils/toogleColorMode";
-import { ToggleColorModeType } from "@/types/Context";
+import { ToggleColorModeType } from "@/interface/Context";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Search from "../Search";
 import SideBar from "../SideBar";

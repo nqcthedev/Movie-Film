@@ -1,4 +1,4 @@
-import { InitStateAuth } from "@/types/Auth";
+import { InitStateAuth } from "@/interface/Auth";
 import { LocalStorageService } from "@/utils/local-storage";
 import { createSlice } from "@reduxjs/toolkit";
 

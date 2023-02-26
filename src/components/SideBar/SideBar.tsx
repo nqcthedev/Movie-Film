@@ -1,4 +1,4 @@
-import { useGetGenresQuery } from "@/app/redux/apiStore";
+import { useGetGenresQuery } from "@/redux/apiStore";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/store";
 import {
   Box,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React, { FC, Fragment, useEffect, useMemo } from "react";
 
-import genresIcon from "../../../assets/genres";
+import genresIcon from "../../assets/genres";
 
 import classNames from "classnames";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ import { blueLogo, redLogo } from "@/utils/logoDarkMode";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
-import { PATH_ROUTER } from "@/app/routes/path";
+import { PATH_ROUTER } from "@/routes/path";
 interface SideBarProps {
   setMobileOpen: any;
 }

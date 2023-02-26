@@ -1,4 +1,4 @@
-import { Movie, Movies } from "@/types/Movies";
+import { Movie, Movies } from "@/interface/Movies";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 

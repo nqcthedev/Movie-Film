@@ -74,6 +74,22 @@ export function SettingsProvider({children}: SettingsProviderProps) {
     setSettings({...settings, themeMode});
   }, [setSettings, settings]);
 
+
+   // Layout
+   const onToggleLayout = useCallback(() => {
+    const themeLayout = settings.themeLayout === 'vertical' ? 'mini' : 'vertical';
+    setSettings({ ...settings, themeLayout });
+  }, [setSettings, settings]);
+
+  const onChangeLayout = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const themeLayout = event.target.value;
+      setSettings({ ...settings, themeLayout });
+    },
+    [setSettings, settings]
+  );
+
+
   //Direction
   const onChangeDirectionByLang = useCallback((lang:string) => {
     const themeDirection = lang === "ar" ? "rtl" : "ltr";
@@ -102,6 +118,9 @@ export function SettingsProvider({children}: SettingsProviderProps) {
     // Mode
     onToggleMode,
     onChangeMode,
+     // Layout
+     onToggleLayout,
+     onChangeLayout,
     // Color
     onChangeColorPresets,
     presetsOption,
@@ -113,6 +132,9 @@ export function SettingsProvider({children}: SettingsProviderProps) {
     // Mode
     onToggleMode,
     onChangeMode,
+     // Layout
+     onToggleLayout,
+     onChangeLayout,
     // Color
     onChangeColorPresets,
     //Reset

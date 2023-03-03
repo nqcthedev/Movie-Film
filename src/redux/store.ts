@@ -35,7 +35,7 @@ const store = configureStore({
 
 setupListeners(store.dispatch)
 
-const presistor = persistStore(store)
+const persistor = persistStore(store)
 
 const {dispatch} = store;
 
@@ -43,5 +43,5 @@ const useSelector:TypedUseSelectorHook<RootState> = useAppSelector
 
 const useDispatch = () => useAppDispatch<AppDispatch>();
 
-export {store, presistor, dispatch, useSelector, useDispatch}
+export {store, persistor, dispatch, useSelector, useDispatch}
 

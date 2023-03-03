@@ -26,6 +26,9 @@ import ToggleButton from "./ToggleButton";
 import BadgeDot from "./BadgeDot";
 import Block from "./Block";
 import ModeOptions from "./ModeOptions";
+import ColorPresetsOptions from "./ColorPresetsOptions";
+import FullScreenOptions from "./FullScreenOptions";
+import LayoutOptions from "./LayoutOptions";
 
 // ----------------------------------------------------------------------
 
@@ -103,10 +106,16 @@ export default function SettingsDrawer() {
           <Block title="Mode">
             <ModeOptions />
           </Block>
+          <Block title="Layout">
+            <LayoutOptions />
+          </Block>
           <Block title="Presets">
             <ColorPresetsOptions />
           </Block>
         </Scrollbar>
+        <Box sx={{ p: SPACING, pt: 0 }}>
+          <FullScreenOptions />
+        </Box>
       </Drawer>
     </>
   );

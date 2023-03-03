@@ -9,7 +9,7 @@ export default function Router() {
   return useRoutes([
   // Dashboard
   {
-    path: PATH_ROUTER.root,
+    path:"dashboard" ,
     element: (
       <DashboardLayout />
     ),

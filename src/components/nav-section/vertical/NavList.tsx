@@ -1,0 +1,80 @@
+import React from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+// @mui
+import { Collapse } from "@mui/material";
+// hooks
+import useActiveLink from "@/hooks/useActiveLink";
+//
+import { NavListProps } from "../types";
+import NavItem from "./NavItem";
+
+// ----------------------------------------------------------------------
+
+type NavlistRootProps = {
+  data: NavListProps;
+  depth: number;
+  hasChild: boolean;
+};
+
+export default function NavList({ data, depth, hasChild }: NavlistRootProps) {
+  const { pathname } = useLocation();
+
+  const { active, isExternalLink } = useActiveLink(data.path);
+
+  const [open, setOpen] = useState<boolean>(active);
+
+  useEffect(() => {
+    if (!active) {
+      handleClose();
+    }
+  }, [pathname]);
+
+  const handleToggle = () => {
+    setOpen(!active);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <NavItem
+        item={data}
+        depth={depth}
+        open={open}
+        active={active}
+        isExternalLink={isExternalLink}
+        onClick={handleToggle}
+      />
+      {hasChild && (
+        <Collapse in={open} unmountOnExit>
+          <NavSubList data={data.children} depth={depth} />
+        </Collapse>
+      )}
+    </>
+  );
+}
+
+// ----------------------------------------------------------------------
+
+type NavListSubProps = {
+  data: NavListProps[];
+  depth: number;
+};
+
+function NavSubList({ data, depth }: NavListSubProps) {
+  return (
+    <>
+      {data.map((list) => (
+        <NavList
+          key={list.title + list.path}
+          data={list}
+          depth={depth + 1}
+          hasChild={!!list.children}
+        />
+      ))}
+    </>
+  );
+}

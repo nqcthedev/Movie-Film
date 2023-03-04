@@ -24,6 +24,6 @@ export const StyledScrollbar = styled(SimpleBar)(({theme}) => ({
     },
   },
   "&.simplebar-mask": {
-    zIndex:"inheit"
+    zIndex:"inherit"
   }
 }))

@@ -13,3 +13,11 @@ import Logo from "@/components/logo";
 import iconify from '@/components/iconify';
 import { useSettingsContext } from '@/components/settings';
 //
+
+const Header = () => {
+  return (
+    <div>Header</div>
+  )
+}
+
+export default Header

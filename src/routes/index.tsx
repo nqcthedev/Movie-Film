@@ -1,15 +1,15 @@
 
 import {  useRoutes } from "react-router-dom";
-import DashboardLayout from "../pages/Layout/DashboardLayout";
 import { PATH_ROUTER } from "./path";
 import Upcomming from "../pages/upcomming";
 import Toprate from "../pages/toprate";
 import Popular from "../pages/popular/Popular";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 export default function Router() {
   return useRoutes([
   // Dashboard
   {
-    path:"dashboard" ,
+    path:"/" ,
     element: (
       <DashboardLayout />
     ),

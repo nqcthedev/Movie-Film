@@ -3,20 +3,32 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { BrowserRouter } from "react-router-dom";
-import Router from "@/routes";
-import { Provider as ReduxProvider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
+
+// Routes
+import Router from "@/routes";
+//Redux
+import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/redux/store";
+// Locales
+import ThemeLocalization from "@/locales/ThemeLocalization";
+// Theme
+import ThemeProvider from "@/theme";
+// Auth
+import { AuthProvider } from "./auth/FireBaseContext";
+// components
 import ScrollToTop from "@/components/scroll-to-top";
 import { SettingsProvider, ThemeSettings } from "./components/settings";
 import MotionLazyContainer from "@/components/animate/MotionLazyContainer";
-import ThemeProvider from "@/theme";
-import ThemeLocalization from "@/locales/ThemeLocalization";
+
+
 import SnackbarProvider from "@/components/snackbar/SnackbarProvider";
+
 function App() {
   return (
-    <HelmetProvider>
+   <AuthProvider>
+     <HelmetProvider>
       <ReduxProvider store={store}>
         <PersistGate persistor={persistor}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -40,6 +52,7 @@ function App() {
         </PersistGate>
       </ReduxProvider>
     </HelmetProvider>
+   </AuthProvider>
   );
 }
 

@@ -13,6 +13,7 @@ import Logo from "@/components/logo";
 import { useSettingsContext } from "@/components/settings";
 import Iconify from "@/components/iconify";
 import Searchbar from "./Searchbar";
+import LanguagePopover from "./LanguagePopover";
 //
 
 type Props = {
@@ -51,7 +52,7 @@ const Header = ({ onOpenNav }: Props) => {
         justifyContent="flex-end"
         spacing={{xs: 0.5, sm:1.5}}
       >
-        <Lang
+       <LanguagePopover/>
       </Stack>
     </>
   );

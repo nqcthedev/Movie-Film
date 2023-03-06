@@ -20,7 +20,7 @@ export function responsiveFontSizes({sm, md,lg}: {sm:number; md:number; lg:numbe
     }
 }
 
-const FONT_PRIMARY = "Roboto Sans, sans-serif";
+const FONT_PRIMARY = 'Public Sans, sans-serif';
 
 
 const typography ={

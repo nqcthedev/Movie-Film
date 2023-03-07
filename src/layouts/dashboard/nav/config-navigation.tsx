@@ -11,6 +11,8 @@ const icon = (name: string) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 );
 
+console.log(icon)
+
 const ICONS = {
   blog: icon('ic_blog'),
   cart: icon('ic_cart'),

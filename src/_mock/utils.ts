@@ -9,7 +9,7 @@ export function randomNumberRange(min:number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export function randomeInArray<T>(array:T[]) {
+export function randomInArray<T>(array:T[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
 

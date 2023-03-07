@@ -80,8 +80,9 @@ export default function NotificationsPopover() {
               You have {totalUnRead} unread messages
             </Typography>
           </Box>
+
           {totalUnRead > 0 && (
-            <Tooltip title="Mark all as read">
+            <Tooltip title=" Mark all as read">
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <Iconify icon="eva:done-all-fill" />
               </IconButton>
@@ -103,7 +104,7 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(0.2).map((notification) => (
+            {notifications.slice(0, 2).map((notification) => (
               <NotificationItem
                 key={notification.id}
                 notification={notification}
@@ -176,6 +177,22 @@ function NotificationItem({
       <ListItemAvatar>
         <Avatar sx={{ bgcolor: "background.neutral" }}>{avatar}</Avatar>
       </ListItemAvatar>
+
+      <ListItemText
+        disableTypography
+        primary={title}
+        secondary={
+          <Stack
+            direction="row"
+            sx={{ mt: 0.5, typography: "caption", color: "text.disabled" }}
+          >
+            <Iconify icon="eva:clock-fill" width={16} sx={{ mr: 0.5 }} />
+            <Typography variant="caption">
+              {fToNow(notification.createdAt)}
+            </Typography>
+          </Stack>
+        }
+      />
     </ListItemButton>
   );
 }
@@ -201,7 +218,7 @@ function renderContent(notification: NotificationItemProps) {
       avatar: (
         <img
           alt={notification.title}
-          src="@/assets/icons/notification/ic_package.svg"
+          src="/assets/icons/notification/ic_package.svg"
         />
       ),
       title,
@@ -212,7 +229,7 @@ function renderContent(notification: NotificationItemProps) {
       avatar: (
         <img
           alt={notification.title}
-          src="@/assets/icons/notification/ic_shipping.svg"
+          src="/assets/icons/notification/ic_shipping.svg"
         />
       ),
       title,
@@ -223,7 +240,7 @@ function renderContent(notification: NotificationItemProps) {
       avatar: (
         <img
           alt={notification.title}
-          src="@/assets/icons/notification/ic_mail.svg"
+          src="/assets/icons/notification/ic_mail.svg"
         />
       ),
       title,
@@ -234,7 +251,7 @@ function renderContent(notification: NotificationItemProps) {
       avatar: (
         <img
           alt={notification.title}
-          src="@/assets/icons/notification/ic_chat.svg"
+          src="/assets/icons/notification/ic_chat.svg"
         />
       ),
       title,

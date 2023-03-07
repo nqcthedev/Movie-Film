@@ -2,14 +2,13 @@
 import { PATH_DASHBOARD } from '@/routes/path';
 // components
 import Label from '@/components/label';
-import Iconify from '../../../components/iconify';
-import SvgColor from '../../../components/svg-color';
-
+import Iconify from '@/components/iconify';
+import SvgColor from '@/components/svg-color';
 
 // ----------------------------------------------------------------------
 
 const icon = (name: string) => (
-  <SvgColor src={`@/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
+  <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 );
 
 const ICONS = {

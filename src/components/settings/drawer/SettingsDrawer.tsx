@@ -35,7 +35,7 @@ import LayoutOptions from "./LayoutOptions";
 const SPACING = 2.5;
 
 export default function SettingsDrawer() {
-  const { themeMode, onResetSetting } = useSettingsContext();
+  const { themeMode, onResetSetting, themeLayout } = useSettingsContext();
 
   const theme = useTheme();
   const [open, setOpen] = useState<boolean>(false);
@@ -48,7 +48,7 @@ export default function SettingsDrawer() {
     setOpen(false);
   };
 
-  const notDefault = themeMode !== defaultSettings.themeMode;
+  const notDefault = themeMode !== defaultSettings.themeMode ||  themeLayout !== defaultSettings.themeLayout;
 
   return (
     <>

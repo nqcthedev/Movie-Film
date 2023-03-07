@@ -34,34 +34,28 @@ export default function ContacsPopover() {
     setOpenPopover(null);
   };
 
+  console.log(_contacts)
+
   return (
     <>
       <IconButtonAnimate
-        color={openPopover ? "primary" : "default"}
+        color={openPopover ? 'primary' : 'default'}
         onClick={handleOpenPopover}
         sx={{
           width: 40,
           height: 40,
           ...(openPopover && {
             bgcolor: (theme) =>
-              alpha(
-                theme.palette.primary.main,
-                theme.palette.action.focusOpacity
-              ),
+              alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
           }),
         }}
       >
-        <Iconify icon="eva-people-fill" />
+        <Iconify icon="eva:people-fill" />
       </IconButtonAnimate>
 
-      <MenuPopover
-        open={openPopover}
-        onClose={handleClosePopover}
-        sx={{ width: 320 }}
-      >
+      <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 320 }}>
         <Typography variant="h6" sx={{ p: 1.5 }}>
-          Contacts{" "}
-          <Typography component="span">({_contacts.length})</Typography>
+          Contacts <Typography component="span">({_contacts.length})</Typography>
         </Typography>
 
         <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
@@ -78,16 +72,9 @@ export default function ContacsPopover() {
 
               <ListItemText
                 primary={contact.name}
-                secondary={
-                  contact.status === "offline"
-                    ? fToNow(contact.lastActivity)
-                    : ""
-                }
-                primaryTypographyProps={{
-                  typography: "subtitle2",
-                  sx: { mb: 0.25 },
-                }}
-                secondaryTypographyProps={{ typography: "caption" }}
+                secondary={contact.status === 'offline' ? fToNow(contact.lastActivity) : ''}
+                primaryTypographyProps={{ typography: 'subtitle2', sx: { mb: 0.25 } }}
+                secondaryTypographyProps={{ typography: 'caption' }}
               />
             </MenuItem>
           ))}

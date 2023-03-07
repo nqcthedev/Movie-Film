@@ -12,8 +12,7 @@ import IconButtonAnimate from "@/components/animate/IconButtonAnimate";
 
 const LanguagePopover = () => {
   const { allLangs, currentLang, onChangeLang } = useLocales();
-  console.log(currentLang.icon)
-  console.log(currentLang.label)
+
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {

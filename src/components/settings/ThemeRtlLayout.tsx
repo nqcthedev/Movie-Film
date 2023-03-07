@@ -12,20 +12,19 @@ import { useTheme } from '@mui/material/styles';
 
 
 type Props = {
-  children:React.ReactNode;
+  children: React.ReactNode;
 };
 
-export default function ThemeRtlLayout({children}: Props) {
+export default function ThemeRtlLayout({ children }: Props) {
   const theme = useTheme();
-  
   useEffect(() => {
     document.dir = theme.direction;
   }, [theme.direction]);
 
   const cacheRtl = createCache({
-    key:theme.direction === "rtl" ? "rtl" : "css",
-    stylisPlugins:theme.direction === "rtl" ? [prefixer, rtlPlugin] : [],
+    key: theme.direction === 'rtl' ? 'rtl' : 'css',
+    stylisPlugins: theme.direction === 'rtl' ? [prefixer, rtlPlugin] : [],
   });
 
-  return <CacheProvider value={cacheRtl}>{children}</CacheProvider>
+  return <CacheProvider value={cacheRtl}>{children}</CacheProvider>;
 }

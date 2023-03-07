@@ -1,8 +1,8 @@
 import { memo } from "react";
 // @mui
 import { Box } from "@mui/material";
-import { ScrollbarProps } from "./styles";
-import { StyledRootScrollBar, StyledScrollbar } from "./types";
+import { StyledRootScrollbar, StyledScrollbar } from './styles';
+import { ScrollbarProps } from './types'
 //
 
 // ------------------------------------------------------------------------------------------
@@ -25,11 +25,11 @@ function Scrollbar({ children, sx, ...other }: ScrollbarProps) {
   }
 
   return (
-    <StyledRootScrollBar>
+    <StyledRootScrollbar>
       <StyledScrollbar clickOnTrack={false} sx={sx} {...other}>
         {children}
       </StyledScrollbar>
-    </StyledRootScrollBar>
+    </StyledRootScrollbar>
   );
 }
 

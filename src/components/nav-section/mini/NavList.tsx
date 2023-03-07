@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-// @mui
-import { Collapse } from '@mui/material';
 // hooks
-import useActiveLink from '@/hooks/useActiveLink';
+import useActiveLink from '../../../hooks/useActiveLink';
 //
 import { NavListProps } from '../types';
+import { StyledPopover } from './styles';
 import NavItem from './NavItem';
 
 // ----------------------------------------------------------------------
@@ -17,21 +16,43 @@ type NavListRootProps = {
 };
 
 export default function NavList({ data, depth, hasChild }: NavListRootProps) {
+  const navRef = useRef(null);
+
   const { pathname } = useLocation();
 
   const { active, isExternalLink } = useActiveLink(data.path);
 
-  const [open, setOpen] = useState(active);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!active) {
+    if (open) {
       handleClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  const handleToggle = () => {
-    setOpen(!open);
+  useEffect(() => {
+    const appBarEl = Array.from(document.querySelectorAll('.MuiAppBar-root')) as Array<HTMLElement>;
+
+    // Reset styles when hover
+    const styles = () => {
+      document.body.style.overflow = '';
+      document.body.style.padding = '';
+      // Apply for Window
+      appBarEl.forEach((elem) => {
+        elem.style.padding = '';
+      });
+    };
+
+    if (open) {
+      styles();
+    } else {
+      styles();
+    }
+  }, [open]);
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   const handleClose = () => {
@@ -41,18 +62,29 @@ export default function NavList({ data, depth, hasChild }: NavListRootProps) {
   return (
     <>
       <NavItem
+        ref={navRef}
         item={data}
         depth={depth}
         open={open}
         active={active}
         isExternalLink={isExternalLink}
-        onClick={handleToggle}
+        onMouseEnter={handleOpen}
+        onMouseLeave={handleClose}
       />
 
       {hasChild && (
-        <Collapse in={open} unmountOnExit>
+        <StyledPopover
+          open={open}
+          anchorEl={navRef.current}
+          anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'center', horizontal: 'left' }}
+          PaperProps={{
+            onMouseEnter: handleOpen,
+            onMouseLeave: handleClose,
+          }}
+        >
           <NavSubList data={data.children} depth={depth} />
-        </Collapse>
+        </StyledPopover>
       )}
     </>
   );

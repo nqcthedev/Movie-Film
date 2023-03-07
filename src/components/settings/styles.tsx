@@ -37,8 +37,6 @@ export const StyledCard = styled(CardActionArea, {
   }),
 }));
 
-
-
 // ----------------------------------------------------------------------
 
 type StyledCircleColorProps = {
@@ -64,8 +62,7 @@ export const StyledCircleColor = styled('div', {
   }),
 }));
 
-
-
+// ----------------------------------------------------------------------
 
 type MaskControlProps = {
   value: string;
@@ -91,12 +88,11 @@ export function MaskControl({ value }: MaskControlProps) {
 
 // ----------------------------------------------------------------------
 
-
 type LayoutIconValue = {
-  layout:"vertical" | "horizontal" | "mini";
-}
+  layout: 'vertical' | 'horizontal' | 'mini';
+};
 
-export function LayoutIcon({layout}: LayoutIconValue) {
+export function LayoutIcon({ layout }: LayoutIconValue) {
   const WIDTH = 16;
 
   const HEIGHT = 10;
@@ -105,40 +101,43 @@ export function LayoutIcon({layout}: LayoutIconValue) {
 
   const RADIUS = 0.5;
 
-  const isNavHorizontal = layout === "horizontal";
+  const isNavHorizontal = layout === 'horizontal';
 
-  const isNavMini = layout === "mini";
+  const isNavMini = layout === 'mini';
 
   const styles = {
-    width:1,
-    height:1,
-    borderRadius:RADIUS,
-    position: "absolute",
+    width: 1,
+    height: 1,
+    borderRadius: RADIUS,
+    position: 'absolute',
   };
 
   return (
-    <Stack direction={layout === "horizontal" ? "column" :"row" }>
-      <Box sx={{
-        mr:SPACING,
-        width:WIDTH,
-        opacity:0.72,
-        borderRadius:RADIUS,
-        bgcolor:"currentColor",
-        ...(isNavHorizontal && {
-          width: 1,
-          mb: SPACING,
-          height: HEIGHT,
-          borderRadius: RADIUS / 1.5,
-        }),
-        ...(isNavMini && {
-          width: WIDTH / 2,
-          borderRadius: RADIUS / 2,
-        }),
-      }}/>
+    <Stack direction={layout === 'horizontal' ? 'column' : 'row'} sx={{ width: 1, height: 1 }}>
+      <Box
+        sx={{
+          mr: SPACING,
+          width: WIDTH,
+          opacity: 0.72,
+          borderRadius: RADIUS,
+          bgcolor: 'currentColor',
+          ...(isNavHorizontal && {
+            width: 1,
+            mb: SPACING,
+            height: HEIGHT,
+            borderRadius: RADIUS / 1.5,
+          }),
+          ...(isNavMini && {
+            width: WIDTH / 2,
+            borderRadius: RADIUS / 2,
+          }),
+        }}
+      />
+
       <Box sx={{ flexGrow: 1, position: 'relative', borderRadius: RADIUS }}>
         <Box sx={{ ...styles, opacity: 0.16, bgcolor: 'currentColor' }} />
         <Box sx={{ ...styles, opacity: 0.48, border: `dashed 1px currentColor` }} />
       </Box>
     </Stack>
-  )
+  );
 }

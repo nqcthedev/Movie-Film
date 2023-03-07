@@ -1,12 +1,15 @@
 import { Link as RouterLink } from 'react-router-dom';
-import Iconify from "@/components/iconify";
+// @mui
+import { Box, Tooltip, Link, ListItemText } from '@mui/material';
 // locales
-import useLocales from "@/locales/useLocales";
-import { Box, Link, ListItemText, Tooltip } from "@mui/material";
-//
-import { NavItemProps } from "../types";
-import { StyledItem, StyledIcon, StyledDotIcon } from "./styles";
+import  useLocales  from '@/locales/useLocales';
+// auth
 import RoleBasedGuard from '@/auth/RoleBasedGuard';
+//
+import Iconify from '@/components/iconify';
+//
+import { NavItemProps } from '../types';
+import { StyledItem, StyledIcon, StyledDotIcon } from './styles';
 
 // ----------------------------------------------------------------------
 
@@ -25,37 +28,32 @@ export default function NavItem({
   const subItem = depth !== 1;
 
   const renderContent = (
-    <StyledItem
-      depth={depth}
-      active={active}
-      disabled={disabled}
-      caption={!!caption}
-      {...other}
-    >
+    <StyledItem depth={depth} active={active} disabled={disabled} caption={!!caption} {...other}>
       {icon && <StyledIcon>{icon}</StyledIcon>}
 
       {subItem && (
         <StyledIcon>
-          <StyledDotIcon active={active && subItem}></StyledDotIcon>
+          <StyledDotIcon active={active && subItem} />
         </StyledIcon>
       )}
+
       <ListItemText
         primary={`${translate(title)}`}
         secondary={
           caption && (
-            <Tooltip title={`${translate(caption)}`}>
+            <Tooltip title={`${translate(caption)}`} placement="top-start">
               <span>{`${translate(caption)}`}</span>
             </Tooltip>
           )
         }
         primaryTypographyProps={{
           noWrap: true,
-          component: "span",
-          variant: active ? "subtitle2" : "body2",
+          component: 'span',
+          variant: active ? 'subtitle2' : 'body2',
         }}
         secondaryTypographyProps={{
           noWrap: true,
-          variant: "caption",
+          variant: 'caption',
         }}
       />
 
@@ -68,9 +66,7 @@ export default function NavItem({
       {!!children && (
         <Iconify
           width={16}
-          icon={
-            open ? "eva:arrow-ios-downward-fill" : "eva:arrow-ios-forward-fill"
-          }
+          icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
           sx={{ ml: 1, flexShrink: 0 }}
         />
       )}
@@ -78,16 +74,16 @@ export default function NavItem({
   );
 
   const renderItem = () => {
-    //ExternalLink;
-    if (isExternalLink) 
-    return (
-      <Link href={path} target="_blank" rel="noopener" underline="none">
-      {renderContent}
-    </Link>
-    );
+    // ExternalLink
+    if (isExternalLink)
+      return (
+        <Link href={path} target="_blank" rel="noopener" underline="none">
+          {renderContent}
+        </Link>
+      );
 
-    //Has child
-    if(children) {
+    // Has child
+    if (children) {
       return renderContent;
     }
 
@@ -96,8 +92,8 @@ export default function NavItem({
       <Link component={RouterLink} to={path} underline="none">
         {renderContent}
       </Link>
-    )
+    );
   };
 
-  return <RoleBasedGuard roles={roles}>{renderItem()}</RoleBasedGuard>
+  return <RoleBasedGuard roles={roles}> {renderItem()} </RoleBasedGuard>;
 }

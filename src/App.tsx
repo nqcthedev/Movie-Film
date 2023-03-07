@@ -1,3 +1,13 @@
+// i18n
+import './locales/i18n';
+
+// scroll bar
+import 'simplebar-react/dist/simplebar.min.css';
+
+// lazy image
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
+
 // @mui
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers";

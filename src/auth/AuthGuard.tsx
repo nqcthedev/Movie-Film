@@ -36,4 +36,6 @@ export default function AuthGuard({children}: AuthGuardProps) {
     setRequestedLocation(null);
     return <Navigate to={requestedLocation}/>
   }
+
+  return <>{children}</>
 }

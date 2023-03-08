@@ -1,6 +1,8 @@
 // LAYOUT
 // ----------------------------------------------------------------------
 
+import { PATH_DASHBOARD } from "./routes/path";
+
 
 export const FIREBASE_API = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -11,6 +13,9 @@ export const FIREBASE_API = {
   appId: import.meta.env.VITE_APP_FIREBASE_APPID,
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID,
 };
+
+// ROOT PATH AFTER LOGIN SUCCESSFUL
+export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/app'
 
 export const HEADER = {
   H_MOBILE: 64,

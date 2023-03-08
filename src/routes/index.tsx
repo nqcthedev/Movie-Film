@@ -1,31 +1,24 @@
-
-import {  useRoutes } from "react-router-dom";
-import { PATH_ROUTER } from "./path";
-import Upcomming from "../pages/upcomming";
-import Toprate from "../pages/toprate";
-import Popular from "../pages/popular/Popular";
+//
+import {  Navigate, useRoutes } from "react-router-dom";;
+// components
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
+// config
+import { PATH_AFTER_LOGIN } from "@/config-global";
+// page
+import GeneralAppPage from "@/pages/dashboard/GeneralAppPage";
+
+// ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
   return useRoutes([
   // Dashboard
   {
-    path:"/" ,
+    path:"dashboard" ,
     element: (
       <DashboardLayout />
     ),
     children: [
-      {
-        element: <Popular />,
-        path: PATH_ROUTER.popular,
-      },
-      {
-        element:  <Toprate/>,
-        path: PATH_ROUTER.toprate,
-      },
-      {
-        element: <Upcomming />,
-        path: PATH_ROUTER.upcomming,
-      },
+      { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
+      { path: 'app', element: <GeneralAppPage /> },
     ],
   },
   ]);

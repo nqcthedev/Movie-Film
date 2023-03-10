@@ -1,5 +1,11 @@
-import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
-import { initializeApp } from 'firebase/app';
+import {
+  createContext,
+  useEffect,
+  useReducer,
+  useCallback,
+  useMemo,
+} from "react";
+import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signOut,
@@ -10,20 +16,32 @@ import {
   TwitterAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-} from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 // config
-import { FIREBASE_API } from '../config-global';
+import { FIREBASE_API } from "../config-global";
 //
-import { ActionMapType, AuthStateType, AuthUserType, FirebaseContextType } from './types';
+import {
+  ActionMapType,
+  AuthStateType,
+  AuthUserType,
+  FirebaseContextType,
+} from "./types";
+import { useSnackbar } from "notistack";
 
 // ----------------------------------------------------------------------
-
 
 // ----------------------------------------------------------------------
 
 enum Types {
-  INITIAL = 'INITIAL',
+  INITIAL = "INITIAL",
 }
 
 type Payload = {
@@ -56,6 +74,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
 
 // ----------------------------------------------------------------------
 
+
 export const AuthContext = createContext<FirebaseContextType | null>(null);
 
 // ----------------------------------------------------------------------
@@ -79,11 +98,13 @@ type AuthProviderProps = {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  
+
   const initialize = useCallback(() => {
     try {
       onAuthStateChanged(AUTH, async (user) => {
         if (user) {
-          const userRef = doc(DB, 'users', user.uid);
+          const userRef = doc(DB, "users", user.uid);
 
           const docSnap = await getDoc(userRef);
 
@@ -96,7 +117,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
               user: {
                 ...user,
                 ...profile,
-                role: 'admin',
+                role: "admin",
               },
             },
           });
@@ -138,19 +159,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // REGISTER
   const register = useCallback(
-    async (email: string, password: string, firstName: string, lastName: string) => {
-      await createUserWithEmailAndPassword(AUTH, email, password).then(async (res) => {
-        const userRef = doc(collection(DB, 'users'), res.user?.uid);
+    async (
+      email: string,
+      password: string,
+      firstName: string,
+      lastName: string
+    ) => {
+      await createUserWithEmailAndPassword(AUTH, email, password).then(
+        async (res) => {
+          const userRef = doc(collection(DB, "users"), res.user?.uid);
 
-        await setDoc(userRef, {
-          uid: res.user?.uid,
-          email,
-          displayName: `${firstName} ${lastName}`,
-        });
-      });
+          await setDoc(userRef, {
+            uid: res.user?.uid,
+            email,
+            displayName: `${firstName} ${lastName}`,
+          });
+        }
+      );
     },
     []
   );
+
+  // FORGOT PASSWORD
+  const forgot = (email: string) => useCallback(() => {
+    sendPasswordResetEmail(AUTH, email)
+  }, [])
 
   // LOGOUT
   const logout = useCallback(() => {
@@ -162,12 +195,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isInitialized: state.isInitialized,
       isAuthenticated: state.isAuthenticated,
       user: state.user,
-      method: 'firebase',
+      method: "firebase",
       login,
       loginWithGoogle,
       loginWithGithub,
       loginWithTwitter,
       register,
+      forgot,
       logout,
     }),
     [
@@ -179,9 +213,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       loginWithGoogle,
       loginWithTwitter,
       register,
+      forgot,
       logout,
     ]
   );
 
-  return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={memoizedValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

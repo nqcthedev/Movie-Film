@@ -26,7 +26,7 @@ type FormValuesProps = {
 };
 
 export default function AuthLoginForm() {
-  const { user, login } = useAuthContext();
+  const {  login } = useAuthContext();
 
   const { enqueueSnackbar } = useSnackbar();
 

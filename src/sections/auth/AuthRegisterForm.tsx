@@ -14,6 +14,7 @@ import Iconify from "../../components/iconify";
 import FormProvider, { RHFTextField } from "../../components/hook-form";
 // utils
 import { RegisterSchema } from "@/utils/SchemaYup";
+import { useSnackbar } from "notistack";
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +30,8 @@ const AuthRegisterForm = () => {
   const { register } = useAuthContext();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const defaultValues = {
     firstName: "",
@@ -59,6 +62,9 @@ const AuthRegisterForm = () => {
           data.lastName
         );
       }
+      setTimeout(() => {
+        enqueueSnackbar("Welcome to 4k Movie!", { variant: "success" });
+      }, 500);
     } catch (error: any) {
       console.log(error);
       reset();

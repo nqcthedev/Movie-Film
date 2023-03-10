@@ -10,6 +10,7 @@ import LoginPage from "@/pages/auth/LoginPage";
 import GeneralAppPage from "@/pages/dashboard/GeneralAppPage";
 import CommunityPage from "@/pages/dashboard/CommunityPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
+import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
@@ -34,6 +35,14 @@ export default function Router() {
             </GuestGuard>
           ),
         },
+        {
+          element:<CompactLayout/>,
+          children:[
+            {path:"reset-password", element:<ResetPasswordPage/>},
+            // { path: 'new-password', element: <NewPasswordPage /> },
+            // { path: 'verify', element: <VerifyCodePage /> },
+          ]
+        }
       ],
     },
 

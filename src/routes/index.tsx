@@ -1,25 +1,40 @@
 //
-import {  Navigate, useRoutes } from "react-router-dom";;
+import { Navigate, useRoutes } from "react-router-dom";
 // components
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
-// config
-import { PATH_AFTER_LOGIN } from "@/config-global";
+// auth
+import GuestGuard from "@/auth/GuestGuard";
 // page
+
+import LoginPage from "@/pages/auth/LoginPage";
 import GeneralAppPage from "@/pages/dashboard/GeneralAppPage";
+import CommunityPage from "@/pages/dashboard/CommunityPage";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
   return useRoutes([
-  // Dashboard
-  {
-    path:"dashboard" ,
-    element: (
-      <DashboardLayout />
-    ),
-    children: [
-      { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-      { path: 'app', element: <GeneralAppPage /> },
-    ],
-  },
+    // Auth
+    {
+      path: "auth",
+      children: [
+        {
+          path: "login",
+          element: (
+            <GuestGuard>
+              <LoginPage />
+            </GuestGuard>
+          ),
+        },
+      ],
+    },
+
+    // Dashboard
+    {
+      element: <DashboardLayout />,
+      children: [
+        { element: <GeneralAppPage />, index: true },
+        { path: 'community', element: <CommunityPage /> },
+      ],
+    },
   ]);
 }

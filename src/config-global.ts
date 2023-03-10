@@ -15,7 +15,7 @@ export const FIREBASE_API = {
 };
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
-export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/app'
+export const PATH_AFTER_LOGIN = PATH_DASHBOARD.root; // as '/app'
 
 export const HEADER = {
   H_MOBILE: 64,

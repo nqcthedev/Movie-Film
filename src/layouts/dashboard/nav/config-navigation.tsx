@@ -1,5 +1,5 @@
 // routes
-import { PATH_DASHBOARD } from '@/routes/path';
+import { PATH_DASHBOARD, PATH_ROUTER } from '@/routes/path';
 // components
 import Label from '@/components/label';
 import Iconify from '@/components/iconify';
@@ -40,14 +40,14 @@ const navConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
   {
-    subheader: 'general',
+    subheader: 'menu',
     items: [
-      { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
-      { title: 'ecommerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
-      { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
-      { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
-      { title: 'file', path: PATH_DASHBOARD.general.file, icon: ICONS.file },
+      { title: 'home', path: '/', icon: ICONS.dashboard },
+      { title: 'community', path: PATH_ROUTER.community, icon: ICONS.ecommerce },
+      // { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
+      // { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
+      // { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      // { title: 'file', path: PATH_DASHBOARD.general.file, icon: ICONS.file },
     ],
   },
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 // @mui
 import { alpha } from "@mui/material/styles";
 import {
@@ -9,9 +9,10 @@ import {
   Stack,
   MenuItem,
   Button,
+  Link,
 } from "@mui/material";
 // routes
-import { PATH_DASHBOARD } from "@/routes/path";
+import { PATH_AUTH, PATH_DASHBOARD, PATH_ROUTER } from "@/routes/path";
 // auth
 import { useAuthContext } from "@/auth/useAuthContext";
 // components
@@ -64,7 +65,18 @@ export default function AccountPopover() {
   return (
     <>
       {!user ? (
-        <Button variant="contained">Sign in</Button>
+        <Button variant="contained">
+          <Link
+            component={RouterLink}
+            to={PATH_AUTH.login}
+            variant="body2"
+            color="inherit"
+            fontWeight={"900"}
+            underline="none"
+          >
+            Sign in
+          </Link>
+        </Button>
       ) : (
         <>
           <IconButtonAnimate

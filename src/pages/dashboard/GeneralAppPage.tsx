@@ -1,8 +1,9 @@
+import { Typography } from '@mui/material'
 import React from 'react'
 
 const GeneralAppPage = () => {
   return (
-    <div>GeneralAppPage</div>
+    <Typography variant="h1">GeneralAppPage</Typography>
   )
 }
 

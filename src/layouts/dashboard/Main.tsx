@@ -57,7 +57,9 @@ const Main = ({ children, sx, ...other }: BoxProps) => {
         ...sx,
       }}
       {...other}
-    ></Box>
+    >
+      {children}
+    </Box>
   );
 };
 

@@ -1,5 +1,5 @@
 //
-import { Navigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 // components
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // auth
@@ -9,6 +9,7 @@ import GuestGuard from "@/auth/GuestGuard";
 import LoginPage from "@/pages/auth/LoginPage";
 import GeneralAppPage from "@/pages/dashboard/GeneralAppPage";
 import CommunityPage from "@/pages/dashboard/CommunityPage";
+import RegisterPage from "@/pages/auth/RegisterPage";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
@@ -22,6 +23,14 @@ export default function Router() {
           element: (
             <GuestGuard>
               <LoginPage />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: "register",
+          element: (
+            <GuestGuard>
+              <RegisterPage />
             </GuestGuard>
           ),
         },

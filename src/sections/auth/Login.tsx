@@ -16,8 +16,6 @@ import AuthLoginForm from './AuthLoginForm';
 export default function Login() {
   const { method } = useAuthContext();
 
-  console.log(method);
-
   return (
     <LoginLayout>
       <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>

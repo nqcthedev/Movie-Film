@@ -1,44 +1,44 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useState } from "react";
 import * as Yup from "yup";
-import { Link as RouterLink } from "react-router-dom";
 // form
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from "@mui/material";
+import { Stack, IconButton, InputAdornment, Alert } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-// routes
-import { PATH_AUTH } from "@/routes/path";
 // auth
-import { useAuthContext } from "@/auth/useAuthContext";
+import { useAuthContext } from "../../auth/useAuthContext";
 // components
-import Iconify from "@/components/iconify";
-import FormProvider, { RHFTextField } from "@/components/hook-form";
-import { LoginSchema } from "@/utils/SchemaYup";
-import { useSnackbar } from "notistack";
+import Iconify from "../../components/iconify";
+import FormProvider, { RHFTextField } from "../../components/hook-form";
+// utils
+import { RegisterSchema } from "@/utils/SchemaYup";
 
 // ----------------------------------------------------------------------
 
 type FormValuesProps = {
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
   afterSubmit?: string;
 };
 
-export default function AuthLoginForm() {
-  const { user, login } = useAuthContext();
-
-  const { enqueueSnackbar } = useSnackbar();
+const AuthRegisterForm = () => {
+  const { register } = useAuthContext();
 
   const [showPassword, setShowPassword] = useState(false);
 
   const defaultValues = {
-    email: "user@user.com",
-    password: "user1234",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   };
 
   const methods = useForm<FormValuesProps>({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(RegisterSchema),
     defaultValues,
   });
 
@@ -51,12 +51,16 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      await login(data.email, data.password);
-      setTimeout(() => {
-        enqueueSnackbar("Welcome to 4k Movie!", { variant: "success" });
-      }, 500);
+      if (register) {
+        await register(
+          data.email,
+          data.password,
+          data.firstName,
+          data.lastName
+        );
+      }
     } catch (error: any) {
-      console.error(error);
+      console.log(error);
       reset();
       setError("afterSubmit", {
         ...error,
@@ -64,13 +68,17 @@ export default function AuthLoginForm() {
       });
     }
   };
-
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3}>
+      <Stack spacing={2.5}>
         {!!errors.afterSubmit && (
           <Alert severity="error">{errors.afterSubmit.message}</Alert>
         )}
+
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+          <RHFTextField name="firstName" label="First name" />
+          <RHFTextField name="lastName" label="Last name" />
+        </Stack>
 
         <RHFTextField name="email" label="Email address" />
 
@@ -93,40 +101,30 @@ export default function AuthLoginForm() {
             ),
           }}
         />
-      </Stack>
 
-      <Stack alignItems="flex-end" sx={{ my: 2 }}>
-        <Link
-          component={RouterLink}
-          to={PATH_AUTH.resetPassword}
-          variant="body2"
+        <LoadingButton
+          fullWidth
           color="inherit"
-          underline="always"
-        >
-          Forgot password?
-        </Link>
-      </Stack>
-
-      <LoadingButton
-        fullWidth
-        color="inherit"
-        size="large"
-        type="submit"
-        variant="contained"
-        loading={isSubmitSuccessful || isSubmitting}
-        sx={{
-          bgcolor: "text.primary",
-          color: (theme) =>
-            theme.palette.mode === "light" ? "common.white" : "grey.800",
-          "&:hover": {
+          size="large"
+          type="submit"
+          variant="contained"
+          loading={isSubmitSuccessful || isSubmitting}
+          sx={{
             bgcolor: "text.primary",
             color: (theme) =>
               theme.palette.mode === "light" ? "common.white" : "grey.800",
-          },
-        }}
-      >
-        Login
-      </LoadingButton>
+            "&:hover": {
+              bgcolor: "text.primary",
+              color: (theme) =>
+                theme.palette.mode === "light" ? "common.white" : "grey.800",
+            },
+          }}
+        >
+          Create account
+        </LoadingButton>
+      </Stack>
     </FormProvider>
   );
-}
+};
+
+export default AuthRegisterForm;

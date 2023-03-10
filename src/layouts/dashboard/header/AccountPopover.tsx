@@ -12,7 +12,7 @@ import {
   Link,
 } from "@mui/material";
 // routes
-import { PATH_AUTH, PATH_DASHBOARD, PATH_ROUTER } from "@/routes/path";
+import { PATH_AUTH, PATH_DASHBOARD } from "@/routes/path";
 // auth
 import { useAuthContext } from "@/auth/useAuthContext";
 // components
@@ -20,6 +20,7 @@ import { CustomAvatar } from "@/components/custom-avatar";
 import { useSnackbar } from "@/components/snackbar";
 import MenuPopover from "@/components/menu-popover";
 import IconButtonAnimate from "@/components/animate/IconButtonAnimate";
+import ConfirmDialog from "@/components/confirm-dialog";
 
 // ----------------------------------------------------------------------
 
@@ -49,12 +50,32 @@ export default function AccountPopover() {
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
+  const [openConfirm, setOpenConfirm] = useState<boolean>(false);
+
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);
   };
 
   const handleClosePopover = () => {
     setOpenPopover(null);
+  };
+
+  const handleConfirmDialog = async () => {
+    try {
+      logout();
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar("Unable to logout", { variant: "error" });
+    }
+  };
+
+  const handleLogout = async () => {
+    handleClosePopover();
+    setOpenConfirm(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
   };
 
   const handleClickItem = (path: string) => {
@@ -133,7 +154,35 @@ export default function AccountPopover() {
                 </MenuItem>
               ))}
             </Stack>
+
+            {user && (
+              <>
+                <Divider sx={{ borderStyle: "dashed" }} />
+
+                <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+                  Logout
+                </MenuItem>
+              </>
+            )}
           </MenuPopover>
+          <ConfirmDialog
+            open={openConfirm}
+            onClose={handleCloseConfirm}
+            title="Confirm"
+            content={"Are you sure want to out?"}
+            action={
+              <Button
+                variant="contained"
+                color="warning"
+                onClick={() => {
+                  handleConfirmDialog();
+                  handleCloseConfirm();
+                }}
+              >
+                Confirm
+              </Button>
+            }
+          />
         </>
       )}
     </>

@@ -66,7 +66,7 @@ const AuthRegisterForm = () => {
         enqueueSnackbar("Welcome to 4k Movie!", { variant: "success" });
       }, 500);
     } catch (error: any) {
-      console.log(error);
+      enqueueSnackbar(error, { variant: "error" });
       reset();
       setError("afterSubmit", {
         ...error,

@@ -18,19 +18,18 @@ export const PATH_AUTH = {
   newPassword: path(ROOTS_AUTH, "/new-password"),
 };
 
-export const PATH_PAGE = {
-  page403: "/403",
-  page404: "/404",
-  page500: "/500",
-};
+
 
 export const PATH_ROUTER = {
   community: "/community",
   popular: "/popular",
   toprate: "/top-rate",
   upcomming: "/up-comming",
-  login: "/auth/login",
   notfound: "/not-found",
+  faqs: '/faqs',
+  page403: "/403",
+  page404: "/404",
+  page500: "/500",
   root: "/",
   all: "*",
 };

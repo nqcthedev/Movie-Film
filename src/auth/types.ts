@@ -32,4 +32,5 @@ export type FirebaseContextType = {
   loginWithGoogle?: () => void;
   loginWithGithub?: () => void;
   loginWithTwitter?: () => void;
+  forgot?:(email:string) => void;
 };

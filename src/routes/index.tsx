@@ -4,13 +4,13 @@ import { useRoutes } from "react-router-dom";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // auth
 import GuestGuard from "@/auth/GuestGuard";
-// page
-
+// pages
 import LoginPage from "@/pages/auth/LoginPage";
 import GeneralAppPage from "@/pages/dashboard/GeneralAppPage";
 import CommunityPage from "@/pages/dashboard/CommunityPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
+import CompactLayout from "@/layouts/compact/CompactLayout";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {

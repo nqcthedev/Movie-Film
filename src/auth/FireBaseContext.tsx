@@ -17,6 +17,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  RecaptchaVerifier,
+  signInWithPhoneNumber
 } from "firebase/auth";
 import {
   getFirestore,
@@ -34,9 +36,6 @@ import {
   AuthUserType,
   FirebaseContextType,
 } from "./types";
-import { useSnackbar } from "notistack";
-
-// ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 
@@ -91,14 +90,14 @@ const GITHUB_PROVIDER = new GithubAuthProvider();
 
 const TWITTER_PROVIDER = new TwitterAuthProvider();
 
+const APPVERIFIER_RECAP = window.recaptchaVerifier;
+
 type AuthProviderProps = {
   children: React.ReactNode;
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  
 
   const initialize = useCallback(() => {
     try {
@@ -136,6 +135,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
+  const onCaptchVerify = useCallback(() => {
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+      'size': 'normal',
+      'callback': (response: any) => {
+      },
+      'expired-callback': () => {
+      }
+    }, AUTH);
+  }, [])
+
   useEffect(() => {
     initialize();
   }, [initialize]);
@@ -144,6 +153,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = useCallback(async (email: string, password: string) => {
     await signInWithEmailAndPassword(AUTH, email, password);
   }, []);
+
+  // Login by Phone Number
+  const loginByPhoneNumber = useCallback(async (phone: string, APPVERIFIER_RECAP: any) => {
+   const confirmationResult = await signInWithPhoneNumber(AUTH, phone, APPVERIFIER_RECAP);
+    window.confirmationResult = confirmationResult;
+  }, [])
 
   const loginWithGoogle = useCallback(() => {
     signInWithPopup(AUTH, GOOGLE_PROVIDER);
@@ -181,8 +196,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   );
 
   // FORGOT PASSWORD
-  const forgot = (email: string) => useCallback(() => {
-    sendPasswordResetEmail(AUTH, email)
+  const forgot = useCallback( async (email: string) => {
+   await sendPasswordResetEmail(AUTH, email)
   }, [])
 
   // LOGOUT

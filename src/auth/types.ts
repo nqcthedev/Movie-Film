@@ -13,6 +13,7 @@ export type ActionMapType<M extends { [index: string]: any }> = {
 
 export type AuthUserType = null | Record<string, any>;
 
+
 export type AuthStateType = {
   isAuthenticated: boolean;
   isInitialized: boolean;
@@ -31,6 +32,8 @@ export type FirebaseContextType = {
   logout: () => void;
   loginWithGoogle?: () => void;
   loginWithGithub?: () => void;
-  loginWithTwitter?: () => void;
+  loginWithFacebook?: () => void;
   forgot?:(email:string) => void;
+  loginByPhoneNumber?:(phone: string, APPVERIFIER_RECAP: any) => void;
+  onCaptchVerify?: () => void
 };

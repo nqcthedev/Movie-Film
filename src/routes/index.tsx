@@ -11,6 +11,8 @@ import CommunityPage from "@/pages/dashboard/CommunityPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
 import CompactLayout from "@/layouts/compact/CompactLayout";
+import LoginPhoneNumber from "@/sections/auth/LoginPhoneNumber";
+import VerifyCodePage from "@/pages/auth/VerifyCodePage";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
@@ -28,6 +30,14 @@ export default function Router() {
           ),
         },
         {
+          path: "login-by-phone",
+          element: (
+            <GuestGuard>
+              <LoginPhoneNumber />
+            </GuestGuard>
+          ),
+        },
+        {
           path: "register",
           element: (
             <GuestGuard>
@@ -40,7 +50,7 @@ export default function Router() {
           children:[
             {path:"reset-password", element:<ResetPasswordPage/>},
             // { path: 'new-password', element: <NewPasswordPage /> },
-            // { path: 'verify', element: <VerifyCodePage /> },
+            { path: 'verify', element: <VerifyCodePage /> },
           ]
         }
       ],

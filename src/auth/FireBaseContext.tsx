@@ -13,7 +13,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   GithubAuthProvider,
-  TwitterAuthProvider,
+  FacebookAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -80,7 +80,7 @@ export const AuthContext = createContext<FirebaseContextType | null>(null);
 
 const firebaseApp = initializeApp(FIREBASE_API);
 
-const AUTH = getAuth(firebaseApp);
+export const AUTH = getAuth(firebaseApp);
 
 const DB = getFirestore(firebaseApp);
 
@@ -88,9 +88,7 @@ const GOOGLE_PROVIDER = new GoogleAuthProvider();
 
 const GITHUB_PROVIDER = new GithubAuthProvider();
 
-const TWITTER_PROVIDER = new TwitterAuthProvider();
-
-const APPVERIFIER_RECAP = window.recaptchaVerifier;
+const FACEBOOK_PROVIDER = new FacebookAuthProvider();
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -135,15 +133,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
-  const onCaptchVerify = useCallback(() => {
-    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-      'size': 'normal',
-      'callback': (response: any) => {
-      },
-      'expired-callback': () => {
-      }
-    }, AUTH);
-  }, [])
 
   useEffect(() => {
     initialize();
@@ -168,8 +157,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     signInWithPopup(AUTH, GITHUB_PROVIDER);
   }, []);
 
-  const loginWithTwitter = useCallback(() => {
-    signInWithPopup(AUTH, TWITTER_PROVIDER);
+  const loginWithFacebook = useCallback(() => {
+    signInWithPopup(AUTH, FACEBOOK_PROVIDER);
   }, []);
 
   // REGISTER
@@ -214,7 +203,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       loginWithGoogle,
       loginWithGithub,
-      loginWithTwitter,
+      loginWithFacebook,
       register,
       forgot,
       logout,
@@ -226,9 +215,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       loginWithGithub,
       loginWithGoogle,
-      loginWithTwitter,
+      loginWithFacebook,
       register,
       forgot,
+      loginByPhoneNumber,
       logout,
     ]
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import * as Yup from "yup";
 import { Link as RouterLink } from "react-router-dom";
 // form
@@ -56,7 +56,7 @@ export default function AuthLoginForm() {
         enqueueSnackbar("Welcome to 4k Movie!", { variant: "success" });
       }, 500);
     } catch (error: any) {
-      console.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       reset();
       setError("afterSubmit", {
         ...error,

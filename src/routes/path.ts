@@ -10,6 +10,7 @@ const ROOTS_DASHBOARD = "/";
 export const PATH_AUTH = {
   root: ROOTS_AUTH,
   login: path(ROOTS_AUTH, "/login"),
+  loginByPhone: path(ROOTS_AUTH, "/login-by-phone"),
   register: path(ROOTS_AUTH, "/register"),
   loginUnprotected: path(ROOTS_AUTH, "/login-unprotected"),
   registerUnprotected: path(ROOTS_AUTH, "/register-unprotected"),

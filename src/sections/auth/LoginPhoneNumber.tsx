@@ -1,25 +1,21 @@
-import { Link as RouterLink } from "react-router-dom";
-// @mui
-import { Alert, Tooltip, Stack, Typography, Link, Box } from "@mui/material";
+import React from 'react'
 // auth
-import { useAuthContext } from "@/auth/useAuthContext";
-// routes
+import { useAuthContext } from '@/auth/useAuthContext';
+// component
+import LoginLayout from '@/layouts/login/LoginLayout'
+// @mui
+import { Box,Stack, Typography, Link, Tooltip, Alert } from '@mui/material';
+// route
+import { Link as RouterLink } from "react-router-dom";
 import { PATH_AUTH } from "@/routes/path";
-// layouts
-import LoginLayout from "@/layouts/login";
-//
-import AuthLoginForm from './AuthLoginForm';
-import AuthWithSocial from "./AuthWithSocial";
-// import AuthWithSocial from './AuthWithSocial';
+import AuthLoginFormPhoneNumber from './AuthLoginFormPhoneNumber';
 
-// ----------------------------------------------------------------------
-
-export default function Login() {
+const LoginPhoneNumber = () => {
   const { method } = useAuthContext();
-
+  
   return (
     <LoginLayout>
-      <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>
+       <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>
         <Typography variant="h4">
           Sign in to <strong style={{ color: "red" }}>4K</strong> Movie
         </Typography>
@@ -51,10 +47,9 @@ export default function Login() {
           <strong> user1234</strong>
         </Alert>
 
-        <AuthLoginForm />
-
-        <AuthWithSocial />
-
+        <AuthLoginFormPhoneNumber/>
     </LoginLayout>
-  );
+  )
 }
+
+export default LoginPhoneNumber

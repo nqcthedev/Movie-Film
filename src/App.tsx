@@ -1,12 +1,16 @@
 // i18n
-import './locales/i18n';
+import "./locales/i18n";
 
 // scroll bar
-import 'simplebar-react/dist/simplebar.min.css';
+import "simplebar-react/dist/simplebar.min.css";
 
 // lazy image
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import "react-lazy-load-image-component/src/effects/blur.css";
 
+
+// slick-carousel
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // @mui
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -31,15 +35,13 @@ import ScrollToTop from "@/components/scroll-to-top";
 import { SettingsProvider, ThemeSettings } from "./components/settings";
 import MotionLazyContainer from "@/components/animate/MotionLazyContainer";
 
-
 import SnackbarProvider from "@/components/snackbar/SnackbarProvider";
 
 function App() {
   return (
-   <AuthProvider>
-     <HelmetProvider>
-      <ReduxProvider store={store}>
-       
+    <AuthProvider>
+      <HelmetProvider>
+        <ReduxProvider store={store}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <SettingsProvider>
               <BrowserRouter>
@@ -48,9 +50,9 @@ function App() {
                   <ThemeProvider>
                     <ThemeSettings>
                       <ThemeLocalization>
-                       <SnackbarProvider>
-                       <Router />
-                       </SnackbarProvider>
+                        <SnackbarProvider>
+                          <Router />
+                        </SnackbarProvider>
                       </ThemeLocalization>
                     </ThemeSettings>
                   </ThemeProvider>
@@ -58,9 +60,9 @@ function App() {
               </BrowserRouter>
             </SettingsProvider>
           </LocalizationProvider>
-      </ReduxProvider>
-    </HelmetProvider>
-   </AuthProvider>
+        </ReduxProvider>
+      </HelmetProvider>
+    </AuthProvider>
   );
 }
 

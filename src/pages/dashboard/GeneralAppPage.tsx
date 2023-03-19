@@ -8,7 +8,7 @@ import { Container, Grid, Stack, Button } from "@mui/material";
 // auth
 import { useAuthContext } from "../../auth/useAuthContext";
 import { useSettingsContext } from "@/components/settings";
-import { HomeWelcome } from "@/sections/@dashboard/general/app";
+import { HomeNewMovie, HomeWelcome } from "@/sections/@dashboard/general/app";
 import { useGetBannerQuery } from "@/redux/apiStore";
 
 const GeneralAppPage = () => {
@@ -18,9 +18,14 @@ const GeneralAppPage = () => {
 
   const { themeStretch } = useSettingsContext();
 
-  const { data, isLoading, isFetching, isSuccess, error } = useGetBannerQuery();
+  const { data, isLoading, isFetching, isSuccess, isError } =
+    useGetBannerQuery();
 
-  console.log(data)
+  if (isLoading) return <h1>Loadingg</h1>;
+
+  if (isFetching) return <h1>isFetchingg</h1>;
+
+  
 
   return (
     <>
@@ -32,8 +37,7 @@ const GeneralAppPage = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <HomeWelcome
-              title='Welcome back!'
-              description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
+              data={data}
               action={
                 <Stack direction="row" spacing={3}>
                   <Button variant="contained">Watch Now</Button>
@@ -41,6 +45,10 @@ const GeneralAppPage = () => {
                 </Stack>
               }
             />
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <HomeNewMovie list={data}/>
           </Grid>
         </Grid>
       </Container>

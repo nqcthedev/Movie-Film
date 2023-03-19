@@ -33,6 +33,7 @@ export default function TextAnimate({
         typography: "h1",
         overflow: "hidden",
         display: "inline-flex",
+        whiteSpace: "pre-line",
         ...sx,
       }}
       {...other}

@@ -5,24 +5,27 @@ import { Container, styled } from "@mui/material";
 import { Typography, CardProps, Stack } from "@mui/material";
 //
 import { TextAnimate, MotionContainer, varFade } from "@/components/animate";
-import React from "react";
+import React, { memo, useMemo, useState } from "react";
+import { ItemPropsData } from "./types";
+// ultis
+import { TMDB_IMAGE } from "@/utils/urlImage";
 
-const StyledRoot = styled("div")(({ theme }) => ({
-  width:"100%",
+
+const StyledRoot = styled("div")<{ image: string }>(({ theme, image }) => ({
+  width: "100%",
+  overflow: "hidden",
   position: "relative",
   backgroundSize: "cover",
   backgroundPosition: "center",
-  display:"flex",
-  flexDirection:"column",
-  justifyContent:"center",
-  backgroundImage:
-    "url(/assets/background/overlay_1.svg), url(/assets/images/contact/hero.jpg)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  backgroundImage: `url(${TMDB_IMAGE}${image})`,
   borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up("md")]: {
-    height: 560,
+    height: 460,
   },
 }));
-
 
 // ----------------------------------------------------------------------
 
@@ -31,11 +34,27 @@ interface Props extends CardProps {
   description?: string;
   img?: React.ReactNode;
   action?: React.ReactNode;
+  data: ItemPropsData;
 }
 
-const HomeWelcome = ({ title, description, action, img, ...other }: Props) => {
+const HomeWelcome = ({
+  data,
+  title,
+  description,
+  action,
+  img,
+  ...other
+}: Props) => {
+  console.log("rerender")
+  const [bannerData, setBannerData] = useState<any>();
+  console.log(`url(${TMDB_IMAGE}${bannerData?.backdrop_path})`);
+  useMemo(() => {
+    const randomData = Math.floor(Math.random() * (19 - 0 + 1) + 0);
+    setBannerData(data[randomData]);
+  }, []);
+
   return (
-    <StyledRoot {...other}>
+    <StyledRoot image={bannerData?.backdrop_path} {...other}>
       <Container component={MotionContainer}>
         <Stack
           flexGrow={1}
@@ -49,31 +68,31 @@ const HomeWelcome = ({ title, description, action, img, ...other }: Props) => {
           }}
         >
           <TextAnimate
-            text={title}
-            sx={{ color: "primary.main" }}
+            text={bannerData?.title}
+            sx={{ color: "primary.main", typography: "h2" }}
             variants={varFade().inRight}
           />
+
           <m.div variants={varFade().inRight}>
-          <Typography
-          variant="h5"
-          sx={{
-            opacity: 0.8,
-            mb: { xs: 3, xl: 5 },
-            mt: 3,
-            color: 'common.white',
-            fontWeight: 'fontWeightMedium',
-          }}
-        >
-          {description}
-        </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                opacity: 0.8,
+                mb: { xs: 3, xl: 5 },
+                mt: 3,
+                color: "common.white",
+                fontWeight: 400,
+              }}
+            >
+              {bannerData?.overview}
+            </Typography>
           </m.div>
 
           {action && action}
-
         </Stack>
       </Container>
     </StyledRoot>
   );
 };
 
-export default HomeWelcome;
+export default memo(HomeWelcome);

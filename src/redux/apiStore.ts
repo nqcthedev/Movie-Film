@@ -12,7 +12,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         url: `/genre/movie/list?api_key=${tmdbKey}`,
         method: "GET",
       }),
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: { results: any }) => response.results,
     }),
       //Get Banner Movie
       getBanner:builder.query({
@@ -20,7 +20,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
           url: `/trending/movie/week?api_key=${tmdbKey}&`,
           method: "GET",
         }),
-        transformResponse: (response: any) => response.data,
+        transformResponse: (response: { results: any }) => response.results,
       })
   }),
 });

@@ -60,6 +60,11 @@ export const movieApi: any = createApi({
     getList: builder.query({
       query: ({ listName, accountId, sessionId, page }) => `/account/${accountId}/${listName}?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`,
     }),
+    
+    //Get Banner Movie
+    getBanner:builder.query({
+      query:() => `/trending/movie/week?api_key=${API_KEY}&`
+    })
   })
 })
 
@@ -71,4 +76,5 @@ export const {
   useGetActorQuery,
   useGetMoviesByActorIdQuery,
   useGetListQuery,
+  useGetBannerQuery
 } = movieApi;

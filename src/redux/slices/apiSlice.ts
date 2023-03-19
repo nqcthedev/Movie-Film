@@ -1,17 +1,9 @@
-import { RootState } from "@/redux/store";
-import {FetchArgs, createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 
 
 
 const baseQuery = fetchBaseQuery({
   baseUrl:import.meta.env.VITE_BASE_URL_TMDB,
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.user;
-    if (token) {
-      headers.set("authorization", `Bearer ${token}`);
-    }
-    return headers;
-  },
 })
 
 

@@ -106,6 +106,12 @@ export function SettingsProvider({children}: SettingsProviderProps) {
     [setSettings, settings]
   );
 
+  // Stretch
+  const onToggleStretch = useCallback(() => {
+    const themeStretch = !settings.themeStretch;
+    setSettings({...settings, themeStretch});
+  }, [setSettings, settings])
+
 
   // Reset
   const onResetSetting = useCallback(() => {
@@ -125,6 +131,8 @@ export function SettingsProvider({children}: SettingsProviderProps) {
     onChangeColorPresets,
     presetsOption,
     presetsColor: getPresets(settings.themeColorPresets),
+    // Stretch
+    onToggleStretch,
      // Reset
      onResetSetting,
   }), [
@@ -137,6 +145,8 @@ export function SettingsProvider({children}: SettingsProviderProps) {
      onChangeLayout,
     // Color
     onChangeColorPresets,
+     // Stretch
+     onToggleStretch,
     //Reset
     onResetSetting,
   ]);

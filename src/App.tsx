@@ -19,8 +19,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Router from "@/routes";
 //Redux
 import { Provider as ReduxProvider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "@/redux/store";
+import { store } from "@/redux/store";
 // Locales
 import ThemeLocalization from "@/locales/ThemeLocalization";
 // Theme
@@ -40,7 +39,7 @@ function App() {
    <AuthProvider>
      <HelmetProvider>
       <ReduxProvider store={store}>
-        <PersistGate persistor={persistor}>
+       
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <SettingsProvider>
               <BrowserRouter>
@@ -59,7 +58,6 @@ function App() {
               </BrowserRouter>
             </SettingsProvider>
           </LocalizationProvider>
-        </PersistGate>
       </ReduxProvider>
     </HelmetProvider>
    </AuthProvider>

@@ -7,6 +7,7 @@ import useLocales from "@/locales/useLocales";
 import Image from "@/components/image";
 import MenuPopover from "@/components/menu-popover";
 import IconButtonAnimate from "@/components/animate/IconButtonAnimate";
+import { useDispatch } from "@/redux/store";
 
 // ----------------------------------------------------------------------
 
@@ -14,6 +15,8 @@ const LanguagePopover = () => {
   const { allLangs, currentLang, onChangeLang } = useLocales();
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
+  const dispatch = useDispatch()
 
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);

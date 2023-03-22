@@ -45,7 +45,6 @@ const HomeWelcome = ({
   img,
   ...other
 }: Props) => {
-  console.log("rerender")
   const [bannerData, setBannerData] = useState<any>();
   console.log(`url(${TMDB_IMAGE}${bannerData?.backdrop_path})`);
   useMemo(() => {
@@ -53,9 +52,11 @@ const HomeWelcome = ({
     setBannerData(data[randomData]);
   }, []);
 
+  console.log(bannerData)
+
   return (
     <StyledRoot image={bannerData?.backdrop_path} {...other}>
-      <Container component={MotionContainer}>
+      <Container maxWidth={false} component={MotionContainer}>
         <Stack
           flexGrow={1}
           justifyContent="center"

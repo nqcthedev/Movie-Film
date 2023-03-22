@@ -4,15 +4,17 @@ import { useRoutes } from "react-router-dom";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // auth
 import GuestGuard from "@/auth/GuestGuard";
-// pages
-import LoginPage from "@/pages/auth/LoginPage";
-import GeneralAppPage from "@/pages/dashboard/GeneralAppPage";
-import CommunityPage from "@/pages/dashboard/CommunityPage";
-import RegisterPage from "@/pages/auth/RegisterPage";
-import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
+import {
+  CommunityPage,
+  GeneralAppPage,
+  LoginByPhoneNumber,
+  LoginPage,
+  RegisterPage,
+  ResetPasswordPage,
+  VerifyCodePage,
+} from "./elements";
+// layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
-import LoginPhoneNumber from "@/sections/auth/LoginPhoneNumber";
-import VerifyCodePage from "@/pages/auth/VerifyCodePage";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
@@ -33,7 +35,7 @@ export default function Router() {
           path: "login-by-phone",
           element: (
             <GuestGuard>
-              <LoginPhoneNumber />
+              <LoginByPhoneNumber />
             </GuestGuard>
           ),
         },
@@ -46,13 +48,13 @@ export default function Router() {
           ),
         },
         {
-          element:<CompactLayout/>,
-          children:[
-            {path:"reset-password", element:<ResetPasswordPage/>},
+          element: <CompactLayout />,
+          children: [
+            { path: "reset-password", element: <ResetPasswordPage /> },
             // { path: 'new-password', element: <NewPasswordPage /> },
-            { path: 'verify', element: <VerifyCodePage /> },
-          ]
-        }
+            { path: "verify", element: <VerifyCodePage /> },
+          ],
+        },
       ],
     },
 
@@ -61,7 +63,7 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <GeneralAppPage />, index: true },
-        { path: 'community', element: <CommunityPage /> },
+        { path: "community", element: <CommunityPage /> },
       ],
     },
   ]);

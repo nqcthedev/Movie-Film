@@ -1,32 +1,106 @@
 import { apiSlice } from "@/redux/slices/apiSlice";
+import { Movies, RootObject } from "@/interface/Movies";
+
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 export const movieApiSlice: any = apiSlice.injectEndpoints({
-  endpoints: (builder: {
-    query: (arg0: {
-      query: () => { url: string; method: string };
-      transformResponse: (response: any) => any;
-    }) => any;
-  }) => ({
+  // endpoints: (builder: {
+  //   query: (arg0: {
+  //     query: () => { url: string; method: string };
+  //     transformResponse: (response: any) => any;
+  //   }) => any;
+  // }) => ({
+  //   getGenres: builder.query({
+  //     query: () => ({
+  //       url: `/genre/movie/list?api_key=${tmdbKey}&language=vi-VN`,
+  //       method: "GET",
+  //     }),
+  //     transformResponse: (response: { results: any }) => response.results,
+  //   }),
+
+  //   // getMovies
+
+  //     //Get Banner Movie
+  //     // getBanner:builder.query({
+  //     //   query: () => ({
+  //     //     url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN`,
+  //     //     method: "GET",
+  //     //   }),
+  //     //   transformResponse: (response: { results: any }) => response.results,
+  //     // })
+  //     getMovies:builder.query({
+  //             query:({genreIdOrCategoryName, page, searchQuery}) => {
+  //                  // Get Movies by Search
+  //               if (searchQuery) {
+  //                 return `/search/movie?query=${searchQuery}&page=${page}&api_key=${API_KEY}`;
+  //               }
+
+  //               // Get Movies by Category
+  //               if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'string') {
+  //                 return `/movie/${genreIdOrCategoryName}?page=${page}&api_key=${API_KEY}`;
+  //               }
+
+  //               // Get Movies by Genre
+  //               if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'number') {
+  //                 return `discover/movie?with_genres=${genreIdOrCategoryName}&page=${page}&api_key=${API_KEY}`;
+  //               }
+
+  //               // Get popular movies by default
+  //               return `/movie/popular?page=${page}&api_key=${API_KEY}`;
+  //             },
+  //           }),
+  // }),
+
+  endpoints: (builder) => ({
     getGenres: builder.query({
       query: () => ({
-        url: `/genre/movie/list?api_key=${tmdbKey}`,
+        url: `/genre/movie/list?api_key=${tmdbKey}&language=vi-VN`,
         method: "GET",
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
-      //Get Banner Movie
-      getBanner:builder.query({
-        query: () => ({
-          url: `/trending/movie/week?api_key=${tmdbKey}&`,
-          method: "GET",
-        }),
-        transformResponse: (response: { results: any }) => response.results,
-      })
+
+    //getMovies
+
+    //Get Banner Movie
+    getBanner: builder.query<RootObject,string>({
+      query: () => ({
+        url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
+
+    // Get Popular Movie
+
+
+    // Get Movies With Search
+    getMoviesWithSearch: builder.query<any, Movies>({
+      query: ({ page, searchQuery }) => ({
+        url: `/search/movie?query=${searchQuery}&page=${page}&api_key=${tmdbKey}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
+
+    // Get Movies by Category
+    getMovieWithIdOrCategory: builder.query<any, Movies>({
+      query: ({ genreIdOrCategoryName, page }) => ({
+        url: `/movie/${genreIdOrCategoryName}?page=${page}&api_key=${tmdbKey}`,
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
+
+    // Get Movie by Genre
+    getMovieByGenre: builder.query<any, Movies>({
+      query: ({ genreIdOrCategoryName, page }) => ({
+        url: `discover/movie?with_genres=${genreIdOrCategoryName}&page=${page}&api_key=${tmdbKey}`,
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
   }),
 });
 
 export const { useGetGenresQuery, useGetBannerQuery } = movieApiSlice;
-
 
 // export const movieApi: any = createApi({
 //   reducerPath:'movieApi',
@@ -84,7 +158,7 @@ export const { useGetGenresQuery, useGetBannerQuery } = movieApiSlice;
 //     getList: builder.query({
 //       query: ({ listName, accountId, sessionId, page }) => `/account/${accountId}/${listName}?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`,
 //     }),
-    
+
 //     //Get Banner Movie
 //     getBanner:builder.query({
 //       query:() => `/trending/movie/week?api_key=${API_KEY}&`

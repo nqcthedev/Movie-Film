@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+
 import React from "react";
 
 import { Helmet } from "react-helmet-async";
@@ -10,6 +10,7 @@ import { useAuthContext } from "../../auth/useAuthContext";
 import { useSettingsContext } from "@/components/settings";
 import { HomeNewMovie, HomeWelcome } from "@/sections/@dashboard/general/app";
 import { useGetBannerQuery } from "@/redux/apiStore";
+import LoadingScreen from "@/components/loading-screen";
 
 const GeneralAppPage = () => {
   const { user } = useAuthContext();
@@ -21,11 +22,9 @@ const GeneralAppPage = () => {
   const { data, isLoading, isFetching, isSuccess, isError } =
     useGetBannerQuery();
 
-  if (isLoading) return <h1>Loadingg</h1>;
+  if (isLoading) return <LoadingScreen/>;
 
-  if (isFetching) return <h1>isFetchingg</h1>;
-
-  
+  if (isFetching) return <LoadingScreen/>;
 
   return (
     <>

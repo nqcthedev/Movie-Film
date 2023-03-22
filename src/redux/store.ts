@@ -7,7 +7,6 @@ import {
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { movieApiSlice } from "./apiStore";
-
 // ------------------------------------------------------
 
 export type RootState = ReturnType<typeof store.getState>;

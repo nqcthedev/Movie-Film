@@ -1,5 +1,5 @@
 import { apiSlice } from "@/redux/slices/apiSlice";
-import { Movies, RootObject } from "@/interface/Movies";
+import { Movies, RootObject, Result } from "@/interface/Movies";
 
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 export const movieApiSlice: any = apiSlice.injectEndpoints({
@@ -56,19 +56,30 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         url: `/genre/movie/list?api_key=${tmdbKey}&language=vi-VN`,
         method: "GET",
       }),
-      transformResponse: (response: { results: any }) => response.results,
+      transformResponse: (response: { genres: any }) => response.genres,
     }),
 
     //getMovies
 
     //Get Banner Movie
-    getBanner: builder.query<RootObject,string>({
+    getBanner: builder.query<Result,string>({
+      query: () => ({
+        url: `/movie/now_playing?api_key=${tmdbKey}&language=vi-VN`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: Result }) => response.results,
+    }),
+
+    // GetTrending Movie
+    getTrending: builder.query<RootObject,string>({
       query: () => ({
         url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN`,
         method: "GET",
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
+
+    
 
     // Get Popular Movie
 
@@ -100,7 +111,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetGenresQuery, useGetBannerQuery } = movieApiSlice;
+export const { useGetGenresQuery, useGetBannerQuery, useGetTrendingQuery } = movieApiSlice;
 
 // export const movieApi: any = createApi({
 //   reducerPath:'movieApi',

@@ -29,6 +29,7 @@ import ModeOptions from "./ModeOptions";
 import ColorPresetsOptions from "./ColorPresetsOptions";
 import FullScreenOptions from "./FullScreenOptions";
 import LayoutOptions from "./LayoutOptions";
+import StretchOptions from "./StretchOptions";
 
 // ----------------------------------------------------------------------
 
@@ -109,9 +110,14 @@ export default function SettingsDrawer() {
           <Block title="Layout">
             <LayoutOptions />
           </Block>
+          <Block title="Stretch" tooltip="Only available at large resolutions > 1600px (xl)">
+            <StretchOptions />
+          </Block>
+
           <Block title="Presets">
             <ColorPresetsOptions />
           </Block>
+
         </Scrollbar>
         <Box sx={{ p: SPACING, pt: 0 }}>
           <FullScreenOptions />

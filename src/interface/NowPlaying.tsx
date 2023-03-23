@@ -1,21 +1,14 @@
-export interface Movies {
-  genreIdOrCategoryName?: string | number;
-  page?:number;
-  searchQuery?:string;
-}
-
-export interface Movie {
-  id:string| number
-}
-
-
-
-// Week Movies
 export interface RootObject {
+  dates:         Dates;
   page:          number;
   results:       Result[];
   total_pages:   number;
   total_results: number;
+ }
+ 
+ export interface Dates {
+  maximum: Date;
+  minimum: Date;
  }
  
  export interface Result {
@@ -23,7 +16,6 @@ export interface RootObject {
   backdrop_path:     string;
   genre_ids:         number[];
   id:                number;
-  media_type:        MediaType;
   original_language: OriginalLanguage;
   original_title:    string;
   overview:          string;
@@ -36,18 +28,9 @@ export interface RootObject {
   vote_count:        number;
  }
  
- export enum MediaType {
-  Movie = "movie",
- }
- 
  export enum OriginalLanguage {
+  De = "de",
   En = "en",
-  Nl = "nl",
+  Es = "es",
  }
-
-
- // Now Playing
-
- 
- 
  

@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import { Helmet } from "react-helmet-async";
@@ -8,7 +7,12 @@ import { Container, Grid, Stack, Button } from "@mui/material";
 // auth
 import { useAuthContext } from "../../auth/useAuthContext";
 import { useSettingsContext } from "@/components/settings";
-import { HomeNewMovie, HomeWelcome } from "@/sections/@dashboard/general/app";
+// sections
+import {
+  HomeNewMovie,
+  HomeWelcome,
+  HomeMovieTrending,
+} from "@/sections/@dashboard/general/app";
 import { useGetBannerQuery } from "@/redux/apiStore";
 import LoadingScreen from "@/components/loading-screen";
 
@@ -22,9 +26,9 @@ const GeneralAppPage = () => {
   const { data, isLoading, isFetching, isSuccess, isError } =
     useGetBannerQuery();
 
-  if (isLoading) return <LoadingScreen/>;
+  if (isLoading) return <LoadingScreen />;
 
-  if (isFetching) return <LoadingScreen/>;
+  if (isFetching) return <LoadingScreen />;
 
   return (
     <>
@@ -32,7 +36,7 @@ const GeneralAppPage = () => {
         <title> General: Home | 4K Movie</title>
       </Helmet>
 
-      <Container maxWidth={false}>
+      <Container maxWidth={themeStretch ? false : "xl"}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <HomeWelcome
@@ -47,9 +51,11 @@ const GeneralAppPage = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <HomeNewMovie list={data}/>
+            <HomeNewMovie list={data} />
           </Grid>
         </Grid>
+
+        <HomeMovieTrending />
       </Container>
     </>
   );

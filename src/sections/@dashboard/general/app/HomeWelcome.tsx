@@ -6,7 +6,7 @@ import { Typography, CardProps, Stack } from "@mui/material";
 //
 import { TextAnimate, MotionContainer, varFade } from "@/components/animate";
 import React, { memo, useMemo, useState } from "react";
-import { ItemPropsData } from "./types";
+import { Result } from "./types";
 // ultis
 import { TMDB_IMAGE } from "@/utils/urlImage";
 
@@ -34,7 +34,7 @@ interface Props extends CardProps {
   description?: string;
   img?: React.ReactNode;
   action?: React.ReactNode;
-  data: ItemPropsData;
+  data: Result;
 }
 
 const HomeWelcome = ({
@@ -46,13 +46,11 @@ const HomeWelcome = ({
   ...other
 }: Props) => {
   const [bannerData, setBannerData] = useState<any>();
-  console.log(`url(${TMDB_IMAGE}${bannerData?.backdrop_path})`);
   useMemo(() => {
     const randomData = Math.floor(Math.random() * (19 - 0 + 1) + 0);
     setBannerData(data[randomData]);
   }, []);
 
-  console.log(bannerData)
 
   return (
     <StyledRoot image={bannerData?.backdrop_path} {...other}>

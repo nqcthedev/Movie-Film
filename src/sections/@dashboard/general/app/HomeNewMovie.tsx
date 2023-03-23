@@ -6,7 +6,7 @@ import { bgGradient } from '@/utils/cssStyle';
 // components
 import Image from '@/components/image';
 import Carousel, { CarouselDots } from '@/components/carousel';
-import { ItemPropsData } from './types';
+import { Result } from './types';
 import { TMDB_IMAGE } from '@/utils/urlImage';
 
 // ----------------------------------------------------------------------
@@ -29,7 +29,7 @@ const StyledOverlay = styled('div')(({ theme }) => ({
 
 
 interface Props extends CardProps {
-  list: ItemPropsData[];
+  list: Result[];
 }
 
 export default function HomeNewMovie({ list, ...other }: Props) {
@@ -66,7 +66,7 @@ export default function HomeNewMovie({ list, ...other }: Props) {
 // ----------------------------------------------------------------------
 
 type CarouselItemProps = {
-  item: ItemPropsData;
+  item: Result;
 };
 
 function CarouselItem({ item }: CarouselItemProps) {

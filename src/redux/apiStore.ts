@@ -1,3 +1,4 @@
+
 import { apiSlice } from "@/redux/slices/apiSlice";
 import { Movies, RootObject, Result } from "@/interface/Movies";
 
@@ -62,7 +63,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
     //getMovies
 
     //Get Banner Movie
-    getBanner: builder.query<Result,string>({
+    getBanner: builder.query<Result, string>({
       query: () => ({
         url: `/movie/now_playing?api_key=${tmdbKey}&language=vi-VN`,
         method: "GET",
@@ -70,19 +71,41 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       transformResponse: (response: { results: Result }) => response.results,
     }),
 
-    // GetTrending Movie
-    getTrending: builder.query<RootObject,string>({
-      query: () => ({
-        url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN`,
+    // Get Trending Movie
+    getTrending: builder.query<RootObject, any>({
+      query: ({ page }) => ({
+        url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
 
-    
-
     // Get Popular Movie
+    getPopular: builder.query<RootObject, any>({
+      query: ({ page }) => ({
+        url: `/movie/popular?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
 
+    // Get Top Rate Movie
+    getTopRate: builder.query<RootObject, any>({
+      query: ({ page }) => ({
+        url: `/movie/top_rated?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
+
+    // Get Up Coming Movie
+    getUpComing: builder.query<RootObject, any>({
+      query: ({ page }) => ({
+        url: `/movie/upcoming?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
 
     // Get Movies With Search
     getMoviesWithSearch: builder.query<any, Movies>({
@@ -111,7 +134,14 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetGenresQuery, useGetBannerQuery, useGetTrendingQuery } = movieApiSlice;
+export const {
+  useGetGenresQuery,
+  useGetBannerQuery,
+  useGetTrendingQuery,
+  useGetPopularQuery,
+  useGetTopRateQuery,
+  useGetUpComingQuery
+} = movieApiSlice;
 
 // export const movieApi: any = createApi({
 //   reducerPath:'movieApi',

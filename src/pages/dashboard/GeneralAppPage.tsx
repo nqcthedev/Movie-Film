@@ -12,6 +12,9 @@ import {
   HomeNewMovie,
   HomeWelcome,
   HomeMovieTrending,
+  HomeMoviePopular,
+  HomeMovieTopRate,
+  HomeMovieUpComing
 } from "@/sections/@dashboard/general/app";
 import { useGetBannerQuery } from "@/redux/apiStore";
 import LoadingScreen from "@/components/loading-screen";
@@ -36,7 +39,7 @@ const GeneralAppPage = () => {
         <title> General: Home | 4K Movie</title>
       </Helmet>
 
-      <Container maxWidth={themeStretch ? false : "xl"}>
+      <Container maxWidth={themeStretch ? false : "lg"}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <HomeWelcome
@@ -50,12 +53,18 @@ const GeneralAppPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}  sx={{ mb: 5 }}>
             <HomeNewMovie list={data} />
           </Grid>
         </Grid>
 
-        <HomeMovieTrending />
+        <HomeMovieTrending title="Movie Trending"/>
+
+        <HomeMoviePopular title="Movie Popular"/>
+
+        <HomeMovieTopRate title="Movie Top_Rate"/>
+
+        <HomeMovieUpComing title="Movie Up_Coming"/>
       </Container>
     </>
   );

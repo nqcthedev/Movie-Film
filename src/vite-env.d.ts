@@ -6,6 +6,7 @@ declare global {
     recaptchaVerifier: any;
     confirmationResult: any;
   }
+  
  }
 
 

@@ -43,11 +43,30 @@ const navConfig = [
     subheader: 'menu',
     items: [
       { title: 'home', path: '/', icon: ICONS.dashboard },
-      { title: 'community', path: PATH_ROUTER.community, icon: ICONS.ecommerce },
       // { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
       // { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
       // { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
       // { title: 'file', path: PATH_DASHBOARD.general.file, icon: ICONS.file },
+    ],
+  },
+
+  {
+    subheader: 'Movie',
+    items: [
+      { title: 'trending', path: PATH_DASHBOARD.movie.trending, icon: ICONS.ecommerce },
+      { title: 'popular', path: PATH_DASHBOARD.movie.popular, icon: ICONS.analytics },
+      { title: 'top rate', path: PATH_DASHBOARD.movie.topRate, icon: ICONS.banking },
+      { title: 'up coming', path: PATH_DASHBOARD.movie.upcoming, icon: ICONS.file },
+    ],
+  },
+
+  {
+    subheader: 'TV',
+    items: [
+      { title: 'airing today', path: PATH_DASHBOARD.tv.airingToday, icon: ICONS.ecommerce },
+      { title: 'on the air', path: PATH_DASHBOARD.tv.onTheAir, icon: ICONS.analytics },
+      { title: 'Tv popular', path: PATH_DASHBOARD.tv.tvPopular, icon: ICONS.banking },
+      { title: 'Tv top rate', path: PATH_DASHBOARD.tv.tvTopRate, icon: ICONS.file },
     ],
   },
 

@@ -89,6 +89,14 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       transformResponse: (response: { results: any }) => response.results,
     }),
 
+    getMovies: builder.query<RootObject, any>({
+      query: ({ page, url }) => ({
+        url: `/movie/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
+
     // Get Top Rate Movie
     getTopRate: builder.query<RootObject, any>({
       query: ({ page }) => ({
@@ -102,6 +110,15 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
     getUpComing: builder.query<RootObject, any>({
       query: ({ page }) => ({
         url: `/movie/upcoming?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    }),
+
+    // Get TV Airing Today
+    getTv: builder.query<RootObject, any>({
+      query: ({ page, url }) => ({
+        url: `/tv/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
       transformResponse: (response: { results: any }) => response.results,
@@ -140,7 +157,9 @@ export const {
   useGetTrendingQuery,
   useGetPopularQuery,
   useGetTopRateQuery,
-  useGetUpComingQuery
+  useGetUpComingQuery,
+  useGetTvQuery,
+  useGetMoviesQuery
 } = movieApiSlice;
 
 // export const movieApi: any = createApi({

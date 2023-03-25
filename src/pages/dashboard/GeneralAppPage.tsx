@@ -12,9 +12,8 @@ import {
   HomeNewMovie,
   HomeWelcome,
   HomeMovieTrending,
-  HomeMoviePopular,
-  HomeMovieTopRate,
-  HomeMovieUpComing
+  HomeMovies,
+  HomeMovieTvToday
 } from "@/sections/@dashboard/general/app";
 import { useGetBannerQuery } from "@/redux/apiStore";
 import LoadingScreen from "@/components/loading-screen";
@@ -60,11 +59,22 @@ const GeneralAppPage = () => {
 
         <HomeMovieTrending title="Movie Trending"/>
 
-        <HomeMoviePopular title="Movie Popular"/>
+        <HomeMovies title="Movie Popular" url="popular"/>
 
-        <HomeMovieTopRate title="Movie Top_Rate"/>
+        <HomeMovies title="Movie Top Rate" url="top_rated"/>
 
-        <HomeMovieUpComing title="Movie Up_Coming"/>
+        <HomeMovies title="Movie Up Coming" url="upcoming"/>
+
+
+        {/* Component TV */}
+        <HomeMovieTvToday title="TV Airing Today" url="airing_today"/>
+
+        <HomeMovieTvToday title="TV On The Air" url="on_the_air"/>
+
+        <HomeMovieTvToday title="TV Popular" url="popular"/>
+
+        <HomeMovieTvToday title="Top Rated" url="top_rated"/>
+
       </Container>
     </>
   );

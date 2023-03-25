@@ -42,13 +42,17 @@ export const PATH_DASHBOARD = {
   fileManager: path(ROOTS_DASHBOARD, "/files-manager"),
   permissionDenied: path(ROOTS_DASHBOARD, "/permission-denied"),
   blank: path(ROOTS_DASHBOARD, "/blank"),
-  general: {
-    app: path(ROOTS_DASHBOARD, "/app"),
-    ecomerce: path(ROOTS_DASHBOARD, "/ecomerce"),
-    analytics: path(ROOTS_DASHBOARD, "/discover"),
-    banking: path(ROOTS_DASHBOARD, "/awards"),
-    booking: path(ROOTS_DASHBOARD, "/Celebs"),
-    file: path(ROOTS_DASHBOARD, "/file"),
+  movie: {
+    trending: path(ROOTS_DASHBOARD, "/trending"),
+    popular: path(ROOTS_DASHBOARD, "/popular"),
+    topRate: path(ROOTS_DASHBOARD, "/topRate"),
+    upcoming: path(ROOTS_DASHBOARD, "/upcoming"),
+  },
+  tv: {
+    airingToday: path(ROOTS_DASHBOARD, "/airingToday"),
+    onTheAir: path(ROOTS_DASHBOARD, "/onTheAir"),
+    tvPopular: path(ROOTS_DASHBOARD, "/tvPopular"),
+    tvTopRate: path(ROOTS_DASHBOARD, "/tvTopRate"),
   },
   mail: {
     root: path(ROOTS_DASHBOARD, "/mail"),

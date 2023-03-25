@@ -116,7 +116,6 @@ const MoviesListCard = ({ movie }: Props) => {
 
             <Box component="span">{popularity.toFixed(2)}</Box>
             </Stack>
-
           </Stack>
       </Box>
     </Card>

@@ -5,7 +5,7 @@ import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // auth
 import GuestGuard from "@/auth/GuestGuard";
 import {
-  CommunityPage,
+  TrendingPage,
   GeneralAppPage,
   LoginByPhoneNumber,
   LoginPage,
@@ -63,7 +63,7 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <GeneralAppPage />, index: true },
-        { path: "community", element: <CommunityPage /> },
+        { path: "trending", element: <TrendingPage /> },
       ],
     },
   ]);

@@ -57,6 +57,7 @@ const GeneralAppPage = () => {
           </Grid>
         </Grid>
 
+        {/* Movie */}
         <HomeMovieTrending title="Movie Trending"/>
 
         <HomeMovies title="Movie Popular" url="popular"/>

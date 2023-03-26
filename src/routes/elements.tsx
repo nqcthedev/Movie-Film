@@ -24,6 +24,6 @@ export const LoginByPhoneNumber = Loadable(lazy(() => import('@/sections/auth/Lo
 
 // DASHBOARD: GENERAL
 export const GeneralAppPage = Loadable(lazy(() => import('@/pages/dashboard/GeneralAppPage')));
-export const CommunityPage = Loadable(lazy(() => import('@/pages/dashboard/CommunityPage')));
+export const TrendingPage = Loadable(lazy(() => import('@/pages/dashboard/TrendingPage')));
 
 

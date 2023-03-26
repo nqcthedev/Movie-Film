@@ -22,7 +22,7 @@ const MoviesListCard = ({ movie }: Props) => {
 
   const linkTo = PATH_DASHBOARD.trending.view(
     paramCase(
-      (title?.toUpperCase() as string) || (name?.toUpperCase() as string)
+      (title as string) || (name as string)
     )
   );
 

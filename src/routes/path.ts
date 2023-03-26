@@ -43,10 +43,10 @@ export const PATH_DASHBOARD = {
   permissionDenied: path(ROOTS_DASHBOARD, "/permission-denied"),
   blank: path(ROOTS_DASHBOARD, "/blank"),
   movie: {
-    trending: path(ROOTS_DASHBOARD, "/trending"),
-    popular: path(ROOTS_DASHBOARD, "/popular"),
-    topRate: path(ROOTS_DASHBOARD, "/topRate"),
-    upcoming: path(ROOTS_DASHBOARD, "/upcoming"),
+    trending: path(ROOTS_DASHBOARD, "trending"),
+    popular: path(ROOTS_DASHBOARD, "popular"),
+    topRate: path(ROOTS_DASHBOARD, "topRate"),
+    upcoming: path(ROOTS_DASHBOARD, "upcoming"),
   },
   tv: {
     airingToday: path(ROOTS_DASHBOARD, "/airingToday"),

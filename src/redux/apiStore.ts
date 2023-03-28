@@ -102,6 +102,13 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
+
+    getListMoviesWithSearch:builder.query<any,any>({
+      query:({searchMovies}) => ({
+        url:`search/multi?&api_key=${tmdbKey}&query=${searchMovies}`
+      }),
+      transformResponse: (response: { results: any }) => response.results,
+    })
   }),
 });
 
@@ -113,6 +120,7 @@ export const {
   useGetTopRateQuery,
   useGetUpComingQuery,
   useGetTvQuery,
-  useGetMoviesQuery
+  useGetMoviesQuery,
+  useGetListMoviesWithSearchQuery
 } = movieApiSlice;
 

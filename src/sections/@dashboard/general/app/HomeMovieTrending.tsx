@@ -43,7 +43,7 @@ const HomeMovieTrending = ({ title }: Props) => {
           lg: "repeat(4, 1fr)",
         }}
       >
-        {(isLoading || isFetching ? [...Array(4)] : data.slice(0,4)).map(
+        {(isLoading || isFetching ? [...Array(4)] : data?.results.slice(0,4)).map(
           (movie: Result, index: Key | null | undefined) =>
             movie ? (
               <MoviesListCard key={movie.id} movie={movie} />

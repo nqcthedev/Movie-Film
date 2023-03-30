@@ -12,6 +12,9 @@ import {
   RegisterPage,
   ResetPasswordPage,
   VerifyCodePage,
+  PopularPage,
+  TopRatePage,
+  UpComingPage,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
@@ -64,6 +67,9 @@ export default function Router() {
       children: [
         { element: <GeneralAppPage />, index: true },
         { path: "trending", element: <TrendingPage /> },
+        { path: "popular", element: <PopularPage /> },
+        { path: "topRate", element: <TopRatePage /> },
+        { path: "upcoming", element: <UpComingPage /> },
       ],
     },
   ]);

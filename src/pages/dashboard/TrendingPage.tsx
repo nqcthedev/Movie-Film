@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import MovieListPage from "../components/MovieListPage";
+import MovieListPageTrending from "../components/MovieListPageTrending";
 
 const TrendingPage = () => {
   return (
@@ -9,7 +9,7 @@ const TrendingPage = () => {
         <title> Movie: Trending Page</title>
       </Helmet>
 
-      <MovieListPage title="Trending" url="trending" />
+      <MovieListPageTrending title="Trending"  />
       
     </>
   );

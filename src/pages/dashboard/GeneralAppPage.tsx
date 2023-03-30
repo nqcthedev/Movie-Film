@@ -74,7 +74,7 @@ const GeneralAppPage = () => {
 
         <HomeMovieTvToday title="TV Popular" url="popular"/>
 
-        <HomeMovieTvToday title="Top Rated" url="top_rated"/>
+        <HomeMovieTvToday title="TV Top Rated" url="top_rated"/>
 
       </Container>
     </>

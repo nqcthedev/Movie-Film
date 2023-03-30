@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Key } from "react";
 // @mui
-import { Box, BoxProps, Button,  Typography } from "@mui/material";
+import { Box, BoxProps, Button,  Container,  Pagination,  Typography } from "@mui/material";
 // components
 import { SkeletonMovieItem } from "@/components/skeleton";
 import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
 import { useGetMoviesQuery } from "@/redux/apiStore";
 // interface
 import { Result } from "@/interface/Trending";
+import { Masonry } from "@mui/lab";
+import Block from "@/components/settings/drawer/Block";
 
 // ----------------------------------------------------------------------
 
@@ -16,10 +18,12 @@ interface Props extends BoxProps {
   url: string;
 }
 
+
 const HomeMovies = ({ title, url }: Props) => {
   const page: number = 1;
 
   const { data, isLoading, isFetching } = useGetMoviesQuery({ page, url });
+
 
   return (
     <>
@@ -42,10 +46,10 @@ const HomeMovies = ({ title, url }: Props) => {
           lg: "repeat(4, 1fr)",
         }}
       >
-        {(isLoading || isFetching ? [...Array(4)] : data.slice(0, 4)).map(
+        {(isLoading || isFetching ? [...Array(4)] : data?.results.slice(0, 4)).map(
           (movie: Result, index: Key | null | undefined) =>
             movie ? (
-              <MoviesListCard key={movie.id} movie={movie} />
+              <MoviesListCard key={movie.id} movie={movie}/>
             ) : (
               <SkeletonMovieItem key={index} />
             )

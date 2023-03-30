@@ -21,15 +21,16 @@ const MoviesListCard = ({ movie }: Props) => {
   const { id, name, title, backdrop_path, vote_average, popularity } = movie;
 
   const linkTo = PATH_DASHBOARD.trending.view(
-    paramCase(
-      (title as string) || (name as string)
-    )
+    paramCase((title as string) || (name as string))
   );
 
   const handleAddFavourite = () => {};
 
-  const status = "Hot" || "New";
+  const randomIndex = useMemo(() => {
+    return Math.floor(Math.random() * 3);
+  }, []);
 
+  const status = randomIndex >= 1 ? "Hot" : "New";
   return (
     <Card
       sx={{
@@ -96,27 +97,26 @@ const MoviesListCard = ({ movie }: Props) => {
           </Link>
         </Stack>
 
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            px={1.5}
-          >
-            <Rating
-              value={vote_average - 3.5}
-              precision={0.1}
-              readOnly
-              size="small"
-              sx={{ml: -1}}
-            />
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          px={1.5}
+        >
+          <Rating
+            value={vote_average - 3.5}
+            precision={0.1}
+            readOnly
+            size="small"
+            sx={{ ml: -1 }}
+          />
 
-            <Stack direction="row" spacing={0.5} alignItems="center">
-
+          <Stack direction="row" spacing={0.5} alignItems="center">
             <Iconify icon="ic:outline-remove-red-eye" />
 
             <Box component="span">{popularity.toFixed(2)}</Box>
-            </Stack>
           </Stack>
+        </Stack>
       </Box>
     </Card>
   );

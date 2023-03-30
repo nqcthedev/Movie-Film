@@ -94,7 +94,7 @@ const MovieListSearch = () => {
         const matches = match(title || name, inputValue);
         const parts = parse(title || name, matches);
         return (
-          <li {...props}>s
+          <li {...props}>
             <Image
               alt={title || name}
               src={`${TMDB_IMAGE}${backdrop_path}`}

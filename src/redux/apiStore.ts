@@ -1,10 +1,8 @@
-
 import { apiSlice } from "@/redux/slices/apiSlice";
 import { Movies, RootObject, Result } from "@/interface/Movies";
 
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 export const movieApiSlice: any = apiSlice.injectEndpoints({
-
   endpoints: (builder) => ({
     getGenres: builder.query({
       query: () => ({
@@ -31,7 +29,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
-      transformResponse: (response: { results: any }) => response.results,
+      // transformResponse: (response: { results: any }) => response.results,
     }),
 
     // Get Popular Movie
@@ -48,7 +46,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         url: `/movie/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
-      transformResponse: (response: { results: any }) => response.results,
+      // transformResponse: (response: { results: any }) => response.results,
     }),
 
     // Get Top Rate Movie
@@ -87,28 +85,14 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       transformResponse: (response: { results: any }) => response.results,
     }),
 
-    // Get Movies by Category
-    getMovieWithIdOrCategory: builder.query<any, Movies>({
-      query: ({ genreIdOrCategoryName, page }) => ({
-        url: `/movie/${genreIdOrCategoryName}?page=${page}&api_key=${tmdbKey}`,
+    // Get Movie With Search
+    getListMoviesWithSearch: builder.query<any, any>({
+      query: ({ searchMovies }) => ({
+        url: `search/multi?&api_key=${tmdbKey}&query=${searchMovies}`,
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
-
-    // Get Movie by Genre
-    getMovieByGenre: builder.query<any, Movies>({
-      query: ({ genreIdOrCategoryName, page }) => ({
-        url: `discover/movie?with_genres=${genreIdOrCategoryName}&page=${page}&api_key=${tmdbKey}`,
-      }),
-      transformResponse: (response: { results: any }) => response.results,
-    }),
-
-    getListMoviesWithSearch:builder.query<any,any>({
-      query:({searchMovies}) => ({
-        url:`search/multi?&api_key=${tmdbKey}&query=${searchMovies}`
-      }),
-      transformResponse: (response: { results: any }) => response.results,
-    })
+    // Get Movie with Sortby
   }),
 });
 
@@ -121,6 +105,6 @@ export const {
   useGetUpComingQuery,
   useGetTvQuery,
   useGetMoviesQuery,
-  useGetListMoviesWithSearchQuery
+  useGetListMoviesWithSearchQuery,
+  getListUseSortQuery,
 } = movieApiSlice;
-

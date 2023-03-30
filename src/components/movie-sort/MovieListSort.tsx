@@ -13,8 +13,8 @@ import MenuPopover from '@/components/menu-popover';
 const OPTIONS = [
   { value: 'featured', label: 'Featured' },
   { value: 'new', label: 'Newest' },
-  { value: 'ratingDesc', label: 'Rating: High - Low' },
-  { value: 'ratingAsc', label: 'Rating: Low - High' },
+  { value: 'movie_average.desc', label: 'Rating: High - Low' },
+  { value: 'movie_average.asc', label: 'Rating: Low - High' },
 ];
 
 function renderLabel(label: string) {

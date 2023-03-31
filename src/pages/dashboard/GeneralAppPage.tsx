@@ -17,11 +17,12 @@ import {
 } from "@/sections/@dashboard/general/app";
 import { useGetBannerQuery } from "@/redux/apiStore";
 import LoadingScreen from "@/components/loading-screen";
+import useLocales from "@/locales/useLocales";
 
 const GeneralAppPage = () => {
+  const { translate } = useLocales();
+  
   const { user } = useAuthContext();
-
-  const theme = useTheme();
 
   const { themeStretch } = useSettingsContext();
 
@@ -45,8 +46,8 @@ const GeneralAppPage = () => {
               data={data}
               action={
                 <Stack direction="row" spacing={3}>
-                  <Button variant="contained">Watch Now</Button>
-                  <Button variant="contained">View Info</Button>
+                  <Button variant="contained">{`${translate('watchNow')}`}</Button>
+                  <Button variant="contained">{`${translate('viewInfo')}`}</Button>
                 </Stack>
               }
             />
@@ -58,23 +59,23 @@ const GeneralAppPage = () => {
         </Grid>
 
         {/* Movie */}
-        <HomeMovieTrending title="Movie Trending"/>
+        <HomeMovieTrending title={`${translate('movieTrending')}`} path="trending"/>
 
-        <HomeMovies title="Movie Popular" url="popular"/>
+        <HomeMovies title={`${translate('moviePopular')}`} url="popular" path="popular"/>
 
-        <HomeMovies title="Movie Top Rate" url="top_rated"/>
+        <HomeMovies title={`${translate('movieTopRate')}`} url="top_rated" path="topRate"/>
 
-        <HomeMovies title="Movie Up Coming" url="upcoming"/>
+        <HomeMovies title={`${translate('movieUpComing')}`} url="upcoming" path="upcoming"/>
 
 
         {/* Component TV */}
-        <HomeMovieTvToday title="TV Airing Today" url="airing_today"/>
+        <HomeMovieTvToday title={`${translate('airingToday')}`} url="airing_today" path="airingToday"/>
 
-        <HomeMovieTvToday title="TV On The Air" url="on_the_air"/>
+        <HomeMovieTvToday title={`${translate('ontheair')}`} url="on_the_air" path="onTheAir"/>
 
-        <HomeMovieTvToday title="TV Popular" url="popular"/>
+        <HomeMovieTvToday title={`${translate('tvpopular')}`} url="popular" path="tvPopular"/>
 
-        <HomeMovieTvToday title="TV Top Rated" url="top_rated"/>
+        <HomeMovieTvToday title={`${translate('tvtoprate')}`} url="top_rated" path="tvTopRate"/>
 
       </Container>
     </>

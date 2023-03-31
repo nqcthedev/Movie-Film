@@ -1,16 +1,19 @@
+import useLocales from "@/locales/useLocales";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import TiviListPage from "../components/MovieListPage";
 
 
 const TVPopular = () => {
+  const { translate } = useLocales();
+  
   return (
     <>
     <Helmet>
       <title> Movie: TV Popular Page</title>
     </Helmet>
 
-    <TiviListPage title="Popular" url="popular" />
+    <TiviListPage title={`${translate('tvPopular')}`} url="popular" />
   </>
   )
 }

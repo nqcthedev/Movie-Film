@@ -1,15 +1,18 @@
+import useLocales from "@/locales/useLocales";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import MovieListPage from "../components/MovieListPage";
 
 const TopRatePage = () => {
+  const { translate } = useLocales();
+  
   return (
     <>
       <Helmet>
         <title> Movie: Top Rate Page</title>
       </Helmet>
 
-      <MovieListPage title="Top Rate" url="top_rated" />
+      <MovieListPage title={`${translate('toprate')}`} url="top_rated" />
     </>
   );
 };

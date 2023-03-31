@@ -14,6 +14,7 @@ import { Result } from "@/interface/Movies";
 import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
 import { SkeletonMovieItem } from "@/components/skeleton";
 import Block from "@/components/settings/drawer/Block";
+import useLocales from "@/locales/useLocales";
 
 // -------------------------------------------------------------------------------------------------------
 
@@ -31,6 +32,8 @@ const style = {
 } as const;
 
 const TiviListPage = ({ title, url }: Props) => {
+  const { translate } = useLocales();
+  
   const { themeStretch } = useSettingsContext();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
@@ -88,11 +91,11 @@ const TiviListPage = ({ title, url }: Props) => {
         <CustomBreadcrumbs
           heading={title}
           links={[
-            { name: "Dashboard", href: PATH_DASHBOARD.root },
+            { name: `${translate('home')}`, href: PATH_DASHBOARD.root },
             {
               name: title,
             },
-            { name: "Movie" },
+            { name: `${translate('movie')}` },
           ]}
         />
 

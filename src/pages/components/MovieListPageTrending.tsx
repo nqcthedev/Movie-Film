@@ -14,6 +14,7 @@ import { Result } from "@/interface/Movies";
 import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
 import { SkeletonMovieItem } from "@/components/skeleton";
 import Block from "@/components/settings/drawer/Block";
+import useLocales from "@/locales/useLocales";
 
 // -------------------------------------------------------------------------------------------------------
 
@@ -31,6 +32,8 @@ const style = {
 
 const MovieListPageTrending = ({ title }: Props) => {
   const { themeStretch } = useSettingsContext();
+
+  const { translate } = useLocales();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
@@ -88,11 +91,11 @@ const MovieListPageTrending = ({ title }: Props) => {
         <CustomBreadcrumbs
           heading={title}
           links={[
-            { name: "Dashboard", href: PATH_DASHBOARD.root },
+            { name: `${translate('home')}`, href: PATH_DASHBOARD.root },
             {
               name: title,
             },
-            { name: "Movie" },
+            { name: `${translate('movie')}` },
           ]}
         />
 

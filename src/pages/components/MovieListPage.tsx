@@ -8,6 +8,7 @@ import { useSettingsContext } from '@/components/settings';
 import Block from '@/components/settings/drawer/Block';
 import { SkeletonMovieItem } from '@/components/skeleton';
 import { Result } from '@/interface/Movies'
+import useLocales from '@/locales/useLocales';
 import { useGetMoviesQuery } from '@/redux/apiStore';
 import { PATH_DASHBOARD } from '@/routes/path';
 import { MoviesListCard } from '@/sections/@dashboard/movies/trending';
@@ -32,6 +33,8 @@ const style = {
 
 const MovieListPage = ({title, url}: Props) => {
   const { themeStretch } = useSettingsContext();
+
+  const { translate } = useLocales();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
@@ -89,11 +92,11 @@ const MovieListPage = ({title, url}: Props) => {
       <CustomBreadcrumbs
         heading={title}
         links={[
-          { name: "Dashboard", href: PATH_DASHBOARD.root },
+          { name: `${translate('home')}`, href: PATH_DASHBOARD.root },
           {
             name: title,
           },
-          { name: "Movie" },
+          { name: `${translate('movie')}` },
         ]}
       />
 

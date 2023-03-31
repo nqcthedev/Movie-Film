@@ -1,22 +1,27 @@
 import React from 'react';
+import { Link as RouterLink } from "react-router-dom";
 import { Key } from "react";
 // @mui
-import { Box, BoxProps, Button, Typography } from "@mui/material";
+import { Box, BoxProps, Button, Typography, Link } from "@mui/material";
 // components
 import { SkeletonMovieItem } from '@/components/skeleton';
 import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
 import {  useGetTvQuery } from '@/redux/apiStore';
 // interface
 import { Result } from "@/interface/Trending";
+import useLocales from '@/locales/useLocales';
 
 // ----------------------------------------------------------------------
 
 interface Props extends BoxProps {
   title: string;
-  url: string
+  url: string;
+  path:string;
 }
 
-const HomeMovieTvToday = ({title, url}: Props) => {
+const HomeMovieTvToday = ({title, url, path}: Props) => {
+  const { translate } = useLocales();
+  
   const page: number = 1
 
   const {data, isLoading, isFetching } = useGetTvQuery({page, url})
@@ -27,9 +32,21 @@ const HomeMovieTvToday = ({title, url}: Props) => {
         <Typography variant="h4" sx={{ mb: 1, mt: 5 }}>
           {title}
         </Typography>
-        <Button sx={{mb:1}} size="small" variant="outlined" color="primary">
-          View More
-        </Button>
+        <Link
+          component={RouterLink}
+          to={path}
+          underline="none"
+          color="inherit"
+        >
+          <Button
+            sx={{ mb: 1 }}
+            size="small"
+            variant="outlined"
+            color="primary"
+          >
+            {`${translate("viewMore")}`}
+          </Button>
+        </Link>
       </Box>
 
     <Box

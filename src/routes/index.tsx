@@ -18,6 +18,7 @@ import {
   TVOnTheAirPage,
   TVTopPopularPage,
   TVTopRatePage,
+  MoviesDetailPage,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
@@ -78,6 +79,15 @@ export default function Router() {
         { path: "onTheAir", element: <TVOnTheAirPage /> },
         { path: "tvPopular", element: <TVTopPopularPage /> },
         { path: "tvTopRate", element: <TVTopRatePage /> },
+        {
+          path: "detail",
+          children: [
+            {
+              path: "movie/:id",
+              element: <MoviesDetailPage />,
+            },
+          ],
+        },
       ],
     },
   ]);

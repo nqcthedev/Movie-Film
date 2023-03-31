@@ -73,14 +73,14 @@ export const PATH_DASHBOARD = {
     edit: (name: string) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
     demoEdit: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
   },
-  trending: {
+  detail: {
     root: path(ROOTS_DASHBOARD, "/e-commerce"),
     shop: path(ROOTS_DASHBOARD, "/e-commerce/shop"),
     list: path(ROOTS_DASHBOARD, "/e-commerce/list"),
     checkout: path(ROOTS_DASHBOARD, "/e-commerce/checkout"),
     new: path(ROOTS_DASHBOARD, "/e-commerce/product/new"),
-    view: (name: any) =>
-      path(ROOTS_DASHBOARD, `/e-commerce/trending/${name}`),
+    view: (id: number) =>
+      path(ROOTS_DASHBOARD, `detail/movie/${id}`),
     edit: (name: string) =>
       path(ROOTS_DASHBOARD, `/e-commerce/product/${name}/edit`),
     demoEdit: path(

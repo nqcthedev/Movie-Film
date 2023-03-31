@@ -29,6 +29,7 @@ const vi = {
   viewMore:`Xem thêm`,
   movie:`Phim`,
   new:`Mới`,
+  movieDetail:"Chi tiết phim",
   chat: `trò chuyện`,
   cards: `thẻ`,
   posts: `danh sách bài viết`,

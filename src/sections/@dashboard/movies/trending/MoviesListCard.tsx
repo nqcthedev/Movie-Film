@@ -1,6 +1,5 @@
 import { Result } from "@/interface/Trending";
 import React, { useMemo } from "react";
-import { paramCase } from "change-case";
 import { Link as RouterLink } from "react-router-dom";
 // components
 import Iconify from "@/components/iconify";
@@ -17,12 +16,10 @@ type Props = {
   movie: Result;
 };
 
-const MoviesListCard = ({ movie }: Props) => {
+const MoviesListCard = ({ movie}: Props) => {
   const { id, name, title, backdrop_path, vote_average, popularity } = movie;
 
-  const linkTo = PATH_DASHBOARD.trending.view(
-    paramCase((title as string) || (name as string))
-  );
+  const linkTo = PATH_DASHBOARD.detail.view(id);
 
   const handleAddFavourite = () => {};
 

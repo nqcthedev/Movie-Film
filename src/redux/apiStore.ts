@@ -1,5 +1,6 @@
 import { apiSlice } from "@/redux/slices/apiSlice";
 import { Movies, RootObject, Result } from "@/interface/Movies";
+import { RootObjectDetail } from "@/interface/DetailMovie";
 
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 export const movieApiSlice: any = apiSlice.injectEndpoints({
@@ -22,7 +23,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       }),
     }),
 
-
+    // Get All Movie
     getMovies: builder.query<RootObject, any>({
       query: ({ page, url }) => ({
         url: `/movie/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
@@ -54,6 +55,14 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
+
+     // Get All Movie
+     getMovieDetail: builder.query<RootObjectDetail, any>({
+      query: ({ id }) => ({
+        url: `/movie/${id}?api_key=${tmdbKey}&language=vi-VN`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -62,5 +71,6 @@ export const {
   useGetTrendingQuery,
   useGetTvQuery,
   useGetMoviesQuery,
+  useGetMovieDetailQuery,
   useGetListMoviesWithSearchQuery,
 } = movieApiSlice;

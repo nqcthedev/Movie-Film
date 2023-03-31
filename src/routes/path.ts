@@ -49,10 +49,10 @@ export const PATH_DASHBOARD = {
     upcoming: path(ROOTS_DASHBOARD, "upcoming"),
   },
   tv: {
-    airingToday: path(ROOTS_DASHBOARD, "/airingToday"),
-    onTheAir: path(ROOTS_DASHBOARD, "/onTheAir"),
-    tvPopular: path(ROOTS_DASHBOARD, "/tvPopular"),
-    tvTopRate: path(ROOTS_DASHBOARD, "/tvTopRate"),
+    airingToday: path(ROOTS_DASHBOARD, "airingToday"),
+    onTheAir: path(ROOTS_DASHBOARD, "onTheAir"),
+    tvPopular: path(ROOTS_DASHBOARD, "tvPopular"),
+    tvTopRate: path(ROOTS_DASHBOARD, "tvTopRate"),
   },
   mail: {
     root: path(ROOTS_DASHBOARD, "/mail"),

@@ -10,7 +10,6 @@ import { useGetTrendingQuery } from "@/redux/apiStore";
 import { Result } from "@/interface/Trending";
 import { Key } from "react";
 
-
 // ----------------------------------------------------------------------
 
 interface Props extends BoxProps {

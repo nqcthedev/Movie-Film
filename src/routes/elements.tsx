@@ -28,6 +28,10 @@ export const TrendingPage = Loadable(lazy(() => import('@/pages/dashboard/Trendi
 export const PopularPage = Loadable(lazy(() => import('@/pages/dashboard/PopularPage')));
 export const TopRatePage = Loadable(lazy(() => import('@/pages/dashboard/TopRatePage')));
 export const UpComingPage = Loadable(lazy(() => import('@/pages/dashboard/UpComingPage')));
+export const TVAiringTodayPage = Loadable(lazy(() => import('@/pages/dashboard/TVAiringTodayPage')));
+export const TVOnTheAirPage = Loadable(lazy(() => import('@/pages/dashboard/TVOnTheAir')));
+export const TVTopRatePage = Loadable(lazy(() => import('@/pages/dashboard/TVTopRate')));
+export const TVTopPopularPage = Loadable(lazy(() => import('@/pages/dashboard/TVPopular')));
 
 
 

@@ -15,9 +15,13 @@ import {
   PopularPage,
   TopRatePage,
   UpComingPage,
+  TVOnTheAirPage,
+  TVTopPopularPage,
+  TVTopRatePage,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
+import TVAiringTodayPage from "@/pages/dashboard/TVAiringTodayPage";
 
 // ---------------------------------------------------------------------------------------------------------------
 export default function Router() {
@@ -70,6 +74,10 @@ export default function Router() {
         { path: "popular", element: <PopularPage /> },
         { path: "topRate", element: <TopRatePage /> },
         { path: "upcoming", element: <UpComingPage /> },
+        { path: "airingToday", element: <TVAiringTodayPage /> },
+        { path: "onTheAir", element: <TVOnTheAirPage /> },
+        { path: "tvPopular", element: <TVTopPopularPage /> },
+        { path: "tvTopRate", element: <TVTopRatePage /> },
       ],
     },
   ]);

@@ -4,15 +4,6 @@ import { Movies, RootObject, Result } from "@/interface/Movies";
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 export const movieApiSlice: any = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getGenres: builder.query({
-      query: () => ({
-        url: `/genre/movie/list?api_key=${tmdbKey}&language=vi-VN`,
-        method: "GET",
-      }),
-      transformResponse: (response: { genres: any }) => response.genres,
-    }),
-
-    //getMovies
 
     //Get Banner Movie
     getBanner: builder.query<Result, string>({
@@ -29,42 +20,14 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         url: `/trending/movie/week?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
-      // transformResponse: (response: { results: any }) => response.results,
     }),
 
-    // Get Popular Movie
-    getPopular: builder.query<RootObject, any>({
-      query: ({ page }) => ({
-        url: `/movie/popular?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
-        method: "GET",
-      }),
-      transformResponse: (response: { results: any }) => response.results,
-    }),
 
     getMovies: builder.query<RootObject, any>({
       query: ({ page, url }) => ({
         url: `/movie/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
-      // transformResponse: (response: { results: any }) => response.results,
-    }),
-
-    // Get Top Rate Movie
-    getTopRate: builder.query<RootObject, any>({
-      query: ({ page }) => ({
-        url: `/movie/top_rated?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
-        method: "GET",
-      }),
-      transformResponse: (response: { results: any }) => response.results,
-    }),
-
-    // Get Up Coming Movie
-    getUpComing: builder.query<RootObject, any>({
-      query: ({ page }) => ({
-        url: `/movie/upcoming?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
-        method: "GET",
-      }),
-      transformResponse: (response: { results: any }) => response.results,
     }),
 
     // Get TV Airing Today
@@ -73,7 +36,6 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         url: `/tv/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
         method: "GET",
       }),
-      transformResponse: (response: { results: any }) => response.results,
     }),
 
     // Get Movies With Search
@@ -92,19 +54,13 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: { results: any }) => response.results,
     }),
-    // Get Movie with Sortby
   }),
 });
 
 export const {
-  useGetGenresQuery,
   useGetBannerQuery,
   useGetTrendingQuery,
-  useGetPopularQuery,
-  useGetTopRateQuery,
-  useGetUpComingQuery,
   useGetTvQuery,
   useGetMoviesQuery,
   useGetListMoviesWithSearchQuery,
-  getListUseSortQuery,
 } = movieApiSlice;

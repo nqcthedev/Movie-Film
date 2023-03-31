@@ -8,8 +8,6 @@ import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
 import { useGetMoviesQuery } from "@/redux/apiStore";
 // interface
 import { Result } from "@/interface/Trending";
-import { Masonry } from "@mui/lab";
-import Block from "@/components/settings/drawer/Block";
 
 // ----------------------------------------------------------------------
 

@@ -37,6 +37,7 @@ const en = {
   movie:`Movie`,
   new:`New`,
   movieDetail:"Movie Detail",
+  production:"Production",
   cards: `cards`,
   posts: `posts`,
   create: `create`,

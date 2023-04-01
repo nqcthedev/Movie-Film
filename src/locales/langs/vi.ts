@@ -30,6 +30,7 @@ const vi = {
   movie:`Phim`,
   new:`Mới`,
   movieDetail:"Chi tiết phim",
+  production:"Nhà Sản xuất",
   chat: `trò chuyện`,
   cards: `thẻ`,
   posts: `danh sách bài viết`,

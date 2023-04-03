@@ -39,3 +39,35 @@ export const _contacts = [...Array(20)].map((_, index) => ({
 }));
 
 // ----------------------------------------------------------------------
+
+
+export const _socials = [
+  {
+    value: 'website',
+    name: 'Website',
+    icon: 'ant-design:global-outlined',
+    color: '#00AB55',
+    path: 'https://johnwick.movie/',
+  },
+  {
+    value: 'imdb',
+    name: 'IMDB',
+    icon: 'mdi:movie',
+    color: '#1877F2',
+    path: 'https://www.instagram.com/caitlyn.kerluke',
+  },
+  {
+    value: 'favourite',
+    name: 'Add Favourite',
+    icon: 'mdi:favourite',
+    color: '#E02D69',
+    path: 'https://www.linkedin.com/caitlyn.kerluke',
+  },
+  {
+    value: 'watchlist',
+    name: 'Add Watchlist',
+    icon: 'material-symbols:list-alt-add',
+    color: '#00AAEC',
+    path: 'https://www.twitter.com/caitlyn.kerluke',
+  },
+];

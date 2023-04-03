@@ -2,34 +2,49 @@ import Label from "@/components/label/Label";
 import { RootObjectDetail } from "@/interface/DetailMovie";
 import { sentenceCase } from "change-case";
 import {
+  Button,
   Divider,
+  IconButton,
   Rating,
   Stack,
   Tooltip,
   Typography,
-  useTheme,
 } from "@mui/material";
 import React from "react";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import Image from "@/components/image/Image";
 import { TMDB_IMAGE } from "@/utils/urlImage";
 import useLocales from "@/locales/useLocales";
+import Iconify from "@/components/iconify/Iconify";
+import { _socials } from "@/_mock/arrays";
+import { fShortenNumber } from "@/utils/formatNumber";
+import ForwardedTooltip from "@/components/tool-tip-custom/TooltipCustom";
 
 type Props = {
   movie: RootObjectDetail;
 };
 
 const MovieDetailSummary = ({ movie, ...other }: Props) => {
-  const theme = useTheme();
-
   const { translate } = useLocales();
+
+  const handleWatchTrailer = () => {};
+
+  const handleNavigate = (event: any, path: any) => {
+    event.preventDefault();
+    if (path.value === "website") {
+      window.open(`${movie?.homepage}`, "_blank");
+    } else if (path.value === "imdb") {
+      window.open(`https://www.imdb.com/title/${movie?.imdb_id}`, "_blank");
+    }
+  };
 
   return (
     <Stack
       spacing={3}
-      sx={{ p: (theme) => ({ md: theme.spacing(5, 5, 9, 2) }) }}
+      sx={{ p: (theme) => ({ md: theme.spacing(5, 5, 0, 2) }) }}
+      {...other}
     >
-      <Stack spacing={2}>
+      <Stack spacing={3}>
         <Label
           variant="soft"
           color={movie?.status === "Released" ? "success" : "error"}
@@ -50,7 +65,8 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
           <Rating value={movie?.vote_average / 2} precision={0.1} readOnly />
 
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            ({movie?.vote_average} / 10)
+            ({fShortenNumber(movie?.popularity)}
+            reviews)
           </Typography>
         </Stack>
 
@@ -71,7 +87,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
 
         <Stack direction="row" alignItems="center" spacing={3}>
           <Typography variant="body1" sx={{ fontWeight: "fontWeightMedium" }}>
-            {`${translate("production")}`}
+            {`${translate("production")}`}:
           </Typography>
 
           <Tooltip title={movie?.production_companies[0].name}>
@@ -89,6 +105,65 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
               sx={{ borderRadius: 1.5, maxWidth: "95px" }}
             />
           </Tooltip>
+        </Stack>
+
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          flexWrap={"wrap"}
+        >
+          <Typography variant="body1" sx={{ fontWeight: "fontWeightMedium" }}>
+            {`${translate("genres")}`}:
+          </Typography>
+          {movie?.genres.map((genre) => (
+            <Typography variant="body2" key={genre.id}>
+              {genre.name},
+            </Typography>
+          ))}
+        </Stack>
+
+        <Divider sx={{ borderStyle: "dashed" }} />
+
+        <Stack direction="row" spacing={2}>
+          <Button
+            fullWidth
+            size="large"
+            color="warning"
+            variant="contained"
+            startIcon={<Iconify icon="ic:baseline-play-circle-outline" />}
+            onClick={handleWatchTrailer}
+            sx={{ whiteSpace: "nowrap" }}
+          >
+            {`${translate("watchNow")}`}
+          </Button>
+
+          <Button
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            startIcon={<Iconify icon="mingcute:movie-line" />}
+          >
+            {`${translate("trailer")}`}
+          </Button>
+        </Stack>
+
+        <Stack
+          spacing={2}
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {_socials.map((social) => (
+            <ForwardedTooltip key={social.value} title={social.name}>
+              <IconButton
+                onClick={(event) => handleNavigate(event, social)}
+              >
+                <Iconify icon={social.icon} color={social.color} />
+              </IconButton>
+            </ForwardedTooltip>
+          ))}
         </Stack>
       </Stack>
     </Stack>

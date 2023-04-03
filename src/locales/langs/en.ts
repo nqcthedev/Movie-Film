@@ -38,6 +38,8 @@ const en = {
   new:`New`,
   movieDetail:"Movie Detail",
   production:"Production",
+  genres:"Genres",
+  trailer:"Trailer",
   cards: `cards`,
   posts: `posts`,
   create: `create`,

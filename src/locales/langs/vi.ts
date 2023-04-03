@@ -31,6 +31,8 @@ const vi = {
   new:`Mới`,
   movieDetail:"Chi tiết phim",
   production:"Nhà Sản xuất",
+  genres:"Thể loại",
+  trailer:"Đoạn giới thiệu",
   chat: `trò chuyện`,
   cards: `thẻ`,
   posts: `danh sách bài viết`,

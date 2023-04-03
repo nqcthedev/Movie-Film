@@ -1,6 +1,7 @@
 import { apiSlice } from "@/redux/slices/apiSlice";
 import { Movies, RootObject, Result } from "@/interface/Movies";
 import { RootObjectDetail } from "@/interface/DetailMovie";
+import { RootObjectCollection } from "@/interface/DetailCollections";
 
 const tmdbKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 export const movieApiSlice: any = apiSlice.injectEndpoints({
@@ -63,6 +64,14 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+     // Get Detail Collection
+     getDetailCollection: builder.query<RootObjectCollection, any>({
+      query: ({ id }) => ({
+        url: `/collection/${id}?api_key=${tmdbKey}&language=vi-VN`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -73,4 +82,5 @@ export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
   useGetListMoviesWithSearchQuery,
+  useGetDetailCollectionQuery
 } = movieApiSlice;

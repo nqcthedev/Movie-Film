@@ -2,7 +2,6 @@ import React from "react";
 
 import { Helmet } from "react-helmet-async";
 // @mui
-import { useTheme } from "@mui/material/styles";
 import { Container, Grid, Stack, Button } from "@mui/material";
 // auth
 import { useAuthContext } from "../../auth/useAuthContext";
@@ -18,9 +17,13 @@ import {
 import { useGetBannerQuery } from "@/redux/apiStore";
 import LoadingScreen from "@/components/loading-screen";
 import useLocales from "@/locales/useLocales";
+import Favourite from "@/sections/@dashboard/movies/Favourite";
+import { useSelector } from "@/redux/store";
 
 const GeneralAppPage = () => {
   const { translate } = useLocales();
+
+  const {favourite} = useSelector((state) => state.persisted);
   
   const { user } = useAuthContext();
 
@@ -76,8 +79,12 @@ const GeneralAppPage = () => {
         <HomeMovieTvToday title={`${translate('tvpopular')}`} url="popular" path="tvPopular"/>
 
         <HomeMovieTvToday title={`${translate('tvtoprate')}`} url="top_rated" path="tvTopRate"/>
+      
+        <Favourite totalItems={favourite.length} />
 
       </Container>
+
+
     </>
   );
 };

@@ -54,6 +54,8 @@ export const PATH_DASHBOARD = {
     tvPopular: path(ROOTS_DASHBOARD, "tvPopular"),
     tvTopRate: path(ROOTS_DASHBOARD, "tvTopRate"),
   },
+  favourite:path(ROOTS_DASHBOARD, "favourite"),
+  watchList:path(ROOTS_DASHBOARD, "watch-list"),
   mail: {
     root: path(ROOTS_DASHBOARD, "/mail"),
     all: path(ROOTS_DASHBOARD, "/mail/all"),

@@ -29,7 +29,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Router from "@/routes";
 //Redux
 import { Provider as ReduxProvider } from "react-redux";
-import { store } from "@/redux/store";
+import { persistor, store } from "@/redux/store";
 // Locales
 import ThemeLocalization from "@/locales/ThemeLocalization";
 // Theme
@@ -42,12 +42,14 @@ import { SettingsProvider, ThemeSettings } from "./components/settings";
 import MotionLazyContainer from "@/components/animate/MotionLazyContainer";
 
 import SnackbarProvider from "@/components/snackbar/SnackbarProvider";
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
 function App() {
   return (
     <AuthProvider>
       <HelmetProvider>
         <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <SettingsProvider>
               <BrowserRouter>
@@ -66,6 +68,7 @@ function App() {
               </BrowserRouter>
             </SettingsProvider>
           </LocalizationProvider>
+          </PersistGate>
         </ReduxProvider>
       </HelmetProvider>
     </AuthProvider>

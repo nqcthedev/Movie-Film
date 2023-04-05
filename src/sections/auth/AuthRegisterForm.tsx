@@ -14,7 +14,7 @@ import Iconify from "../../components/iconify";
 import FormProvider, { RHFTextField } from "../../components/hook-form";
 // utils
 import { RegisterSchema } from "@/utils/SchemaYup";
-import { useSnackbar } from "notistack";
+import { useSnackbar } from "@/components/snackbar";
 
 // ----------------------------------------------------------------------
 

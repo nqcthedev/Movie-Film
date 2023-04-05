@@ -14,9 +14,13 @@ import MovieDetailsCarousel from "../components/MovieDetailsCarousel";
 import Markdown from "@/components/markdown/Markdown";
 import MovieDetailsReview from "../components/MovieDetailsReview";
 import MovieDetailsTopCast from "../components/MovieDetailsTopCast";
+import Favourite from "@/sections/@dashboard/movies/Favourite";
+import { useSelector } from "@/redux/store";
 
 const MoviesDetailPage = () => {
   const { themeStretch } = useSettingsContext();
+
+  const {favourite} = useSelector((state) => state.persisted);
 
   const { translate } = useLocales();
 
@@ -35,28 +39,36 @@ const MoviesDetailPage = () => {
   });
 
   const TABS = useMemo(() => {
-   return  [
-    {
-      value: "description",
-      label: `${translate("description")}`,
-      component: detailMovie ? (
-        <Markdown children={detailMovie?.overview} />
-      ) : null,
-    },
-    {
-      value: "reviews",
-      label: `${translate("reviews")} (${reviewMovie ? reviewMovie.results.length : ''})`,
-      component: reviewMovie ? (
-        <MovieDetailsReview movie={reviewMovie} detailMovie={detailMovie} id={id}/>
-      ) : null,
-    },
-  ];
-  }, [detailMovie,reviewMovie, translate])
+    return [
+      {
+        value: "description",
+        label: `${translate("description")}`,
+        component: detailMovie ? (
+          <Markdown children={detailMovie?.overview} />
+        ) : null,
+      },
+      {
+        value: "reviews",
+        label: `${translate("reviews")} (${
+          reviewMovie ? reviewMovie.results.length : ""
+        })`,
+        component: reviewMovie ? (
+          <MovieDetailsReview
+            movie={reviewMovie}
+            detailMovie={detailMovie}
+            id={id}
+          />
+        ) : null,
+      },
+    ];
+  }, [detailMovie, reviewMovie, translate]);
 
   return (
     <>
       <Helmet>
-        <title>{`Detail: ${detailMovie?.title || detailMovie?.name} | 4K Movie`}</title>
+        <title>{`Detail: ${
+          detailMovie?.title || detailMovie?.name
+        } | 4K Movie`}</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : "lg"}>
@@ -118,9 +130,11 @@ const MoviesDetailPage = () => {
               )}
             </Card>
 
-            <MovieDetailsTopCast detailMovie={detailMovie}/>
+            <MovieDetailsTopCast detailMovie={detailMovie} />
           </>
         )}
+
+        <Favourite totalItems={favourite.length} />
 
       </Container>
     </>

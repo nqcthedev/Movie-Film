@@ -40,6 +40,7 @@ const vi = {
   reviewSuccess:"Đánh giá thành công!",
   hideAway:"Ẩn bớt",
   topCast:"Diễn viên hàng đầu",
+  favourite:"Yêu thích",
   chat: `trò chuyện`,
   cards: `thẻ`,
   posts: `danh sách bài viết`,

@@ -6,7 +6,6 @@ import FormProvider from '@/components/hook-form/FormProvider';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // component
-import { useSnackbar } from 'notistack';
 import React, {  useState } from 'react'
 import { LoginByNumberSchema } from "@/utils/SchemaYup";
 
@@ -15,6 +14,7 @@ import { RHFTextField } from "@/components/hook-form";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { PATH_AUTH } from "@/routes/path";
+import { useSnackbar } from "@/components/snackbar";
 
 // ------------------------------------------------------------
 

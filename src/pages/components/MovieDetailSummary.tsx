@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
   IconButton,
@@ -26,6 +25,9 @@ import { _socials } from "@/_mock/arrays";
 import { fShortenNumber } from "@/utils/formatNumber";
 import ForwardedTooltip from "@/components/tool-tip-custom/TooltipCustom";
 import { TransitionProps } from "@mui/material/transitions";
+import { addToFavourite } from "@/redux/slices/movie";
+import { useDispatch } from "@/redux/store";
+import { useSnackbar } from "@/components/snackbar";
 
 // ---------------------------------------------------------------------------------------------
 
@@ -48,6 +50,9 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
 
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleWatchTrailer = () => {
     setOpenTrailer(true)
@@ -65,10 +70,21 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
       window.open(`${movie?.homepage}`, "_blank");
     } else if (path.value === "imdb") {
       window.open(`https://www.imdb.com/title/${movie?.imdb_id}`, "_blank");
+    } else if (path.value === "favourite") {
+      const movieFavourite = {
+        id: movie.id,
+        name: movie.name,
+        title: movie.title,
+        backdrop_path: movie.backdrop_path,
+        vote_average: movie.vote_average,
+        popularity: movie.popularity,
+      };
+      dispatch(addToFavourite(movieFavourite));
+      return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+        variant: "success",
+      });
     }
   };
-
-
 
 
   return (
@@ -87,7 +103,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
           {sentenceCase(movie?.status || "")}
         </Label>
 
-        <Typography variant="h4">{movie?.title}</Typography>
+        <Typography variant="h4">{movie?.title || movie?.name}</Typography>
 
         {movie?.tagline && (
           <Typography variant="body1" fontStyle="italic">
@@ -225,7 +241,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
           <iframe
             frameBorder="0"
             title="Trailer"
-            src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?autoplay=1`}
+            src={`https://www.youtube.com/embed/${movie.videos.results[0].key}`}
             allow="autoplay"
             allowFullScreen
             style={{width:"100%", height:"100%", borderRadius:"16px"}}

@@ -15,7 +15,7 @@ import FormProvider, { RHFTextField } from "@/components/hook-form";
 
 import { ResetPasswordSchema } from "@/utils/SchemaYup";
 import { useAuthContext } from "@/auth/useAuthContext";
-import { useSnackbar } from "notistack";
+import { useSnackbar } from "@/components/snackbar";
 
 // ----------------------------------------------------------------------
 

@@ -52,6 +52,7 @@ const en = {
   create: `create`,
   kanban: `kanban`,
   general: `general`,
+  favourite:"Favourite",
   banking: `banking`,
   booking: `booking`,
   profile: `profile`,

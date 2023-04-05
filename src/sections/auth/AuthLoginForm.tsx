@@ -15,7 +15,7 @@ import { useAuthContext } from "@/auth/useAuthContext";
 import Iconify from "@/components/iconify";
 import FormProvider, { RHFTextField } from "@/components/hook-form";
 import { LoginSchema } from "@/utils/SchemaYup";
-import { useSnackbar } from "notistack";
+import { useSnackbar } from "@/components/snackbar";
 
 // ----------------------------------------------------------------------
 

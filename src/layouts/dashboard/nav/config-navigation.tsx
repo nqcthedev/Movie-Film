@@ -1,9 +1,10 @@
 // routes
-import { PATH_DASHBOARD, PATH_ROUTER } from "@/routes/path";
+import { PATH_DASHBOARD } from "@/routes/path";
 // components
 import Label from "@/components/label";
 import Iconify from "@/components/iconify";
 import SvgColor from "@/components/svg-color";
+import { useSelector } from "@/redux/store";
 
 // ----------------------------------------------------------------------
 
@@ -88,7 +89,7 @@ const navConfig = [
     items: [
       {
         title: "watched",
-        path: PATH_DASHBOARD.tv.airingToday,
+        path: PATH_DASHBOARD.watchList,
         icon: ICONS.watch,
         info: (
           <Label color="info" startIcon={<Iconify icon="ic:twotone-live-tv" />}>
@@ -98,9 +99,9 @@ const navConfig = [
       },
       {
         title: "favorit",
-        path: PATH_DASHBOARD.tv.onTheAir,
+        path: PATH_DASHBOARD.favourite,
         icon: ICONS.favorite,
-        info: <Label color="error">+32</Label>,
+        info: <Label color="error">32+</Label>,
       },
     ],
   },

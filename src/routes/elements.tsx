@@ -33,6 +33,8 @@ export const TVOnTheAirPage = Loadable(lazy(() => import('@/pages/dashboard/TVOn
 export const TVTopRatePage = Loadable(lazy(() => import('@/pages/dashboard/TVTopRate')));
 export const TVTopPopularPage = Loadable(lazy(() => import('@/pages/dashboard/TVPopular')));
 export const MoviesDetailPage = Loadable(lazy(() => import('@/pages/dashboard/MoviesDetailPage')));
+export const FavouritePage = Loadable(lazy(() => import('@/pages/dashboard/FavouritePage')));
+export const WatchListPage = Loadable(lazy(() => import('@/pages/dashboard/WatchListPage')));
 
 
 

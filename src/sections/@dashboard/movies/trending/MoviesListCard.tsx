@@ -1,5 +1,5 @@
 import { Result } from "@/interface/Trending";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 // components
 import Iconify from "@/components/iconify";
@@ -9,25 +9,73 @@ import Image from "@/components/image";
 import { PATH_DASHBOARD } from "@/routes/path";
 import { Box, Card, Fab, Link, Rating, Stack } from "@mui/material";
 import { TMDB_IMAGE } from "@/utils/urlImage";
+import { useDispatch, useSelector } from "@/redux/store";
+import { addToFavourite, deleteMovie } from "@/redux/slices/movie";
+import { useSnackbar } from "@/components/snackbar";
 
 // ----------------------------------------------------------------------
 
 type Props = {
   movie: Result;
+  isFavourite?: boolean;
 };
 
-const MoviesListCard = ({ movie}: Props) => {
+const MoviesListCard = ({ movie, isFavourite }: Props) => {
   const { id, name, title, backdrop_path, vote_average, popularity } = movie;
+
+  const { favourite } = useSelector((state) => state.persisted);
+
+  const [isId, setIsId] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const linkTo = PATH_DASHBOARD.detail.view(id);
 
-  const handleAddFavourite = () => {};
+  const handleAddFavourite = async () => {
+    try {
+      if (isId === true && !isFavourite) {
+        return enqueueSnackbar("Phim đã tồn tại trong danh sách yêu thích", {
+          variant: "warning",
+        });
+      } else if (!isFavourite) {
+        const movieFavourite = {
+          id,
+          name,
+          title,
+          backdrop_path,
+          vote_average,
+          popularity,
+        };
+        dispatch(addToFavourite(movieFavourite));
+        return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+          variant: "success",
+        });
+      } else if (isFavourite) {
+        dispatch(deleteMovie(id));
+        return enqueueSnackbar("Đã xoá phim khỏi danh sách", {
+          variant: "success",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const randomIndex = useMemo(() => {
     return Math.floor(Math.random() * 3);
   }, []);
 
-  const status = randomIndex >= 1 ? "Hot" : "New"
+  const status = randomIndex >= 1 ? "Hot" : "New";
+
+  useEffect(() => {
+    favourite.forEach((fav: any) => {
+      if (fav.id === id) {
+        return setIsId(true);
+      }
+    });
+  }, [favourite]);
 
   return (
     <Card
@@ -73,7 +121,13 @@ const MoviesListCard = ({ movie}: Props) => {
               }),
           }}
         >
-          <Iconify icon="mdi:favourite" />
+          <Iconify
+            icon={
+              !isFavourite
+                ? "mdi:favourite"
+                : "solar:trash-bin-minimalistic-broken"
+            }
+          />
         </Fab>
 
         <Image

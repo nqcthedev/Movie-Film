@@ -1,4 +1,5 @@
 export interface RootObjectDetail {
+  name: any;
   videos: any;
   credits: any;
   adult:                 boolean;

@@ -7,6 +7,9 @@ import {
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { movieApiSlice } from "./apiStore";
+import movieReducer from "@/redux/slices/movie";
+import rootReducer from "./slices/rootReducer";
+import { persistStore } from "redux-persist";
 // ------------------------------------------------------
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -14,11 +17,17 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 const store = configureStore({
   reducer: {
+    persisted: rootReducer,
     [movieApiSlice.reducerPath]: movieApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(movieApiSlice.middleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }).concat(movieApiSlice.middleware),
 });
+
+const persistor = persistStore(store);
 
 setupListeners(store.dispatch);
 
@@ -28,4 +37,4 @@ const useSelector: TypedUseSelectorHook<RootState> = useAppSelector;
 
 const useDispatch = () => useAppDispatch<AppDispatch>();
 
-export { store, dispatch, useSelector, useDispatch };
+export { store, dispatch, useSelector, useDispatch, persistor };

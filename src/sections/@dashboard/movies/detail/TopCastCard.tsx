@@ -1,7 +1,7 @@
 import Image from '@/components/image/Image'
 import { PATH_DASHBOARD } from '@/routes/path'
-import { TMDB_IMAGE } from '@/utils/urlImage';
-import { Card, Link, Rating, Stack } from '@mui/material'
+import { TMDB_IMAGE, TMDB_IMAGE_W500 } from '@/utils/urlImage';
+import { Card, Link, Rating, Stack, Typography } from '@mui/material'
 import React from 'react';
 import { Link as RouterLink } from "react-router-dom";
 
@@ -15,13 +15,15 @@ type Props =  {
 
 const TopCastCard = ({cast}:Props) => {
 
+  console.log(cast)
+
   const linkTo = PATH_DASHBOARD.detail.view(cast?.id);
   
   return (
     <Card>
       <Image
           alt={cast.title}
-          src={`${TMDB_IMAGE}${cast.name}`}
+          src={`${TMDB_IMAGE_W500}${cast.profile_path}`}
           ratio="3/4"
           sx={{ borderRadius: 1.5 }}
         />
@@ -31,7 +33,7 @@ const TopCastCard = ({cast}:Props) => {
             component={RouterLink}
             to={linkTo}
             color="inherit"
-            variant="subtitle2"
+            variant="body1"
             noWrap
           >
             {cast.name}
@@ -39,24 +41,9 @@ const TopCastCard = ({cast}:Props) => {
         </Stack>
 
         <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
           px={1.5}
         >
-          {/* <Rating
-            value={vote_average - 3.5}
-            precision={0.1}
-            readOnly
-            size="small"
-            sx={{ ml: -1 }}
-          /> */}
-
-          {/* <Stack direction="row" spacing={0.5} alignItems="center">
-            <Iconify icon="ic:outline-remove-red-eye" />
-
-            <Box component="span">{popularity.toFixed(2)}</Box>
-          </Stack> */}
+         <Typography variant="body2">{cast.character}</Typography>
         </Stack>
     </Card>
   )

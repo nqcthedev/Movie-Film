@@ -27,7 +27,8 @@ const MoviesListCard = ({ movie}: Props) => {
     return Math.floor(Math.random() * 3);
   }, []);
 
-  const status = randomIndex >= 1 ? "Hot" : "New";
+  const status = randomIndex >= 1 ? "Hot" : "New"
+
   return (
     <Card
       sx={{

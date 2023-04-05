@@ -1,4 +1,5 @@
 export interface RootObjectDetail {
+  videos: any;
   credits: any;
   adult:                 boolean;
   backdrop_path:         string;

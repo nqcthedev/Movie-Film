@@ -39,6 +39,7 @@ const vi = {
   yourReview:"Đánh giá của bạn về sản phẩm này",
   reviewSuccess:"Đánh giá thành công!",
   hideAway:"Ẩn bớt",
+  topCast:"Diễn viên hàng đầu",
   chat: `trò chuyện`,
   cards: `thẻ`,
   posts: `danh sách bài viết`,

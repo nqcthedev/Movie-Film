@@ -1,6 +1,7 @@
 import { RootObjectDetail } from "@/interface/DetailMovie";
+import useLocales from "@/locales/useLocales";
 import TopCastCard from "@/sections/@dashboard/movies/detail/TopCastCard";
-import { Box } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React, { Key } from "react";
 
 // ---------------------------------------------------------------------------
@@ -10,8 +11,14 @@ type Props = {
 };
 
 const MovieDetailsTopCast = ({ detailMovie }: Props) => {
+  const { translate } = useLocales();
+
   return (
-    <Box
+    <Stack spacing={1.5}>
+     <Typography variant="h4" gutterBottom>
+        {`${translate("topCast")}`}
+      </Typography>
+      <Box
       gap={3}
       display="grid"
       gridTemplateColumns={{
@@ -25,6 +32,9 @@ const MovieDetailsTopCast = ({ detailMovie }: Props) => {
         <TopCastCard key={cast.id} cast={cast} />
       ))}
     </Box>
+    </Stack>
+    
+    
   );
 };
 

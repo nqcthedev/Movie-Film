@@ -3,14 +3,20 @@ import { RootObjectDetail } from "@/interface/DetailMovie";
 import { sentenceCase } from "change-case";
 import {
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   IconButton,
   Rating,
+  Slide,
   Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { forwardRef, useState } from "react";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import Image from "@/components/image/Image";
 import { TMDB_IMAGE } from "@/utils/urlImage";
@@ -19,15 +25,39 @@ import Iconify from "@/components/iconify/Iconify";
 import { _socials } from "@/_mock/arrays";
 import { fShortenNumber } from "@/utils/formatNumber";
 import ForwardedTooltip from "@/components/tool-tip-custom/TooltipCustom";
+import { TransitionProps } from "@mui/material/transitions";
+
+// ---------------------------------------------------------------------------------------------
 
 type Props = {
   movie: RootObjectDetail;
 };
 
+const Transition = forwardRef(
+  (
+    props: TransitionProps & {
+      children: React.ReactElement;
+    },
+    ref: React.Ref<unknown>
+  ) => <Slide direction="up" ref={ref} {...props} />
+);
+
+
 const MovieDetailSummary = ({ movie, ...other }: Props) => {
   const { translate } = useLocales();
 
-  const handleWatchTrailer = () => {};
+  const [openTrailer, setOpenTrailer] = useState<boolean>(false);
+
+
+  const handleWatchTrailer = () => {
+    setOpenTrailer(true)
+  };
+
+  const handleCloseTrailer = () => {
+    setOpenTrailer(false)
+  }
+
+  const handleWatchMovie = () => {}
 
   const handleNavigate = (event: any, path: any) => {
     event.preventDefault();
@@ -38,7 +68,11 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
     }
   };
 
+
+
+
   return (
+   <>
     <Stack
       spacing={3}
       sx={{ p: (theme) => ({ md: theme.spacing(5, 5, 0, 2) }) }}
@@ -132,7 +166,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
             color="warning"
             variant="contained"
             startIcon={<Iconify icon="ic:baseline-play-circle-outline" />}
-            onClick={handleWatchTrailer}
+            onClick={handleWatchMovie}
             sx={{ whiteSpace: "nowrap" }}
           >
             {`${translate("watchNow")}`}
@@ -144,6 +178,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
             type="submit"
             variant="contained"
             startIcon={<Iconify icon="mingcute:movie-line" />}
+            onClick={handleWatchTrailer}
           >
             {`${translate("trailer")}`}
           </Button>
@@ -167,6 +202,45 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
         </Stack>
       </Stack>
     </Stack>
+
+  
+
+      <Dialog
+        open={openTrailer}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseTrailer}
+        sx={{
+          '& .MuiDialog-paper': {
+            width: {xs:"100%", md:"50%"},
+            height:{xs:"50%", md:"50%"},
+            maxWidth: 'none'
+          }
+        }}
+      >
+        <DialogTitle id="alert-dialog-slide-title">{movie?.title} - Trailer</DialogTitle>
+
+        <DialogContent>
+        {movie?.videos?.results?.length > 0 && (
+          <iframe
+            frameBorder="0"
+            title="Trailer"
+            src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?autoplay=1`}
+            allow="autoplay"
+            allowFullScreen
+            style={{width:"100%", height:"100%", borderRadius:"16px"}}
+          />
+        )}
+        </DialogContent>
+
+        <DialogActions>
+          <Button color="inherit" onClick={handleCloseTrailer}>
+            Disagree
+          </Button>
+        </DialogActions>
+      </Dialog>
+   
+   </>
   );
 };
 

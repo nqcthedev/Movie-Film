@@ -22,7 +22,7 @@ const MoviesDetailPage = () => {
 
   const { id } = useParams();
 
-  const [currentTab, setCurrentTab] = useState<string>("reviews");
+  const [currentTab, setCurrentTab] = useState<string>("description");
 
   const [page, setPage] = useState<number>(1);
 

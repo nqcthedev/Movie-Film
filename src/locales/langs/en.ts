@@ -46,6 +46,7 @@ const en = {
   yourReview:"Your review about this product:",
   reviewSuccess:"Review success!",
   hideAway:"Hide Away",
+  topCast:"Top Cast",
   cards: `cards`,
   posts: `posts`,
   create: `create`,

@@ -34,3 +34,14 @@ export const VerifyCodeSchema = Yup.object().shape({
   code5: Yup.string().required('Code is required'),
   code6: Yup.string().required('Code is required'),
 });
+
+// Review Movie
+
+export const ReviewSchema = Yup.object().shape({
+  rating: Yup.mixed().required("Rating is required"),
+  review: Yup.string().required("Review is required"),
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Email must be a valid email address"),
+});

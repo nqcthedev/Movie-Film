@@ -36,4 +36,4 @@ export const allLangs = [
   },
 ];
 
-export const defaultLang = allLangs[3]; // Vietnamese
+export const defaultLang = allLangs[2]; // Vietnamese

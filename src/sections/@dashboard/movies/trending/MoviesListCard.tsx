@@ -26,9 +26,10 @@ import { useSnackbar } from "@/components/snackbar";
 
 type Props = {
   movie: Result;
+  type: string;
 };
 
-const MoviesListCard = ({ movie }: Props) => {
+const MoviesListCard = ({ movie, type }: Props) => {
   const { id, name, title, backdrop_path, vote_average, popularity } = movie;
 
   const { favourite } = useSelector((state) => state.persisted);
@@ -39,7 +40,9 @@ const MoviesListCard = ({ movie }: Props) => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const linkTo = PATH_DASHBOARD.detail.view(id);
+  console.log(type)
+
+  const linkTo = PATH_DASHBOARD.detail.view(id, type);
 
 
   const randomIndex = useMemo(() => {

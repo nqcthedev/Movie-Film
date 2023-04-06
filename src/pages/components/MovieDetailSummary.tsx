@@ -33,11 +33,13 @@ import { useDispatch, useSelector } from "@/redux/store";
 import { useSnackbar } from "@/components/snackbar";
 import { PATH_DASHBOARD } from "@/routes/path";
 import { Link as RouterLink } from "react-router-dom";
+import { useGetVideoTrailersQuery } from "@/redux/apiStore";
 
 // ---------------------------------------------------------------------------------------------
 
 type Props = {
   movie: RootObjectDetail;
+  type: any;
 };
 
 const Transition = forwardRef(
@@ -49,8 +51,12 @@ const Transition = forwardRef(
   ) => <Slide direction="up" ref={ref} {...props} />
 );
 
-const MovieDetailSummary = ({ movie, ...other }: Props) => {
+const MovieDetailSummary = ({ movie,type, ...other }: Props) => {
+  const { id } = movie;
+  
   const { translate } = useLocales();
+
+  const { data, isLoading } = useGetVideoTrailersQuery({ id, type });
 
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
 
@@ -279,14 +285,19 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
         </DialogTitle>
 
         <DialogContent>
-          {movie?.videos?.results?.length > 0 && (
+          {data?.length > 0 && (
             <iframe
               frameBorder="0"
               title="Trailer"
-              src={`https://www.youtube.com/embed/${movie.videos.results[0].key}`}
+              src={`https://www.youtube.com/embed/${data[0]?.key || data[1]?.key}`}
               allow="autoplay"
               allowFullScreen
-              style={{ width: "100%", height: "100%", borderRadius: "16px", overflow: "hidden" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "16px",
+                overflow: "hidden",
+              }}
             />
           )}
         </DialogContent>

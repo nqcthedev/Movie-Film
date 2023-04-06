@@ -138,7 +138,7 @@ const MovieListPage = ({title, url}: Props) => {
           : data?.results.map(
               (movie: Result, index: Key ) =>
                 movie ? (
-                  <MoviesListCard key={movie.id} movie={movie} />
+                  <MoviesListCard key={movie.id} movie={movie} type='movie'/>
                 ) : (
                   <SkeletonMovieItem key={index} />
                 )

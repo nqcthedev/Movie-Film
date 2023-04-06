@@ -62,7 +62,7 @@ const HomeMovieTvToday = ({title, url, path}: Props) => {
       {(isLoading || isFetching ? [...Array(4)] : data?.results.slice(0,4)).map(
         (movie: Result, index: Key | null | undefined) =>
           movie ? (
-            <MoviesListCard key={movie.id} movie={movie} />
+            <MoviesListCard key={movie.id} movie={movie} type="tv"/>
           ) : (
             <SkeletonMovieItem key={index} />
           )

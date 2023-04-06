@@ -63,7 +63,7 @@ const HomeMovies = ({ title, url, path }: Props) => {
           : data?.results.slice(0, 4)
         ).map((movie: Result, index: Key) =>
           movie ? (
-            <MoviesListCard key={movie.id} movie={movie}/>
+            <MoviesListCard key={movie.id} movie={movie} type="movie"/>
           ) : (
             <SkeletonMovieItem key={index} />
           )

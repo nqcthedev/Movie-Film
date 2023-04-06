@@ -45,7 +45,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
     // Get TV Airing Today
     getTv: builder.query<RootObject, any>({
       query: ({ page, url }) => ({
-        url: `/tv/${url}?api_key=${tmdbKey}&language=vi-VN&page=${page}`,
+        url: `/tv/${url}?api_key=${tmdbKey}&page=${page}`,
         method: "GET",
       }),
     }),
@@ -68,11 +68,20 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
     }),
 
      // Get All Movie
-     getMovieDetail: builder.query<RootObjectDetail, any>({
-      query: ({ id }) => ({
-        url: `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbKey}&language=vi-VN`,
+     getMovieOrTvDetail: builder.query<RootObjectDetail, any>({
+      query: ({ id, type }) => ({
+        url: `/${type}/${id}?append_to_response=videos,credits&api_key=${tmdbKey}&language=vi-VN`,
         method: "GET",
       }),
+    }),
+
+    // Get Videos Trailer
+    getVideoTrailers: builder.query<RootObjectDetail, any>({
+      query: ({ id, type }) => ({
+        url: `/${type}/${id}/videos?api_key=${tmdbKey}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { results: any }) => response.results,
     }),
 
      // Get Detail Collection
@@ -132,7 +141,7 @@ export const {
   useGetTrendingQuery,
   useGetTvQuery,
   useGetMoviesQuery,
-  useGetMovieDetailQuery,
+  useGetMovieOrTvDetailQuery,
   useGetListMoviesWithSearchQuery,
   useGetDetailCollectionQuery,
   useGetReviewQuery,
@@ -140,5 +149,6 @@ export const {
   useCreateRequestTokenQuery,
   useCreateSessionMutation,
   useCreateGuestSessionQuery,
-  useGetMovieQuery
+  useGetMovieQuery,
+  useGetVideoTrailersQuery
 } = movieApiSlice;

@@ -137,7 +137,7 @@ const MovieListPageTrending = ({ title }: Props) => {
             : data?.results.map(
                 (movie: Result, index: Key | null | undefined) =>
                   movie ? (
-                    <MoviesListCard key={movie.id} movie={movie} />
+                    <MoviesListCard key={movie.id} movie={movie} type="movie"/>
                   ) : (
                     <SkeletonMovieItem key={index} />
                   )

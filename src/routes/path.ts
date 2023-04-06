@@ -82,8 +82,8 @@ export const PATH_DASHBOARD = {
     list: path(ROOTS_DASHBOARD, "/e-commerce/list"),
     checkout: path(ROOTS_DASHBOARD, "/e-commerce/checkout"),
     new: path(ROOTS_DASHBOARD, "/e-commerce/product/new"),
-    view: (id: number) =>
-      path(ROOTS_DASHBOARD, `detail/movie/${id}`),
+    view: (id: number, type: string) =>
+      path(ROOTS_DASHBOARD, `detail/${type}/${id}`),
     edit: (name: string) =>
       path(ROOTS_DASHBOARD, `/e-commerce/product/${name}/edit`),
     demoEdit: path(

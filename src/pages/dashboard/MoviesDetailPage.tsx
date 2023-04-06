@@ -6,9 +6,12 @@ import React, { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { PATH_DASHBOARD } from "@/routes/path";
-import { useGetMovieDetailQuery, useGetReviewQuery } from "@/redux/apiStore";
+import {
+  useGetMovieOrTvDetailQuery,
+  useGetReviewQuery,
+} from "@/redux/apiStore";
 import Image from "@/components/image/Image";
-import { TMDB_IMAGE } from "@/utils/urlImage";
+import { TMDB_IMAGE, TMDB_IMAGE_W500 } from "@/utils/urlImage";
 import MovieDetailSummary from "../components/MovieDetailSummary";
 import MovieDetailsCarousel from "../components/MovieDetailsCarousel";
 import Markdown from "@/components/markdown/Markdown";
@@ -25,17 +28,16 @@ const MoviesDetailPage = () => {
 
   const { translate } = useLocales();
 
-  const { id } = useParams();
+  const { id, type } = useParams();
 
   const [currentTab, setCurrentTab] = useState<string>("description");
 
   const [page, setPage] = useState<number>(1);
 
-  const {
-    data: detailMovie,
-    isLoading,
-
-  } = useGetMovieDetailQuery({ id });
+  const { data: detailMovie, isLoading } = useGetMovieOrTvDetailQuery({
+    id,
+    type,
+  });
 
   const { data: reviewMovie, isFetching: reviewFetching } = useGetReviewQuery({
     id,
@@ -94,14 +96,17 @@ const MoviesDetailPage = () => {
               <Grid item xs={12} md={6} lg={7}>
                 <Image
                   alt={detailMovie?.title || detailMovie?.name}
-                  src={`${TMDB_IMAGE}${detailMovie?.backdrop_path}`}
+                  src={
+                    `${TMDB_IMAGE}${detailMovie?.backdrop_path}` ||
+                    `${TMDB_IMAGE_W500}${detailMovie?.poster_path}`
+                  }
                   ratio="1/1"
                   sx={{ borderRadius: 1.5, cursor: "zoom-in" }}
                 />
                 {/* <MovieDetailsCarousel id={detailMovie?.belongs_to_collection.id}/> */}
               </Grid>
               <Grid item xs={12} md={6} lg={5}>
-                <MovieDetailSummary movie={detailMovie} />
+                <MovieDetailSummary movie={detailMovie} type={type} />
               </Grid>
             </Grid>
 
@@ -135,11 +140,11 @@ const MoviesDetailPage = () => {
               )}
             </Card>
 
-            <MovieDetailsTopCast  detailMovie={detailMovie} />
+            <MovieDetailsTopCast detailMovie={detailMovie} />
           </>
         )}
 
-        {isLoading  && <SkeletonMovieDetails />}
+        {isLoading && <SkeletonMovieDetails />}
         <Favourite totalItems={favourite.length} />
       </Container>
     </>

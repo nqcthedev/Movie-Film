@@ -88,7 +88,7 @@ export default function Router() {
           path: "detail",
           children: [
             {
-              path: "movie/:id",
+              path: ":type/:id",
               element: <MoviesDetailPage />,
             },
           ],

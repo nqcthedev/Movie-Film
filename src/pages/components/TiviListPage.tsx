@@ -21,6 +21,7 @@ import useLocales from "@/locales/useLocales";
 type Props = {
   title: string;
   url: string;
+  type:string;
 };
 
 const style = {
@@ -31,7 +32,7 @@ const style = {
   "& > *": { my: 1 },
 } as const;
 
-const TiviListPage = ({ title, url }: Props) => {
+const TiviListPage = ({ title, url, type }: Props) => {
   const { translate } = useLocales();
   
   const { themeStretch } = useSettingsContext();
@@ -137,7 +138,7 @@ const TiviListPage = ({ title, url }: Props) => {
             : data?.results.map(
                 (movie: Result, index: Key | null | undefined) =>
                   movie ? (
-                    <MoviesListCard key={movie.id} movie={movie} />
+                    <MoviesListCard key={movie.id} movie={movie} type={type}/>
                   ) : (
                     <SkeletonMovieItem key={index} />
                   )

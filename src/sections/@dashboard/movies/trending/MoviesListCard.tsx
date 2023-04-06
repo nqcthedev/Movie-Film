@@ -130,12 +130,14 @@ const MoviesListCard = ({ movie, isFavourite }: Props) => {
           />
         </Fab>
 
-        <Image
-          alt={title || name}
-          src={`${TMDB_IMAGE}${backdrop_path}`}
-          ratio="3/4"
-          sx={{ borderRadius: 1.5 }}
-        />
+        <Link component={RouterLink} to={linkTo}>
+          <Image
+            alt={title || name}
+            src={`${TMDB_IMAGE}${backdrop_path}`}
+            ratio="3/4"
+            sx={{ borderRadius: 1.5 }}
+          />
+        </Link>
 
         <Stack spacing={2.5} sx={{ p: 2.8 }}>
           <Link

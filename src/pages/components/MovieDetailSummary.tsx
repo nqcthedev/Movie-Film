@@ -87,6 +87,9 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
   };
 
 
+  console.log(movie)
+
+
   return (
    <>
     <Stack
@@ -127,7 +130,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
               { name: `${movie?.runtime}min` },
               { name: `${movie?.release_date}` },
               {
-                name: `${movie?.production_countries[0].iso_3166_1}`,
+                name: `${movie?.production_countries[0]?.iso_3166_1}`,
               },
             ]}
           />
@@ -140,18 +143,18 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
             {`${translate("production")}`}:
           </Typography>
 
-          <Tooltip title={movie?.production_companies[0].name}>
+          <Tooltip title={movie?.production_companies[0]?.name}>
             <Image
-              alt={movie?.production_companies[0].name}
-              src={`${TMDB_IMAGE}${movie?.production_companies[0].logo_path}`}
+              alt={movie?.production_companies[0]?.name}
+              src={`${TMDB_IMAGE}${movie?.production_companies[0]?.logo_path}`}
               sx={{ borderRadius: 1.5, maxWidth: "95px" }}
             />
           </Tooltip>
 
-          <Tooltip title={movie?.production_companies[1].name}>
+          <Tooltip title={movie?.production_companies[1]?.name}>
             <Image
-              alt={movie?.production_companies[1].name}
-              src={`${TMDB_IMAGE}${movie?.production_companies[1].logo_path}`}
+              alt={movie?.production_companies[1]?.name}
+              src={`${TMDB_IMAGE}${movie?.production_companies[1]?.logo_path}`}
               sx={{ borderRadius: 1.5, maxWidth: "95px" }}
             />
           </Tooltip>
@@ -167,8 +170,8 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
             {`${translate("genres")}`}:
           </Typography>
           {movie?.genres.map((genre) => (
-            <Typography variant="body2" key={genre.id}>
-              {genre.name},
+            <Typography variant="body2" key={genre?.id}>
+              {genre?.name},
             </Typography>
           ))}
         </Stack>
@@ -234,7 +237,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
           }
         }}
       >
-        <DialogTitle id="alert-dialog-slide-title">{movie?.title} - Trailer</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{movie?.title || movie?.name} - Trailer</DialogTitle>
 
         <DialogContent>
         {movie?.videos?.results?.length > 0 && (

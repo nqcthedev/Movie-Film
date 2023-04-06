@@ -16,11 +16,12 @@ import MovieDetailsReview from "../components/MovieDetailsReview";
 import MovieDetailsTopCast from "../components/MovieDetailsTopCast";
 import Favourite from "@/sections/@dashboard/movies/Favourite";
 import { useSelector } from "@/redux/store";
+import SkeletonMovieDetails from "@/components/skeleton/SkeletonMovieDetail";
 
 const MoviesDetailPage = () => {
   const { themeStretch } = useSettingsContext();
 
-  const {favourite} = useSelector((state) => state.persisted);
+  const { favourite } = useSelector((state) => state.persisted);
 
   const { translate } = useLocales();
 
@@ -30,8 +31,11 @@ const MoviesDetailPage = () => {
 
   const [page, setPage] = useState<number>(1);
 
-  const { data: detailMovie, isFetching: detailFetching } =
-    useGetMovieDetailQuery({ id });
+  const {
+    data: detailMovie,
+    isLoading,
+
+  } = useGetMovieDetailQuery({ id });
 
   const { data: reviewMovie, isFetching: reviewFetching } = useGetReviewQuery({
     id,
@@ -130,12 +134,12 @@ const MoviesDetailPage = () => {
               )}
             </Card>
 
-            <MovieDetailsTopCast detailMovie={detailMovie} />
+            <MovieDetailsTopCast  detailMovie={detailMovie} />
           </>
         )}
 
+        {isLoading  && <SkeletonMovieDetails />}
         <Favourite totalItems={favourite.length} />
-
       </Container>
     </>
   );

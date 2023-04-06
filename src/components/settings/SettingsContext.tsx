@@ -60,7 +60,9 @@ export function SettingsProvider({children}: SettingsProviderProps) {
   const isArabic = langStorage === "ar";
 
   useEffect(() => {
-    isArabic && onChangeDirectionByLang("ar")
+    if (isArabic) {
+      onChangeDirectionByLang('ar');
+    }
   }, [isArabic])
 
   //Mode
@@ -129,6 +131,7 @@ export function SettingsProvider({children}: SettingsProviderProps) {
      onChangeLayout,
     // Color
     onChangeColorPresets,
+    onChangeDirectionByLang,
     presetsOption,
     presetsColor: getPresets(settings.themeColorPresets),
     // Stretch
@@ -145,6 +148,7 @@ export function SettingsProvider({children}: SettingsProviderProps) {
      onChangeLayout,
     // Color
     onChangeColorPresets,
+    onChangeDirectionByLang,
      // Stretch
      onToggleStretch,
     //Reset

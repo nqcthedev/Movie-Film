@@ -7,7 +7,16 @@ import Label from "@/components/label";
 import Image from "@/components/image";
 // routes
 import { PATH_DASHBOARD } from "@/routes/path";
-import { Box, Card, Fab, Link, Rating, Stack } from "@mui/material";
+import {
+  Box,
+  Card,
+  Checkbox,
+  Fab,
+  FormControlLabel,
+  Link,
+  Rating,
+  Stack,
+} from "@mui/material";
 import { TMDB_IMAGE } from "@/utils/urlImage";
 import { useDispatch, useSelector } from "@/redux/store";
 import { addToFavourite, deleteMovie } from "@/redux/slices/movie";
@@ -27,47 +36,74 @@ const MoviesListCard = ({ movie, isFavourite }: Props) => {
 
   const [isId, setIsId] = useState<boolean>(false);
 
+  const [checked, setChecked] = useState<boolean>(false);
+
   const dispatch = useDispatch();
 
   const { enqueueSnackbar } = useSnackbar();
 
   const linkTo = PATH_DASHBOARD.detail.view(id);
 
-  const handleAddFavourite = async () => {
-    try {
-      if (isId === true && !isFavourite) {
-        return enqueueSnackbar("Phim đã tồn tại trong danh sách yêu thích", {
-          variant: "warning",
-        });
-      } else if (!isFavourite) {
-        const movieFavourite = {
-          id,
-          name,
-          title,
-          backdrop_path,
-          vote_average,
-          popularity,
-        };
-        dispatch(addToFavourite(movieFavourite));
-        return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
-          variant: "success",
-        });
-      } else if (isFavourite) {
-        dispatch(deleteMovie(id));
-        return enqueueSnackbar("Đã xoá phim khỏi danh sách", {
-          variant: "success",
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleAddFavourite = async () => {
+  //   setChecked(true)
+  //   try {
+  //     if (isId === true && !isFavourite) {
+  //       return enqueueSnackbar("Phim đã tồn tại trong danh sách yêu thích", {
+  //         variant: "warning",
+  //       });
+  //     } else if (!isFavourite) {
+  //       const movieFavourite = {
+  //         id,
+  //         name,
+  //         title,
+  //         backdrop_path,
+  //         vote_average,
+  //         popularity,
+  //       };
+  //       dispatch(addToFavourite(movieFavourite));
+  //       return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+  //         variant: "success",
+  //       });
+  //     } else if (isFavourite) {
+  //       dispatch(deleteMovie(id));
+  //       return enqueueSnackbar("Đã xoá phim khỏi danh sách", {
+  //         variant: "error",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const randomIndex = useMemo(() => {
     return Math.floor(Math.random() * 3);
   }, []);
 
   const status = randomIndex >= 1 ? "Hot" : "New";
+
+  const handleLike = () => {
+    setIsId(true);
+    const movieFavourite = {
+      id: movie.id,
+      name: movie.name,
+      title: movie.title,
+      backdrop_path: movie.backdrop_path,
+      vote_average: movie.vote_average,
+      popularity: movie.popularity,
+    };
+    dispatch(addToFavourite(movieFavourite));
+    return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+      variant: "success",
+    });
+  };
+
+  const handleUnlike = () => {
+    setIsId(false);
+    dispatch(deleteMovie(movie?.id));
+    return enqueueSnackbar("Đã xoá phim khỏi danh sách", {
+      variant: "error",
+    });
+  };
 
   useEffect(() => {
     favourite.forEach((fav: any) => {
@@ -106,7 +142,7 @@ const MoviesListCard = ({ movie, isFavourite }: Props) => {
           color="error"
           size="medium"
           className="add-favourite-btn"
-          onClick={handleAddFavourite}
+          // onClick={handleAddFavourite}
           sx={{
             right: 16,
             bottom: 16,
@@ -121,12 +157,20 @@ const MoviesListCard = ({ movie, isFavourite }: Props) => {
               }),
           }}
         >
-          <Iconify
-            icon={
-              !isFavourite
-                ? "mdi:favourite"
-                : "solar:trash-bin-minimalistic-broken"
+          <FormControlLabel
+            sx={{ mr: -1.2 }}
+            control={
+              <Checkbox
+                color="error"
+                checked={isId}
+                icon={<Iconify color="white" icon="eva:heart-fill" />}
+                checkedIcon={
+                  <Iconify color="white" icon="solar:trash-bin-minimalistic-broken" />
+                }
+                onChange={isId ? handleUnlike : handleLike}
+              />
             }
+            label=""
           />
         </Fab>
 

@@ -5,6 +5,7 @@ import Label from "@/components/label";
 import Iconify from "@/components/iconify";
 import SvgColor from "@/components/svg-color";
 import { useSelector } from "@/redux/store";
+import LabelNotification from "./LabelNotification";
 
 // ----------------------------------------------------------------------
 
@@ -101,7 +102,7 @@ const navConfig = [
         title: "favorit",
         path: PATH_DASHBOARD.favourite,
         icon: ICONS.favorite,
-        info: <Label color="error">32+</Label>,
+        info: <LabelNotification/>,
       },
     ],
   },

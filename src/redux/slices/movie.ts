@@ -31,6 +31,7 @@ const slice = createSlice({
           if (isExisted) {
             return {
               ...movie,
+              
             };
           }
 

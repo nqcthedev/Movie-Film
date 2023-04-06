@@ -57,13 +57,6 @@ export const _socials = [
     path: 'https://www.instagram.com/caitlyn.kerluke',
   },
   {
-    value: 'favourite',
-    name: 'Add Favourite',
-    icon: 'mdi:favourite',
-    color: '#E02D69',
-    path: 'https://www.linkedin.com/caitlyn.kerluke',
-  },
-  {
     value: 'watchlist',
     name: 'Add Watchlist',
     icon: 'material-symbols:list-alt-add',

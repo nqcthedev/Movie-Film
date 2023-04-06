@@ -47,6 +47,8 @@ const en = {
   reviewSuccess:"Review success!",
   hideAway:"Hide Away",
   topCast:"Top Cast",
+  detail:"Detail",
+  watchMovie:"Watch Movie",
   cards: `cards`,
   posts: `posts`,
   create: `create`,

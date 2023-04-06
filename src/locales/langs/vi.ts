@@ -41,6 +41,8 @@ const vi = {
   hideAway:"Ẩn bớt",
   topCast:"Diễn viên hàng đầu",
   favourite:"Yêu thích",
+  detail:"Chi tiết",
+  watchMovie:"Xem phim",
   chat: `trò chuyện`,
   cards: `thẻ`,
   posts: `danh sách bài viết`,

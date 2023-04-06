@@ -47,7 +47,7 @@ const FavouritePage = () => {
           {favourite?.map(
             (movie: Result, index: Key) =>
               movie && (
-                <MoviesListCard key={movie.id} movie={movie} isFavourite />
+                <MoviesListCard key={movie.id} movie={movie}  />
               )
           )}
         </Box>

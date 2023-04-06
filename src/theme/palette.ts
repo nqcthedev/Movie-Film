@@ -1,3 +1,4 @@
+
 import { alpha } from "@mui/material/styles";
 
 
@@ -122,7 +123,7 @@ export default function palette(themeMode: "light" | "dark") {
     },
     background: {
       paper:"#FFFFFF",
-      default:"#FFFFFF",
+      default:GREY[100],
       neutral:GREY[200],
       action:{
         ...COMMON.action,

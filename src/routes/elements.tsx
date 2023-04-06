@@ -35,6 +35,7 @@ export const TVTopPopularPage = Loadable(lazy(() => import('@/pages/dashboard/TV
 export const MoviesDetailPage = Loadable(lazy(() => import('@/pages/dashboard/MoviesDetailPage')));
 export const FavouritePage = Loadable(lazy(() => import('@/pages/dashboard/FavouritePage')));
 export const WatchListPage = Loadable(lazy(() => import('@/pages/dashboard/WatchListPage')));
+export const WatchMoviePage = Loadable(lazy(() => import('@/pages/dashboard/WatchMoviePage')));
 
 
 

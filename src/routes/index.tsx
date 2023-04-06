@@ -21,6 +21,7 @@ import {
   MoviesDetailPage,
   FavouritePage,
   WatchListPage,
+  WatchMoviePage,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
@@ -89,6 +90,15 @@ export default function Router() {
             {
               path: "movie/:id",
               element: <MoviesDetailPage />,
+            },
+          ],
+        },
+        {
+          path: "watch",
+          children: [
+            {
+              path: "movie/:id",
+              element: <WatchMoviePage />,
             },
           ],
         },

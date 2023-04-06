@@ -33,6 +33,15 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
       }),
     }),
 
+    // Get a Movie
+    getMovie: builder.query<RootObject, any>({
+      query: ({id }) => ({
+        url: `/movie/${id}?api_key=${tmdbKey}&language=vi-VN`,
+        method: "GET",
+      }),
+    }),
+
+
     // Get TV Airing Today
     getTv: builder.query<RootObject, any>({
       query: ({ page, url }) => ({
@@ -130,5 +139,6 @@ export const {
   usePostRatingMutation,
   useCreateRequestTokenQuery,
   useCreateSessionMutation,
-  useCreateGuestSessionQuery
+  useCreateGuestSessionQuery,
+  useGetMovieQuery
 } = movieApiSlice;

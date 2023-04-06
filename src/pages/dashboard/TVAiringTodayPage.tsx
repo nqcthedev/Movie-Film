@@ -10,7 +10,7 @@ const TVAiringTodayPage = () => {
   return (
     <>
     <Helmet>
-      <title> Movie: TV Airing To Day Page</title>
+      <title> Movie: TV Airing To Day | 4K Movie</title>
     </Helmet>
 
     <TiviListPage title={`${translate('airingToday')}`} url="airing_today" />

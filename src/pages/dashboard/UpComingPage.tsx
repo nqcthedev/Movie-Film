@@ -6,7 +6,7 @@ const UpComingPage = () => {
   return (
     <>
       <Helmet>
-        <title> Movie: Up Coming Page</title>
+        <title> Movie: Up Coming | 4K Movie</title>
       </Helmet>
 
       <MovieListPage title="Up Coming" url="upcoming" />

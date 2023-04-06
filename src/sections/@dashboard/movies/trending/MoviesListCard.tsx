@@ -26,17 +26,14 @@ import { useSnackbar } from "@/components/snackbar";
 
 type Props = {
   movie: Result;
-  isFavourite?: boolean;
 };
 
-const MoviesListCard = ({ movie, isFavourite }: Props) => {
+const MoviesListCard = ({ movie }: Props) => {
   const { id, name, title, backdrop_path, vote_average, popularity } = movie;
 
   const { favourite } = useSelector((state) => state.persisted);
 
   const [isId, setIsId] = useState<boolean>(false);
-
-  const [checked, setChecked] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -44,36 +41,6 @@ const MoviesListCard = ({ movie, isFavourite }: Props) => {
 
   const linkTo = PATH_DASHBOARD.detail.view(id);
 
-  // const handleAddFavourite = async () => {
-  //   setChecked(true)
-  //   try {
-  //     if (isId === true && !isFavourite) {
-  //       return enqueueSnackbar("Phim đã tồn tại trong danh sách yêu thích", {
-  //         variant: "warning",
-  //       });
-  //     } else if (!isFavourite) {
-  //       const movieFavourite = {
-  //         id,
-  //         name,
-  //         title,
-  //         backdrop_path,
-  //         vote_average,
-  //         popularity,
-  //       };
-  //       dispatch(addToFavourite(movieFavourite));
-  //       return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
-  //         variant: "success",
-  //       });
-  //     } else if (isFavourite) {
-  //       dispatch(deleteMovie(id));
-  //       return enqueueSnackbar("Đã xoá phim khỏi danh sách", {
-  //         variant: "error",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const randomIndex = useMemo(() => {
     return Math.floor(Math.random() * 3);

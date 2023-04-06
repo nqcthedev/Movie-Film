@@ -10,7 +10,7 @@ const TVPopular = () => {
   return (
     <>
     <Helmet>
-      <title> Movie: TV Popular Page</title>
+      <title> Movie: TV Popular | 4K Movie</title>
     </Helmet>
 
     <TiviListPage title={`${translate('tvPopular')}`} url="popular" />

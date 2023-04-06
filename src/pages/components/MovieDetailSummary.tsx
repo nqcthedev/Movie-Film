@@ -16,6 +16,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  Link,
 } from "@mui/material";
 import React, { forwardRef, useEffect, useState } from "react";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
@@ -30,6 +31,8 @@ import { TransitionProps } from "@mui/material/transitions";
 import { addToFavourite, deleteMovie } from "@/redux/slices/movie";
 import { useDispatch, useSelector } from "@/redux/store";
 import { useSnackbar } from "@/components/snackbar";
+import { PATH_DASHBOARD } from "@/routes/path";
+import { Link as RouterLink } from "react-router-dom";
 
 // ---------------------------------------------------------------------------------------------
 
@@ -51,7 +54,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
 
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
 
-  const {favourite } = useSelector((state) => state.persisted);
+  const { favourite } = useSelector((state) => state.persisted);
 
   const [isId, setIsId] = useState<boolean>(false);
 
@@ -67,7 +70,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
     setOpenTrailer(false);
   };
 
-  const handleWatchMovie = () => {};
+  const linkTo = PATH_DASHBOARD.watchMovie(movie?.id);
 
   const handleNavigate = (event: any, path: any) => {
     event.preventDefault();
@@ -77,7 +80,6 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
       window.open(`https://www.imdb.com/title/${movie?.imdb_id}`, "_blank");
     }
   };
-
 
   const handleLike = () => {
     setIsId(true);
@@ -200,17 +202,18 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
           <Divider sx={{ borderStyle: "dashed" }} />
 
           <Stack direction="row" spacing={2}>
-            <Button
-              fullWidth
-              size="large"
-              color="warning"
-              variant="contained"
-              startIcon={<Iconify icon="ic:baseline-play-circle-outline" />}
-              onClick={handleWatchMovie}
-              sx={{ whiteSpace: "nowrap" }}
-            >
-              {`${translate("watchNow")}`}
-            </Button>
+            <Link underline="none" component={RouterLink} to={linkTo}>
+              <Button
+                fullWidth
+                size="large"
+                color="warning"
+                variant="contained"
+                startIcon={<Iconify icon="ic:baseline-play-circle-outline" />}
+                sx={{ whiteSpace: "nowrap" }}
+              >
+                {`${translate("watchNow")}`}
+              </Button>
+            </Link>
 
             <Button
               fullWidth
@@ -283,7 +286,7 @@ const MovieDetailSummary = ({ movie, ...other }: Props) => {
               src={`https://www.youtube.com/embed/${movie.videos.results[0].key}`}
               allow="autoplay"
               allowFullScreen
-              style={{ width: "100%", height: "100%", borderRadius: "16px" }}
+              style={{ width: "100%", height: "100%", borderRadius: "16px", overflow: "hidden" }}
             />
           )}
         </DialogContent>

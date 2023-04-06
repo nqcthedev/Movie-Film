@@ -80,6 +80,7 @@ const MoviesDetailPage = () => {
           heading={`${translate("movieDetail")}`}
           links={[
             { name: `${translate("home")}`, href: PATH_DASHBOARD.root },
+            { name: `${translate("detail")}` },
             {
               name: `${translate("movie")}`,
             },

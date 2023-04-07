@@ -51,9 +51,9 @@ const Transition = forwardRef(
   ) => <Slide direction="up" ref={ref} {...props} />
 );
 
-const MovieDetailSummary = ({ movie,type, ...other }: Props) => {
+const MovieDetailSummary = ({ movie, type, ...other }: Props) => {
   const { id } = movie;
-  
+
   const { translate } = useLocales();
 
   const { data, isLoading } = useGetVideoTrailersQuery({ id, type });
@@ -76,7 +76,7 @@ const MovieDetailSummary = ({ movie,type, ...other }: Props) => {
     setOpenTrailer(false);
   };
 
-  const linkTo = PATH_DASHBOARD.watchMovie(movie?.id);
+  const linkTo = PATH_DASHBOARD.watchMovie(movie?.id, type);
 
   const handleNavigate = (event: any, path: any) => {
     event.preventDefault();
@@ -119,6 +119,15 @@ const MovieDetailSummary = ({ movie,type, ...other }: Props) => {
     });
   }, [favourite, movie]);
 
+  console.log(movie);
+
+  const renderTime = () => {
+    if(type === "tv") {
+      return `Season ${movie?.number_of_seasons} / ${movie?.number_of_episodes} tập`
+    } else {
+      return `${movie?.runtime} min`
+    }
+  }
   return (
     <>
       <Stack
@@ -156,10 +165,10 @@ const MovieDetailSummary = ({ movie,type, ...other }: Props) => {
             <CustomBreadcrumbs
               sx={{ mb: 0 }}
               links={[
-                { name: `${movie?.runtime}min` },
-                { name: `${movie?.release_date}` },
+                { name: `${movie?.release_date || movie?.last_air_date}` },
+                { name: renderTime() },
                 {
-                  name: `${movie?.production_countries[0]?.iso_3166_1}`,
+                  name: `${movie?.production_countries[0].name || movie?.production_companies[0].name  || movie?.origin_country[0]   }`,
                 },
               ]}
             />
@@ -289,7 +298,9 @@ const MovieDetailSummary = ({ movie,type, ...other }: Props) => {
             <iframe
               frameBorder="0"
               title="Trailer"
-              src={`https://www.youtube.com/embed/${data[0]?.key || data[1]?.key}`}
+              src={`https://www.youtube.com/embed/${
+                data[0]?.key || data[1]?.key
+              }`}
               allow="autoplay"
               allowFullScreen
               style={{

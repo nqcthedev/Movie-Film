@@ -34,9 +34,18 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
     }),
 
     // Get a Movie
-    getMovie: builder.query<RootObject, any>({
-      query: ({id }) => ({
-        url: `/movie/${id}?api_key=${tmdbKey}&language=vi-VN`,
+    getMovieAndTv: builder.query<RootObject, any>({
+      query: ({id, type }) => ({
+        url: `/${type}/${id}?api_key=${tmdbKey}&language=vi-VN`,
+        method: "GET",
+      }),
+    }),
+
+
+    // Get SeasonTv
+    getSeasonTv: builder.query<any, any>({
+      query: ({payload}) => ({
+        url: `/tv/${payload.id}/season/${payload.season}?api_key=${tmdbKey}`,
         method: "GET",
       }),
     }),
@@ -149,6 +158,7 @@ export const {
   useCreateRequestTokenQuery,
   useCreateSessionMutation,
   useCreateGuestSessionQuery,
-  useGetMovieQuery,
-  useGetVideoTrailersQuery
+  useGetMovieAndTvQuery,
+  useGetVideoTrailersQuery,
+  useGetSeasonTvQuery
 } = movieApiSlice;

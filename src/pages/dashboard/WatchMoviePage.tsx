@@ -1,4 +1,3 @@
-import { useSettingsContext } from "@/components/settings";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
@@ -13,12 +12,14 @@ import {
   FormControlLabel,
   Checkbox,
   IconButton,
+  CardHeader,
+  CardContent,
 } from "@mui/material";
 import { PATH_DASHBOARD } from "@/routes/path";
 import useLocales from "@/locales/useLocales";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { useParams } from "react-router-dom";
-import { useGetMovieQuery } from "@/redux/apiStore";
+import { useGetMovieAndTvQuery, useGetSeasonTvQuery } from "@/redux/apiStore";
 import Label from "@/components/label/Label";
 import { sentenceCase } from "change-case";
 import { fShortenNumber } from "@/utils/formatNumber";
@@ -30,16 +31,38 @@ import { useSnackbar } from "@/components/snackbar";
 import { addToFavourite, deleteMovie } from "@/redux/slices/movie";
 import ForwardedTooltip from "@/components/tool-tip-custom/TooltipCustom";
 import Iconify from "@/components/iconify/Iconify";
+import CarouselCenterMode from "@/components/carousel/CarouselCenterMode";
+import { useSettingsContext } from "@/components/settings";
 
 // ------------------------------------------------------------------------
 
 const WatchMoviePage = () => {
-
   const { translate } = useLocales();
 
-  const { id } = useParams();
+  const { id, type } = useParams();
 
-  const { data, isLoading } = useGetMovieQuery({ id });
+  const { data, isLoading } = useGetMovieAndTvQuery({ id, type });
+
+  const { themeStretch } = useSettingsContext();
+
+  // const [payload, setPayload] = useState<any>({
+  //   id:null,
+  //   season:null
+  // })
+
+  // useEffect(() => {
+  //   if(type === "tv") {
+  //     setPayload({
+  //       id:id,
+  //       season:data?.number_of_seasons,
+  //       // esp:
+  //     })
+  //   }
+  // }, [data, id, type])
+
+  // const {data:seasonTv, isLoading: seasonLoading} = useGetSeasonTvQuery({payload})
+
+  // console.log("dataTv", seasonTv)
 
   const { favourite } = useSelector((state) => state.persisted);
 
@@ -90,13 +113,23 @@ const WatchMoviePage = () => {
     });
   }, [favourite, data]);
 
+  console.log("detail", data);
+
+  const renderTime = () => {
+    if (type === "tv") {
+      return `Season ${data?.number_of_seasons} / ${data?.number_of_episodes} tập`;
+    } else {
+      return `${data?.runtime} min`;
+    }
+  };
+
   return (
     <>
       <Helmet>
         <title>{`Movie: Watch ${data?.title} | 4K Movie`}</title>
       </Helmet>
 
-      <Container maxWidth={false}>
+      <Container maxWidth={themeStretch ? false : "lg"}>
         <CustomBreadcrumbs
           heading={`${translate("watchMovie")}`}
           links={[
@@ -132,7 +165,7 @@ const WatchMoviePage = () => {
           />
         </Card>
 
-        <Grid container spacing={6} my={10}>
+        <Grid container spacing={4} my={10} justifyContent={"space-between"}>
           <Grid item xs={12} md={6} lg={7}>
             <Stack spacing={3}>
               <Label
@@ -168,10 +201,15 @@ const WatchMoviePage = () => {
                 <CustomBreadcrumbs
                   sx={{ mb: 0 }}
                   links={[
-                    { name: `${data?.runtime}min` },
-                    { name: `${data?.release_date}` },
+                    { name: data?.release_date || data?.first_air_date },
                     {
-                      name: `${data?.production_countries[0]?.iso_3166_1}`,
+                      name: renderTime(),
+                    },
+                    {
+                      name: `${
+                        data?.production_countries[0]?.name ||
+                        data?.origin_country[0]
+                      }`,
                     },
                   ]}
                 />
@@ -181,7 +219,7 @@ const WatchMoviePage = () => {
             </Stack>
           </Grid>
           <Divider
-            sx={{ borderStyle: "dashed" }}
+            sx={{ borderStyle: "dashed", display: { xs: "none", lg: "block" } }}
             orientation="vertical"
             flexItem
           />
@@ -267,6 +305,16 @@ const WatchMoviePage = () => {
             </Stack>
           </Grid>
         </Grid>
+
+        <Card>
+          <CardHeader
+            title="Carousel Center Mode"
+            subheader="Customs shape & icon button"
+          />
+          <CardContent>
+            <CarouselCenterMode data={data} />
+          </CardContent>
+        </Card>
       </Container>
     </>
   );

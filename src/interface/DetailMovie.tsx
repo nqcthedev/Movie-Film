@@ -1,4 +1,10 @@
 export interface RootObjectDetail {
+  number_of_episodes: any;
+  number_of_seasons: any;
+  origin_country: any;
+  episode_run_time: any;
+  first_air_date: any;
+  last_air_date: any;
   name: any;
   videos: any;
   credits: any;

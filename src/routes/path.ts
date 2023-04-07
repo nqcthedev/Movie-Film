@@ -56,7 +56,7 @@ export const PATH_DASHBOARD = {
   },
   favourite:path(ROOTS_DASHBOARD, "favourite"),
   watchList:path(ROOTS_DASHBOARD, "watch-list"),
-  watchMovie:(id:number) => path(ROOTS_DASHBOARD, `watch/movie/${id}`),
+  watchMovie:(id:number, type: string) => path(ROOTS_DASHBOARD, `watch/${type}/${id}`),
   mail: {
     root: path(ROOTS_DASHBOARD, "/mail"),
     all: path(ROOTS_DASHBOARD, "/mail/all"),

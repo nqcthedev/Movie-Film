@@ -97,7 +97,7 @@ export default function Router() {
           path: "watch",
           children: [
             {
-              path: "movie/:id",
+              path: ":type/:id",
               element: <WatchMoviePage />,
             },
           ],

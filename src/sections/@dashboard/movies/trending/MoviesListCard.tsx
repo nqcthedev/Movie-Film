@@ -30,7 +30,7 @@ type Props = {
 };
 
 const MoviesListCard = ({ movie, type }: Props) => {
-  const { id, name, title, backdrop_path, vote_average, popularity } = movie;
+  const { id, name, title, backdrop_path, vote_average, popularity, poster_path } = movie;
 
   const { favourite } = useSelector((state) => state.persisted);
 
@@ -57,7 +57,7 @@ const MoviesListCard = ({ movie, type }: Props) => {
       id: movie.id,
       name: movie.name,
       title: movie.title,
-      backdrop_path: movie.backdrop_path,
+      poster_path: movie.poster_path,
       vote_average: movie.vote_average,
       popularity: movie.popularity,
     };
@@ -112,7 +112,6 @@ const MoviesListCard = ({ movie, type }: Props) => {
           color="error"
           size="medium"
           className="add-favourite-btn"
-          // onClick={handleAddFavourite}
           sx={{
             right: 16,
             bottom: 16,
@@ -147,7 +146,7 @@ const MoviesListCard = ({ movie, type }: Props) => {
         <Link component={RouterLink} to={linkTo}>
           <Image
             alt={title || name}
-            src={`${TMDB_IMAGE}${backdrop_path}`}
+            src={`${TMDB_IMAGE}${poster_path}`}
             ratio="3/4"
             sx={{ borderRadius: 1.5 }}
           />

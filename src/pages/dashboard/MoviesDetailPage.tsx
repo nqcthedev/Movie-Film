@@ -140,7 +140,7 @@ const MoviesDetailPage = () => {
               )}
             </Card>
 
-            <MovieDetailsTopCast detailMovie={detailMovie} />
+            <MovieDetailsTopCast detailMovie={detailMovie} type={type}/>
           </>
         )}
 

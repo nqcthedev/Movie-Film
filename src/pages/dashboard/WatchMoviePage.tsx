@@ -306,7 +306,8 @@ const WatchMoviePage = () => {
           </Grid>
         </Grid>
 
-        <Card>
+        {type === "tv" && (
+          <Card>
           <CardHeader
             title="Carousel Center Mode"
             subheader="Customs shape & icon button"
@@ -315,6 +316,7 @@ const WatchMoviePage = () => {
             <CarouselCenterMode data={data} />
           </CardContent>
         </Card>
+        )}
       </Container>
     </>
   );

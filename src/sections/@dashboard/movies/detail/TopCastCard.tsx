@@ -10,12 +10,13 @@ import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
   cast: any;
+  type: string
 };
 
-const TopCastCard = ({ cast }: Props) => {
+const TopCastCard = ({ cast, type }: Props) => {
   
 
-  const linkTo = PATH_DASHBOARD.detail.view(cast?.id);
+  const linkTo = PATH_DASHBOARD.detail.view(cast?.id, type);
 
   return (
     <Card>

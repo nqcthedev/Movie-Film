@@ -64,3 +64,28 @@ export const _socials = [
     path: 'https://www.twitter.com/caitlyn.kerluke',
   },
 ];
+
+
+
+export const _iconComment = [
+  {
+    value: 'smile',
+    name: 'Chèn 1 biểu tưởng cảm xúc',
+    icon: 'bi:emoji-smile',
+  },
+  {
+    value: 'checkin',
+    name: 'Đính kèm một ảnh hoặc video',
+    icon: 'streamline:image-camera-1-photos-picture-camera-photography-photo-pictures',
+  },
+  {
+    value: 'gif',
+    name: 'Bình luận bằng file GIF',
+    icon: 'heroicons:gif',
+  },
+  {
+    value:"sticker",
+    name:"Bình luận bằng nhãn dán",
+    icon:"mdi:sticker-emoji"
+  }
+];

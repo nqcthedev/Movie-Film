@@ -60,6 +60,7 @@ const MoviesListCard = ({ movie, type }: Props) => {
       poster_path: movie.poster_path,
       vote_average: movie.vote_average,
       popularity: movie.popularity,
+      type:type
     };
     dispatch(addToFavourite(movieFavourite));
     return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {

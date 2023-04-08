@@ -82,8 +82,8 @@ const firebaseApp = initializeApp(FIREBASE_API);
 
 export const AUTH = getAuth(firebaseApp);
 
-const DB = getFirestore(firebaseApp);
-
+export const DB = getFirestore(firebaseApp);
+ 
 const GOOGLE_PROVIDER = new GoogleAuthProvider();
 
 const GITHUB_PROVIDER = new GithubAuthProvider();
@@ -137,6 +137,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     initialize();
   }, [initialize]);
+
+
+  
 
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {

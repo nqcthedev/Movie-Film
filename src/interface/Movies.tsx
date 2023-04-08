@@ -19,6 +19,7 @@ export interface RootObject {
  }
  
  export interface Result {
+  type: string;
   adult:             boolean;
   backdrop_path:     string;
   genre_ids:         number[];

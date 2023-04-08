@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   Container,
@@ -14,6 +14,8 @@ import {
   IconButton,
   CardHeader,
   CardContent,
+  Box,
+  Pagination,
 } from "@mui/material";
 import { PATH_DASHBOARD } from "@/routes/path";
 import useLocales from "@/locales/useLocales";
@@ -33,6 +35,10 @@ import ForwardedTooltip from "@/components/tool-tip-custom/TooltipCustom";
 import Iconify from "@/components/iconify/Iconify";
 import CarouselCenterMode from "@/components/carousel/CarouselCenterMode";
 import { useSettingsContext } from "@/components/settings";
+import MoviePostTags from "@/sections/@dashboard/filter/MoviePostTags";
+import MoviePostCommentForm from "@/sections/@dashboard/watch-movie/comment/MoviePostCommentForm";
+import useFireStore from "@/hooks/useFireStore";
+import MoviePostCommentList from "@/sections/@dashboard/watch-movie/comment/MoviePostCommentList";
 
 // ------------------------------------------------------------------------
 
@@ -123,6 +129,19 @@ const WatchMoviePage = () => {
     }
   };
 
+  const conditional = useMemo(
+    () => ({
+      fieldName: "movieId",
+      operator: "==",
+      compareValue: id,
+    }),
+    [id]
+  );
+
+  const { document } = useFireStore("comments", conditional);
+
+  console.log("document", document);
+
   return (
     <>
       <Helmet>
@@ -141,182 +160,247 @@ const WatchMoviePage = () => {
             { name: data?.title },
           ]}
         />
-
-        <Card
+        <Stack
           sx={{
-            position: "relative",
-            paddingBottom: { xs: "100%", md: "75%", lg: "56.25%" },
-            height: 0,
-            overflow: "hidden",
+            borderRadius: 2,
+            boxShadow: (theme) => ({
+              md: theme.customShadows.card,
+            }),
           }}
         >
-          <iframe
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
+          <Box
+            sx={{
+              position: "relative",
+              paddingBottom: { xs: "100%", md: "75%", lg: "56.25%" },
+              height: 0,
+              overflow: "hidden",
+              borderRadius: {
+                xs: `16px 16px 16px 16px`,
+                md: `16px 16px 0 0`,
+              },
             }}
-            src={`https://www.2embed.to/embed/tmdb/movie?id=${id}`}
-            title="Movie player"
-            frameBorder="0"
-            allowFullScreen
-          />
-        </Card>
+          >
+            <iframe
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+              src={`https://www.2embed.to/embed/tmdb/movie?id=${id}`}
+              title="Movie player"
+              frameBorder="0"
+              allowFullScreen
+            />
+          </Box>
 
-        <Grid container spacing={4} my={10} justifyContent={"space-between"}>
-          <Grid item xs={12} md={6} lg={7}>
-            <Stack spacing={3}>
-              <Label
-                variant="soft"
-                color={data?.status === "Released" ? "success" : "error"}
-                sx={{ textTransform: "uppercase", mr: "auto" }}
-              >
-                {sentenceCase(data?.status || "")}
-              </Label>
+          {data && (
+            <Grid
+              container
+              sx={{ px: { xs: 1.5, md: 3 } }}
+              my={10}
+              justifyContent={"space-between"}
+            >
+              <Grid item xs={12} md={6} lg={7}>
+                <Stack spacing={3}>
+                  <Label
+                    variant="soft"
+                    color={data?.status === "Released" ? "success" : "error"}
+                    sx={{ textTransform: "uppercase", mr: "auto" }}
+                  >
+                    {sentenceCase(data?.status || "")}
+                  </Label>
 
-              <Typography variant="h4">{data?.title || data?.name}</Typography>
-
-              {data?.tagline && (
-                <Typography variant="body1" fontStyle="italic">
-                  {data?.tagline}
-                </Typography>
-              )}
-
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <Rating
-                  value={data?.vote_average / 2}
-                  precision={0.1}
-                  readOnly
-                />
-
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  ({fShortenNumber(data?.popularity)}
-                  reviews)
-                </Typography>
-              </Stack>
-
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <CustomBreadcrumbs
-                  sx={{ mb: 0 }}
-                  links={[
-                    { name: data?.release_date || data?.first_air_date },
-                    {
-                      name: renderTime(),
-                    },
-                    {
-                      name: `${
-                        data?.production_countries[0]?.name ||
-                        data?.origin_country[0]
-                      }`,
-                    },
-                  ]}
-                />
-              </Stack>
-
-              <Typography>{data?.overview}</Typography>
-            </Stack>
-          </Grid>
-          <Divider
-            sx={{ borderStyle: "dashed", display: { xs: "none", lg: "block" } }}
-            orientation="vertical"
-            flexItem
-          />
-          <Grid item xs={12} md={6} lg={4}>
-            <Stack spacing={3}>
-              <Stack
-                spacing={2}
-                direction="row"
-                alignItems="flex-start"
-                justifyContent="flex-start"
-              >
-                <ForwardedTooltip
-                  title={!isId ? "Add Favourite" : "Remove Favourite"}
-                >
-                  <FormControlLabel
-                    sx={{ mr: 0 }}
-                    control={
-                      <Checkbox
-                        color="error"
-                        checked={isId}
-                        icon={<Iconify icon="eva:heart-fill" />}
-                        checkedIcon={<Iconify icon="eva:heart-fill" />}
-                        onChange={isId ? handleUnlike : handleLike}
-                      />
-                    }
-                    label=""
-                  />
-                </ForwardedTooltip>
-                {_socials.map((social) => (
-                  <ForwardedTooltip key={social.value} title={social.name}>
-                    <IconButton
-                      onClick={(event) => handleNavigate(event, social)}
-                    >
-                      <Iconify icon={social.icon} color={social.color} />
-                    </IconButton>
-                  </ForwardedTooltip>
-                ))}
-              </Stack>
-
-              <Stack direction="row" alignItems="center" spacing={3}>
-                <Typography
-                  variant="body1"
-                  sx={{ fontWeight: "fontWeightMedium" }}
-                >
-                  {`${translate("production")}`}:
-                </Typography>
-
-                <Tooltip title={data?.production_companies[0]?.name}>
-                  <Image
-                    alt={data?.production_companies[0]?.name}
-                    src={`${TMDB_IMAGE}${data?.production_companies[0]?.logo_path}`}
-                    sx={{ borderRadius: 1.5, maxWidth: "95px" }}
-                  />
-                </Tooltip>
-
-                <Tooltip title={data?.production_companies[1]?.name}>
-                  <Image
-                    alt={data?.production_companies[1]?.name}
-                    src={`${TMDB_IMAGE}${data?.production_companies[1]?.logo_path}`}
-                    sx={{ borderRadius: 1.5, maxWidth: "95px" }}
-                  />
-                </Tooltip>
-              </Stack>
-
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={1}
-                flexWrap={"wrap"}
-              >
-                <Typography
-                  variant="body1"
-                  sx={{ fontWeight: "fontWeightMedium" }}
-                >
-                  {`${translate("genres")}`}:
-                </Typography>
-                {data?.genres.map((genre: any) => (
-                  <Typography variant="body2" key={genre?.id}>
-                    {genre?.name},
+                  <Typography variant="h4">
+                    {data?.title || data?.name}
                   </Typography>
-                ))}
-              </Stack>
-            </Stack>
-          </Grid>
-        </Grid>
 
-        {type === "tv" && (
-          <Card>
-          <CardHeader
-            title="Carousel Center Mode"
-            subheader="Customs shape & icon button"
-          />
-          <CardContent>
-            <CarouselCenterMode data={data} />
-          </CardContent>
-        </Card>
-        )}
+                  {data?.tagline && (
+                    <Typography variant="body1" fontStyle="italic">
+                      {data?.tagline}
+                    </Typography>
+                  )}
+
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <Rating
+                      value={data?.vote_average / 2}
+                      precision={0.1}
+                      readOnly
+                    />
+
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      ({fShortenNumber(data?.popularity)}
+                      reviews)
+                    </Typography>
+                  </Stack>
+
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <CustomBreadcrumbs
+                      sx={{ mb: 0 }}
+                      links={[
+                        { name: data?.release_date || data?.first_air_date },
+                        {
+                          name: renderTime(),
+                        },
+                        {
+                          name: `${
+                            data?.production_countries[0]?.name ||
+                            data?.origin_country[0]
+                          }`,
+                        },
+                      ]}
+                    />
+                  </Stack>
+
+                  <Typography>{data?.overview}</Typography>
+                </Stack>
+              </Grid>
+              <Divider
+                sx={{
+                  borderStyle: "dashed",
+                  display: { xs: "none", lg: "block" },
+                }}
+                orientation="vertical"
+                flexItem
+              />
+              <Grid item xs={12} md={6} lg={4}>
+                <Stack spacing={3}>
+                  <Stack
+                    spacing={2}
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                  >
+                    <ForwardedTooltip
+                      title={!isId ? "Add Favourite" : "Remove Favourite"}
+                    >
+                      <FormControlLabel
+                        sx={{ mr: 0 }}
+                        control={
+                          <Checkbox
+                            color="error"
+                            checked={isId}
+                            icon={<Iconify icon="eva:heart-fill" />}
+                            checkedIcon={<Iconify icon="eva:heart-fill" />}
+                            onChange={isId ? handleUnlike : handleLike}
+                          />
+                        }
+                        label=""
+                      />
+                    </ForwardedTooltip>
+                    {_socials.map((social) => (
+                      <ForwardedTooltip key={social.value} title={social.name}>
+                        <IconButton
+                          onClick={(event) => handleNavigate(event, social)}
+                        >
+                          <Iconify icon={social.icon} color={social.color} />
+                        </IconButton>
+                      </ForwardedTooltip>
+                    ))}
+                  </Stack>
+
+                  <Stack direction="row" alignItems="center" spacing={3}>
+                    <Typography
+                      variant="body1"
+                      sx={{ fontWeight: "fontWeightMedium" }}
+                    >
+                      {`${translate("production")}`}:
+                    </Typography>
+
+                    <Tooltip title={data?.production_companies[0]?.name}>
+                      <Image
+                        alt={data?.production_companies[0]?.name}
+                        src={`${TMDB_IMAGE}${data?.production_companies[0]?.logo_path}`}
+                        sx={{ borderRadius: 1.5, maxWidth: "95px" }}
+                      />
+                    </Tooltip>
+
+                    <Tooltip title={data?.production_companies[1]?.name}>
+                      <Image
+                        alt={data?.production_companies[1]?.name}
+                        src={`${TMDB_IMAGE}${data?.production_companies[1]?.logo_path}`}
+                        sx={{ borderRadius: 1.5, maxWidth: "95px" }}
+                      />
+                    </Tooltip>
+                  </Stack>
+
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    spacing={1}
+                    flexWrap={"wrap"}
+                  >
+                    <Typography
+                      variant="body1"
+                      sx={{ fontWeight: "fontWeightMedium" }}
+                    >
+                      {`${translate("genres")}`}:
+                    </Typography>
+                    {data?.genres.map((genre: any) => (
+                      <Typography variant="body2" key={genre?.id}>
+                        {genre?.name},
+                      </Typography>
+                    ))}
+                  </Stack>
+                </Stack>
+              </Grid>
+            </Grid>
+          )}
+
+          {type === "tv" && (
+            <Card>
+              <CardHeader
+                title="Carousel Center Mode"
+                subheader="Customs shape & icon button"
+              />
+              <CardContent>
+                <CarouselCenterMode data={data} />
+              </CardContent>
+            </Card>
+          )}
+
+          <Stack spacing={3} sx={{ py: 5, px: { md: 5 } }}>
+            <Divider />
+
+            {/* <MoviePostTags post={[]}/> */}
+            <Divider />
+          </Stack>
+
+          <Stack sx={{ px: { md: 5 } }}>
+            <Stack direction="row" sx={{ mb: 3 }}>
+              <Typography variant="h4">Comments</Typography>
+
+              <Typography variant="subtitle2" sx={{ color: "text.disabled" }}>
+                ({document.length})
+              </Typography>
+            </Stack>
+
+            <MoviePostCommentForm idMovie={id} />
+
+            <Divider sx={{ mt: 5, mb: 2 }} />
+          </Stack>
+
+          <Stack
+              sx={{
+                px: { md: 5 },
+              }}
+            >
+              <MoviePostCommentList idMovie={id} comments={document} />
+
+              <Pagination
+                count={8}
+                sx={{
+                  my: 5,
+                  ml: 'auto',
+                  mr: { xs: 'auto', md: 0 },
+                }}
+              />
+            </Stack>
+        </Stack>
       </Container>
     </>
   );

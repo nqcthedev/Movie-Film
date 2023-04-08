@@ -19,7 +19,7 @@ const FavouritePage = () => {
   return (
     <>
       <Helmet>
-        <title> General: Favourite | 4K Movie</title>
+        <title> Movie: Favourite | 4K Movie</title>
       </Helmet>
       <Container maxWidth={themeStretch ? false : "lg"}>
         <CustomBreadcrumbs
@@ -47,7 +47,7 @@ const FavouritePage = () => {
           {favourite?.map(
             (movie: Result, index: Key) =>
               movie && (
-                <MoviesListCard key={movie.id} movie={movie} type='' />
+                <MoviesListCard key={movie.id} movie={movie} type={movie?.type} />
               )
           )}
         </Box>

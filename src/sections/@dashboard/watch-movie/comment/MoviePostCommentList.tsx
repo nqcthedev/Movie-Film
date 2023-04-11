@@ -31,8 +31,8 @@ const MoviePostCommentList = ({ comment, idMovie, comments }: Props) => {
           reactions={reactions}
         />
 
-        {comments.reverse().map((comment) => {
-          if (comment.replyComment === id) {
+        {comments.map((comment) => {
+          if (comment?.replyComment === id) {
             return (
               <MoviePostCommentItem
                 key={comment?.id}
@@ -43,7 +43,7 @@ const MoviePostCommentList = ({ comment, idMovie, comments }: Props) => {
                 movieId={idMovie}
                 listComment={comments}
                 replyComment={comment?.replyComment}
-                commentParentId={id}
+                commentParentId={comment?.id}
                 reactions={comment?.reactions}
                 hasReply
               />

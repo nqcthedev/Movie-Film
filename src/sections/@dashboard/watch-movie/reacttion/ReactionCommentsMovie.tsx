@@ -62,7 +62,7 @@ const ReactionCommentsMovie = ({
       });
     }
 
-   return setShowReaction(false);
+  setShowReaction(false);
   };
 
   return (
@@ -102,7 +102,7 @@ const ReactionCommentsMovie = ({
               }}
               {...reactions.some((item) => item.userId === user?.uid) &&
                 reactions.find((item) => item.userId === user?.uid)
-                  .type === gif.name && <span style={{backgroundColor:"red", width:"6px", height:"6px"}} />}
+                  .type === gif.name && <span style={{background:"red", width:"16px", height:"16px", borderRadius:"50%"}} />}
             />
           </>
         ))}

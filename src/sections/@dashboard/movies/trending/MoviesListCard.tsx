@@ -57,7 +57,7 @@ const MoviesListCard = ({ movie, type }: Props) => {
       id: movie.id,
       name: movie.name,
       title: movie.title,
-      poster_path: movie.poster_path,
+      poster_path: movie.poster_path || movie.backdrop_path,
       vote_average: movie.vote_average,
       popularity: movie.popularity,
       type:type

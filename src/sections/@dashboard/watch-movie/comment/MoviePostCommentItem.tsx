@@ -24,6 +24,8 @@ import { IMoviePostComment } from "@/@types/movie";
 import { useAuthContext } from "@/auth/useAuthContext";
 import { DB } from "@/auth/FireBaseContext";
 import { useSnackbar } from "@/components/snackbar";
+import ReactionCommentsMovie from "../reacttion/ReactionCommentsMovie";
+import ShowReactionCommentsMovie from "../reacttion/ShowReactionCommentsMovie";
 
 // --------------------------------------------------------------------------------------
 
@@ -34,8 +36,11 @@ type Props = {
   tagUser?: string;
   postedAt: any;
   hasReply?: boolean;
-  idMovie:any;
-  commentParentId?:any;
+  movieId: any;
+  commentParentId?: any;
+  listComment: IMoviePostComment[];
+  replyComment: string;
+  reactions: any[];
 };
 
 // ----------------------------------------------------------------------
@@ -51,8 +56,11 @@ const MoviePostCommentItem = ({
   tagUser,
   postedAt,
   hasReply,
-  idMovie,
-  commentParentId
+  movieId,
+  commentParentId,
+  listComment,
+  replyComment,
+  reactions,
 }: Props) => {
   const [openReply, setOpenReply] = useState<boolean>(false);
 
@@ -99,9 +107,9 @@ const MoviePostCommentItem = ({
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      const replyComment:IMoviePostComment = {
+      const replyComment: IMoviePostComment = {
         replyComment: commentParentId,
-        movieId: idMovie,
+        movieId: movieId,
         userId: user?.uid,
         userName: user?.displayName,
         avatarUrl: user?.photoURL,
@@ -109,11 +117,10 @@ const MoviePostCommentItem = ({
         reactions: [],
         postedAt: Date.now(),
       };
-      const res = await addDoc(collection(DB, "comments"), replyComment);
-      enqueueSnackbar("Comment Success", { variant: "success" });
-      // await new Promise((resolve) => setTimeout(resolve, 500));
+      await addDoc(collection(DB, "comments"), replyComment);
+      enqueueSnackbar("Phản hồi thành công", { variant: "success" });
       reset();
-      console.log("DATA", res);
+      setOpenReply(false);
     } catch (err: any) {}
   };
 
@@ -141,7 +148,13 @@ const MoviePostCommentItem = ({
             }}
           >
             <Typography variant="subtitle1"> {name} </Typography>
+
             <Typography variant="body2" gutterBottom>
+              {hasReply && replyComment !== null && (
+                <Box component="strong" sx={{ mr: 0.5 }}>
+                  @{listComment?.find((p) => p?.id === replyComment)?.userName}
+                </Box>
+              )}
               {message}
             </Typography>
           </Stack>
@@ -152,7 +165,6 @@ const MoviePostCommentItem = ({
               variant="caption"
               fontWeight="bold"
               onMouseEnter={() => setOpenReaction(true)}
-              onMouseLeave={() => setOpenReaction(false)}
               sx={{
                 cursor: "pointer",
                 "&:hover": {
@@ -182,7 +194,20 @@ const MoviePostCommentItem = ({
             </Typography>
           </Stack>
         </Stack>
+        {reactions?.length > 0  && (
+          <ShowReactionCommentsMovie reactions={reactions} />
+        )}
       </ListItem>
+
+      {openReaction && (
+        <ReactionCommentsMovie
+          reactions={reactions}
+          showReaction={openReaction}
+          setShowReaction={setOpenReaction}
+          commentParentId={commentParentId}
+          hasReply={hasReply}
+        />
+      )}
 
       {openReply && (
         <Box
@@ -236,7 +261,6 @@ const MoviePostCommentItem = ({
           </Stack>
         </Box>
       )}
-
       <Divider
         sx={{
           ...(hasReply && {

@@ -79,7 +79,7 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
      // Get All Movie
      getMovieOrTvDetail: builder.query<RootObjectDetail, any>({
       query: ({ id, type }) => ({
-        url: `/${type}/${id}?append_to_response=videos,credits&api_key=${tmdbKey}&language=vi-VN`,
+        url: `/${type}/${id}?append_to_response=videos,credits&api_key=${tmdbKey}`,
         method: "GET",
       }),
     }),
@@ -105,6 +105,22 @@ export const movieApiSlice: any = apiSlice.injectEndpoints({
     getReview: builder.query<RootObjectReview, any>({
       query: ({ id, page }) => ({
         url: `/movie/${id}/reviews?api_key=${tmdbKey}&page=${page}&language=en-US`,
+        method: "GET",
+      }),
+    }),
+
+    // get Recommmend
+    getRecommmend: builder.query<RootObject, any>({
+      query: ({ id, page, type }) => ({
+        url: `/${type}/${id}/recommendations?api_key=${tmdbKey}&page=${page}&language=en-US`,
+        method: "GET",
+      }),
+    }),
+
+     // get Similar
+     getSimilar: builder.query<RootObject, any>({
+      query: ({ id, page, type }) => ({
+        url: `/${type}/${id}/similar?api_key=${tmdbKey}&page=${page}&language=en-US`,
         method: "GET",
       }),
     }),
@@ -160,5 +176,7 @@ export const {
   useCreateGuestSessionQuery,
   useGetMovieAndTvQuery,
   useGetVideoTrailersQuery,
-  useGetSeasonTvQuery
+  useGetSeasonTvQuery,
+  useGetRecommmendQuery,
+  useGetSimilarQuery,
 } = movieApiSlice;

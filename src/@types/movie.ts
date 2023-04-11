@@ -13,15 +13,16 @@ export type IMoviePostComment = {
   movieId:string;
   avatarUrl:string;
   message:string;
-  postedAt:number;
+  postedAt:any;
   userId:string;
   userName:string;
+  replyComment?:any;
   // users: {
   //   id:string;
   //   name:string;
   //   avatarUrl:string;
   // }[];
-  replyComment: any;
+  replies?: any[];
   reactions: any[]
 }
 
@@ -62,3 +63,9 @@ export type IMoviePost = {
   }[];
   comments: IMoviePostComment[];
 };
+
+
+export type ImovieReactions = {
+  userId?: string;
+  nameReaction?: string;
+}[]

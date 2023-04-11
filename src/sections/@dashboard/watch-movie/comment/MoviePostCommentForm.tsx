@@ -4,12 +4,11 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // @mui
-import { Stack } from "@mui/material";
+import { Avatar, Stack, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 // components
 import FormProvider, { RHFTextField } from "../../../../components/hook-form";
 import { useAuthContext } from "@/auth/useAuthContext";
-import { postComment } from "@/feature/comments";
 import { addDoc, collection } from "firebase/firestore";
 import { DB } from "@/auth/FireBaseContext";
 import { useSnackbar } from "notistack";
@@ -22,10 +21,10 @@ type FormValuesProps = {
 };
 
 type Props = {
-  idMovie: any;
+  movieId: any;
 };
 
-const MoviePostCommentForm = ({ idMovie }: Props) => {
+const MoviePostCommentForm = ({ movieId }: Props) => {
   const { user } = useAuthContext();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -51,9 +50,9 @@ const MoviePostCommentForm = ({ idMovie }: Props) => {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      const newComment:IMoviePostComment = {
+      const newComment: IMoviePostComment = {
         replyComment: null,
-        movieId: idMovie,
+        movieId: movieId,
         userId: user?.uid,
         userName: user?.displayName,
         avatarUrl: user?.photoURL,
@@ -62,8 +61,7 @@ const MoviePostCommentForm = ({ idMovie }: Props) => {
         postedAt: Date.now(),
       };
       const res = await addDoc(collection(DB, "comments"), newComment);
-      enqueueSnackbar("Comment Success", { variant: "success" });
-      // await new Promise((resolve) => setTimeout(resolve, 500));
+      enqueueSnackbar("Bình luận thành công", { variant: "success" });
       reset();
       console.log("DATA", res);
       return {
@@ -77,18 +75,31 @@ const MoviePostCommentForm = ({ idMovie }: Props) => {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3} alignItems="flex-end">
-        <RHFTextField
-          name="comment"
-          placeholder="Write some of your comments..."
-          multiline
-          rows={3}
-        />
+      {user ? (
+        <Stack spacing={3} alignItems="flex-end">
+          <RHFTextField
+            name="comment"
+            placeholder="Write some of your comments..."
+            multiline
+            rows={3}
+          />
 
-        <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-          Post comment
-        </LoadingButton>
-      </Stack>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            loading={isSubmitting}
+          >
+            Post comment
+          </LoadingButton>
+        </Stack>
+      ) : (
+        <Stack direction="row" alignItems="center">
+          <Avatar sx={{ mr: 2, width: 48, height: 48 }} />
+          <Typography   color="text.secondary"
+              variant="body2"
+              fontWeight="bold">Bạn cần đăng nhập để bình luận!</Typography>
+        </Stack>
+      )}
     </FormProvider>
   );
 };

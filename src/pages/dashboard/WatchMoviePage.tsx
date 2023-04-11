@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   Container,
@@ -21,7 +21,11 @@ import { PATH_DASHBOARD } from "@/routes/path";
 import useLocales from "@/locales/useLocales";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { useParams } from "react-router-dom";
-import { useGetMovieAndTvQuery, useGetSeasonTvQuery } from "@/redux/apiStore";
+import {
+  useGetMovieAndTvQuery,
+  useGetRecommmendQuery,
+  useGetSimilarQuery,
+} from "@/redux/apiStore";
 import Label from "@/components/label/Label";
 import { sentenceCase } from "change-case";
 import { fShortenNumber } from "@/utils/formatNumber";
@@ -35,10 +39,8 @@ import ForwardedTooltip from "@/components/tool-tip-custom/TooltipCustom";
 import Iconify from "@/components/iconify/Iconify";
 import CarouselCenterMode from "@/components/carousel/CarouselCenterMode";
 import { useSettingsContext } from "@/components/settings";
-import MoviePostTags from "@/sections/@dashboard/filter/MoviePostTags";
-import MoviePostCommentForm from "@/sections/@dashboard/watch-movie/comment/MoviePostCommentForm";
-import useFireStore from "@/hooks/useFireStore";
-import MoviePostCommentList from "@/sections/@dashboard/watch-movie/comment/MoviePostCommentList";
+import Comment from "@/sections/@dashboard/watch-movie/comment/Comment";
+import SkeletonWatchMovieDetails from "@/components/skeleton/SkeletonWatchMovieDetails";
 
 // ------------------------------------------------------------------------
 
@@ -49,26 +51,17 @@ const WatchMoviePage = () => {
 
   const { data, isLoading } = useGetMovieAndTvQuery({ id, type });
 
+  const page = 1;
+
+  const { data: recommend, isLoading: recommendLoading } =
+    useGetRecommmendQuery({ id, page, type });
+  const { data: similar, isLoading: similarLoading } = useGetSimilarQuery({
+    id,
+    page,
+    type,
+  });
+
   const { themeStretch } = useSettingsContext();
-
-  // const [payload, setPayload] = useState<any>({
-  //   id:null,
-  //   season:null
-  // })
-
-  // useEffect(() => {
-  //   if(type === "tv") {
-  //     setPayload({
-  //       id:id,
-  //       season:data?.number_of_seasons,
-  //       // esp:
-  //     })
-  //   }
-  // }, [data, id, type])
-
-  // const {data:seasonTv, isLoading: seasonLoading} = useGetSeasonTvQuery({payload})
-
-  // console.log("dataTv", seasonTv)
 
   const { favourite } = useSelector((state) => state.persisted);
 
@@ -98,7 +91,7 @@ const WatchMoviePage = () => {
       popularity: data?.popularity,
     };
     dispatch(addToFavourite(movieFavourite));
-    return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+    return enqueueSnackbar(`${translate("addMovie")}`, {
       variant: "success",
     });
   };
@@ -106,7 +99,7 @@ const WatchMoviePage = () => {
   const handleUnlike = () => {
     setIsId(false);
     dispatch(deleteMovie(data?.id));
-    return enqueueSnackbar("Đã xoá phim khỏi danh sách", {
+    return enqueueSnackbar(`${translate("removeMovie")}`, {
       variant: "error",
     });
   };
@@ -119,8 +112,6 @@ const WatchMoviePage = () => {
     });
   }, [favourite, data]);
 
-  console.log("detail", data);
-
   const renderTime = () => {
     if (type === "tv") {
       return `Season ${data?.number_of_seasons} / ${data?.number_of_episodes} tập`;
@@ -128,19 +119,6 @@ const WatchMoviePage = () => {
       return `${data?.runtime} min`;
     }
   };
-
-  const conditional = useMemo(
-    () => ({
-      fieldName: "movieId",
-      operator: "==",
-      compareValue: id,
-    }),
-    [id]
-  );
-
-  const { document } = useFireStore("comments", conditional);
-
-  console.log("document", document);
 
   return (
     <>
@@ -160,42 +138,44 @@ const WatchMoviePage = () => {
             { name: data?.title },
           ]}
         />
-        <Stack
-          sx={{
-            borderRadius: 2,
-            boxShadow: (theme) => ({
-              md: theme.customShadows.card,
-            }),
-          }}
-        >
-          <Box
+
+        {isLoading && <SkeletonWatchMovieDetails />}
+        {data && (
+          <Stack
             sx={{
-              position: "relative",
-              paddingBottom: { xs: "100%", md: "75%", lg: "56.25%" },
-              height: 0,
-              overflow: "hidden",
-              borderRadius: {
-                xs: `16px 16px 16px 16px`,
-                md: `16px 16px 0 0`,
-              },
+              borderRadius: 2,
+              boxShadow: (theme) => ({
+                md: theme.customShadows.card,
+              }),
             }}
           >
-            <iframe
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
+            <Box
+              sx={{
+                position: "relative",
+                paddingBottom: { xs: "100%", md: "75%", lg: "56.25%" },
+                height: 0,
+                overflow: "hidden",
+                borderRadius: {
+                  xs: `16px 16px 16px 16px`,
+                  md: `16px 16px 0 0`,
+                },
               }}
-              src={`https://www.2embed.to/embed/tmdb/movie?id=${id}`}
-              title="Movie player"
-              frameBorder="0"
-              allowFullScreen
-            />
-          </Box>
+            >
+              <iframe
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
+                src={`https://www.2embed.to/embed/tmdb/movie?id=${id}`}
+                title="Movie player"
+                frameBorder="0"
+                allowFullScreen
+              />
+            </Box>
 
-          {data && (
             <Grid
               container
               sx={{ px: { xs: 1.5, md: 3 } }}
@@ -349,58 +329,48 @@ const WatchMoviePage = () => {
                 </Stack>
               </Grid>
             </Grid>
-          )}
 
-          {type === "tv" && (
-            <Card>
-              <CardHeader
-                title="Carousel Center Mode"
-                subheader="Customs shape & icon button"
-              />
-              <CardContent>
-                <CarouselCenterMode data={data} />
-              </CardContent>
-            </Card>
-          )}
+            {type === "tv" && (
+              <Card>
+                <CardHeader
+                  title="Carousel Center Mode"
+                  subheader="Customs shape & icon button"
+                />
+                <CardContent>
+                  <CarouselCenterMode dataTV={data} type="tv" />
+                </CardContent>
+              </Card>
+            )}
 
-          <Stack spacing={3} sx={{ py: 5, px: { md: 5 } }}>
-            <Divider />
+            <Comment movieId={id} />
 
-            {/* <MoviePostTags post={[]}/> */}
-            <Divider />
-          </Stack>
+            <Stack direction="column" spacing={5}>
+              {type === "movie" && (
+                <Card>
+                  <CardHeader
+                    title={`${translate("recommed")}`}
+                    subheader={`${translate("youMight")}`}
+                  />
+                  <CardContent>
+                    <CarouselCenterMode dataMovie={recommend} type="movie" />
+                  </CardContent>
+                </Card>
+              )}
 
-          <Stack sx={{ px: { md: 5 } }}>
-            <Stack direction="row" sx={{ mb: 3 }}>
-              <Typography variant="h4">Comments</Typography>
-
-              <Typography variant="subtitle2" sx={{ color: "text.disabled" }}>
-                ({document.length})
-              </Typography>
+              {type === "movie" && (
+                <Card>
+                  <CardHeader
+                    title={`${translate("similar")}`}
+                    subheader={`${translate("similarMovie")}`}
+                  />
+                  <CardContent>
+                    <CarouselCenterMode dataMovie={similar} type="movie" />
+                  </CardContent>
+                </Card>
+              )}
             </Stack>
-
-            <MoviePostCommentForm idMovie={id} />
-
-            <Divider sx={{ mt: 5, mb: 2 }} />
           </Stack>
-
-          <Stack
-              sx={{
-                px: { md: 5 },
-              }}
-            >
-              <MoviePostCommentList idMovie={id} comments={document} />
-
-              <Pagination
-                count={8}
-                sx={{
-                  my: 5,
-                  ml: 'auto',
-                  mr: { xs: 'auto', md: 0 },
-                }}
-              />
-            </Stack>
-        </Stack>
+        )}
       </Container>
     </>
   );

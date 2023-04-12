@@ -2,8 +2,8 @@ import React from "react";
 // @mui
 import { Typography, Stack } from "@mui/material";
 // components
-import Logo from "../../components/logo";
-import Image from "../../components/image";
+import Logo from "@/components/logo";
+import Image from "@/components/image";
 //
 import {
   StyledRoot,
@@ -44,7 +44,7 @@ const LoginLayout = ({ children, illustration, title }: Props) => {
           visibleByDefault
           alt="auth"
           src={illustration || '/assets/illustrations/illustration_dashboard1.jpeg'}
-          sx={{ maxWidth: 1, borderRadius:"24px" }}
+          sx={{ maxWidth: 720, borderRadius:"24px" }}
         />
 
         <StyledSectionBg />

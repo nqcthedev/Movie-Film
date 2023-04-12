@@ -1,7 +1,7 @@
 // fr
 import { m } from "framer-motion";
 //@mui
-import { Container, styled } from "@mui/material";
+import { Button, Container, Link, styled } from "@mui/material";
 import { Typography, CardProps, Stack } from "@mui/material";
 //
 import { TextAnimate, MotionContainer, varFade } from "@/components/animate";
@@ -9,7 +9,9 @@ import React, { memo, useMemo, useState } from "react";
 import { Result } from "./types";
 // ultis
 import { TMDB_IMAGE } from "@/utils/urlImage";
-
+import useLocales from "@/locales/useLocales";
+import { Link as RouterLink } from "react-router-dom";
+import { PATH_DASHBOARD } from "@/routes/path";
 
 const StyledRoot = styled("div")<{ image: string }>(({ theme, image }) => ({
   width: "100%",
@@ -35,6 +37,7 @@ interface Props extends CardProps {
   img?: React.ReactNode;
   action?: React.ReactNode;
   data: Result;
+  type: string;
 }
 
 const HomeWelcome = ({
@@ -43,14 +46,20 @@ const HomeWelcome = ({
   description,
   action,
   img,
+  type,
   ...other
 }: Props) => {
+  const { translate } = useLocales();
+
   const [bannerData, setBannerData] = useState<any>();
   useMemo(() => {
     const randomData = Math.floor(Math.random() * (19 - 0 + 1) + 0);
     setBannerData(data[randomData]);
   }, []);
 
+  const linkToWatchMovie = PATH_DASHBOARD.watchMovie(bannerData?.id, type);
+
+  const linkToViewDetail = PATH_DASHBOARD.detail.view(bannerData?.id, type);
 
   return (
     <StyledRoot image={bannerData?.backdrop_path} {...other}>
@@ -87,7 +96,16 @@ const HomeWelcome = ({
             </Typography>
           </m.div>
 
-          {action && action}
+          {/* {action && action} */}
+
+          <Stack direction="row" spacing={3}>
+            <Link underline="none" component={RouterLink} to={linkToWatchMovie}>
+              <Button variant="contained">{`${translate("watchNow")}`}</Button>
+            </Link>
+            <Link underline="none" component={RouterLink} to={linkToViewDetail}>
+              <Button variant="contained">{`${translate("viewInfo")}`}</Button>
+            </Link>
+          </Stack>
         </Stack>
       </Container>
     </StyledRoot>

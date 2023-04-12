@@ -1,5 +1,5 @@
 //
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 // components
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // auth
@@ -22,6 +22,7 @@ import {
   FavouritePage,
   WatchListPage,
   WatchMoviePage,
+  Page404,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
@@ -104,5 +105,16 @@ export default function Router() {
         },
       ],
     },
+
+    {
+      element: <CompactLayout />,
+      children: [
+        {
+          path: "404",
+          element: <Page404 />,
+        },
+      ],
+    },
+    { path: "*", element: <Navigate to="/404" replace /> },
   ]);
 }

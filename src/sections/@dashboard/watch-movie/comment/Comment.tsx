@@ -33,7 +33,7 @@ const Comment = ({ movieId }: Props) => {
         <Divider />
 
         {/* <MoviePostTags post={[]}/> */}
-        <Divider />
+        {/* <Divider /> */}
       </Stack>
 
       <Stack sx={{ px: { md: 5 } }}>

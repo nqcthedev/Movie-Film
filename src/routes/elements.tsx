@@ -38,4 +38,8 @@ export const WatchListPage = Loadable(lazy(() => import('@/pages/dashboard/Watch
 export const WatchMoviePage = Loadable(lazy(() => import('@/pages/dashboard/WatchMoviePage')));
 
 
+// MAIN
+
+export const Page404 = Loadable(lazy(() => import('../pages/Page404')));
+
 

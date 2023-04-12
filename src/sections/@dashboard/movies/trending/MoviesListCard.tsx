@@ -21,6 +21,7 @@ import { TMDB_IMAGE } from "@/utils/urlImage";
 import { useDispatch, useSelector } from "@/redux/store";
 import { addToFavourite, deleteMovie } from "@/redux/slices/movie";
 import { useSnackbar } from "@/components/snackbar";
+import { useAuthContext } from "@/auth/useAuthContext";
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,8 @@ type Props = {
 const MoviesListCard = ({ movie, type }: Props) => {
   const { id, name, title, backdrop_path, vote_average, popularity, poster_path } = movie;
 
+  const { user } = useAuthContext();
+
   const { favourite } = useSelector((state) => state.persisted);
 
   const [isId, setIsId] = useState<boolean>(false);
@@ -39,8 +42,6 @@ const MoviesListCard = ({ movie, type }: Props) => {
   const dispatch = useDispatch();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  console.log(type)
 
   const linkTo = PATH_DASHBOARD.detail.view(id, type);
 
@@ -52,20 +53,27 @@ const MoviesListCard = ({ movie, type }: Props) => {
   const status = randomIndex >= 1 ? "Hot" : "New";
 
   const handleLike = () => {
-    setIsId(true);
-    const movieFavourite = {
-      id: movie.id,
-      name: movie.name,
-      title: movie.title,
-      poster_path: movie.poster_path || movie.backdrop_path,
-      vote_average: movie.vote_average,
-      popularity: movie.popularity,
-      type:type
-    };
-    dispatch(addToFavourite(movieFavourite));
-    return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
-      variant: "success",
-    });
+    if(!user) {
+      return enqueueSnackbar("Bạn cần đăng nhập tài khoản để sử dụng tính năng này", {
+        variant: "warning",
+      });
+    } else {
+      setIsId(true);
+      const movieFavourite = {
+        id: movie.id,
+        name: movie.name,
+        title: movie.title,
+        poster_path: movie.poster_path || movie.backdrop_path,
+        vote_average: movie.vote_average,
+        popularity: movie.popularity,
+        type:type
+      };
+      dispatch(addToFavourite(movieFavourite));
+      return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+        variant: "success",
+      });
+    }
+   
   };
 
   const handleUnlike = () => {

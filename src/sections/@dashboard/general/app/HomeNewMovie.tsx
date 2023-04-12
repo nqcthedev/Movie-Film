@@ -7,6 +7,7 @@ import {
   CardContent,
   Typography,
   CardProps,
+  Link,
 } from "@mui/material";
 // utils
 import { bgGradient } from "@/utils/cssStyle";
@@ -16,6 +17,8 @@ import Carousel, { CarouselDots } from "@/components/carousel";
 import { Result } from "./types";
 import { TMDB_IMAGE } from "@/utils/urlImage";
 import useLocales from "@/locales/useLocales";
+import { Link as RouterLink } from "react-router-dom";
+import { PATH_DASHBOARD } from "@/routes/path";
 
 // ----------------------------------------------------------------------
 
@@ -78,6 +81,7 @@ type CarouselItemProps = {
 function CarouselItem({ item }: CarouselItemProps) {
   const { translate } = useLocales();
 
+  const linkToWatchMovie = PATH_DASHBOARD.watchMovie(item?.id, "movie");
   return (
     <Box sx={{ position: "relative" }}>
       <CardContent
@@ -97,8 +101,9 @@ function CarouselItem({ item }: CarouselItemProps) {
         <Typography noWrap variant="h5" sx={{ mt: 1, mb: 3 }}>
           {item?.title}
         </Typography>
-
+        <Link underline="none" component={RouterLink} to={linkToWatchMovie}>
         <Button variant="contained">{`${translate("watchNow")}`}</Button>
+        </Link>
       </CardContent>
 
       <StyledOverlay />

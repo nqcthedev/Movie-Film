@@ -100,9 +100,7 @@ const ReactionCommentsMovie = ({
                   transform: ' scale(1.3)',
                  }
               }}
-              {...reactions.some((item) => item.userId === user?.uid) &&
-                reactions.find((item) => item.userId === user?.uid)
-                  .type === gif.name && <span style={{background:"red", width:"16px", height:"16px", borderRadius:"50%"}} />}
+        
             />
           </>
         ))}

@@ -73,7 +73,13 @@ const MoviePostCommentItem = ({
   const { enqueueSnackbar } = useSnackbar();
 
   const handleShowReplyComment = () => {
-    setOpenReply(!openReply);
+    if (!user) {
+      return enqueueSnackbar("Bạn cần đăng nhập để sử dụng bình luận", {
+        variant: "warning",
+      });
+    } else {
+      return setOpenReply(!openReply);
+    }
   };
 
   const theme = useTheme();
@@ -194,7 +200,7 @@ const MoviePostCommentItem = ({
             </Typography>
           </Stack>
         </Stack>
-        {reactions?.length > 0  && (
+        {reactions?.length > 0 && (
           <ShowReactionCommentsMovie reactions={reactions} />
         )}
       </ListItem>

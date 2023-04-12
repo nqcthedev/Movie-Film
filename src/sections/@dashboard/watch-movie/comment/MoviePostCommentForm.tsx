@@ -4,15 +4,17 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // @mui
-import { Avatar, Stack, Typography } from "@mui/material";
+import { Avatar, Link, Stack, Typography, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 // components
-import FormProvider, { RHFTextField } from "../../../../components/hook-form";
+import FormProvider, { RHFTextField } from "@/components/hook-form";
 import { useAuthContext } from "@/auth/useAuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { DB } from "@/auth/FireBaseContext";
 import { useSnackbar } from "notistack";
 import { IMoviePostComment } from "@/@types/movie";
+import { PATH_AUTH } from "@/routes/path";
+import {  Link as RouterLink } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +30,8 @@ const MoviePostCommentForm = ({ movieId }: Props) => {
   const { user } = useAuthContext();
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const theme = useTheme();
 
   const CommentSchema = Yup.object().shape({
     comment: Yup.string().required("Comment is required"),
@@ -93,11 +97,31 @@ const MoviePostCommentForm = ({ movieId }: Props) => {
           </LoadingButton>
         </Stack>
       ) : (
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="center" spacing={1}>
           <Avatar sx={{ mr: 2, width: 48, height: 48 }} />
-          <Typography   color="text.secondary"
-              variant="body2"
-              fontWeight="bold">Bạn cần đăng nhập để bình luận!</Typography>
+          <Typography color="text.secondary" variant="body2" fontWeight="bold">
+            Vui lòng
+          </Typography>
+        
+
+          <Link
+            component={RouterLink}
+            to={PATH_AUTH.login}
+            variant="body2"
+            color="inherit"
+            fontWeight={"900"}
+            underline="none"
+            sx={{ color: theme.palette.primary.main }}
+          >
+            Đăng nhập
+          </Link>
+          <Typography
+            color="text.secondary"
+            variant="body2"
+            fontWeight="bold"
+          >
+            tài khoản để sử dụng Bình luận
+          </Typography>
         </Stack>
       )}
     </FormProvider>

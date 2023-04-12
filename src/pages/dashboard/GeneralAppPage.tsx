@@ -2,9 +2,8 @@ import React from "react";
 
 import { Helmet } from "react-helmet-async";
 // @mui
-import { Container, Grid, Stack, Button } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 // auth
-import { useAuthContext } from "../../auth/useAuthContext";
 import { useSettingsContext } from "@/components/settings";
 // sections
 import {
@@ -24,8 +23,6 @@ const GeneralAppPage = () => {
   const { translate } = useLocales();
 
   const {favourite} = useSelector((state) => state.persisted);
-  
-  const { user } = useAuthContext();
 
   const { themeStretch } = useSettingsContext();
 
@@ -47,12 +44,7 @@ const GeneralAppPage = () => {
           <Grid item xs={12} md={8}>
             <HomeWelcome
               data={data}
-              action={
-                <Stack direction="row" spacing={3}>
-                  <Button variant="contained">{`${translate('watchNow')}`}</Button>
-                  <Button variant="contained">{`${translate('viewInfo')}`}</Button>
-                </Stack>
-              }
+              type="movie"
             />
           </Grid>
 

@@ -52,7 +52,7 @@ export default function Footer() {
   return (
     <Box
       component="footer"
-      sx={{ position: "relative", bgcolor: "background.default" }}
+      sx={{ position: "relative", bgcolor: "background.default", }}
     >
       <Divider />
 

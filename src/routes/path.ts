@@ -28,6 +28,8 @@ export const PATH_ROUTER = {
   upcomming: "/up-comming",
   notfound: "/not-found",
   faqs: '/faqs',
+  about:'about',
+  contact:"contact",
   page403: "/403",
   page404: "/404",
   page500: "/500",

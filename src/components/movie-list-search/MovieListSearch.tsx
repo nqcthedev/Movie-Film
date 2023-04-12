@@ -24,7 +24,8 @@ const MovieListSearch = () => {
 
   const [searchMovies, setSearchMovies] = useState<string>("");
 
-  const [searchResults, setSearchResults] = useState([]);
+  // const [id, setId] = useState<number>(0)
+  // const [type, setType] = useState<string>("")
 
   const handleChangeSearch = (value: string) => {
     setSearchMovies(value);
@@ -32,17 +33,15 @@ const MovieListSearch = () => {
 
   const { data } = useGetListMoviesWithSearchQuery({ searchMovies });
 
-  useEffect(() => {
-    data && setSearchResults(data);
-  }, [data]);
-
-  const handleGotoMovie = (name: string) => {
-    // navigate(PATH_DASHBOARD.${url}.view(paramCase(name as string)));
+  const handleGotoMovie = (id: number, media_type: string) => {
+    navigate(PATH_DASHBOARD.detail.view(id, media_type));
   };
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      handleGotoMovie(searchMovies);
+      // if(id && type) {
+      // return  navigate(PATH_DASHBOARD.detail.view(id, type));
+      // }
     }
   };
 
@@ -51,7 +50,7 @@ const MovieListSearch = () => {
       size="small"
       autoHighlight
       popupIcon={null}
-      options={searchResults}
+      options={data}
       onInputChange={(event, value) => handleChangeSearch(value)}
       getOptionLabel={(movie: any) => movie.name || movie.title}
       noOptionsText={<SearchNotFound query={searchMovies} />}
@@ -90,9 +89,11 @@ const MovieListSearch = () => {
         />
       )}
       renderOption={(props, movie, { inputValue }) => {
-        const { name, title, backdrop_path } = movie;
+        const { name, title, backdrop_path, id, media_type } = movie;
         const matches = match(title || name, inputValue);
         const parts = parse(title || name, matches);
+        // setType(media_type)
+        // setId(id)
         return (
           <li {...props}>
             <Image
@@ -109,7 +110,7 @@ const MovieListSearch = () => {
 
             <Link
               underline="none"
-              onClick={() => handleGotoMovie(title || name)}
+              onClick={() => handleGotoMovie(id, media_type)}
             >
               {parts.map((part, index) => (
                 <Typography

@@ -6,7 +6,7 @@ import MovieListSearch from '@/components/movie-list-search/MovieListSearch';
 import MovieListSort from '@/components/movie-sort/MovieListSort';
 import { useSettingsContext } from '@/components/settings';
 import Block from '@/components/settings/drawer/Block';
-import { SkeletonMovieItem } from '@/components/skeleton';
+import { SkeletonMovieItem, SkeletonMovieList } from '@/components/skeleton';
 import { Result } from '@/interface/Movies'
 import useLocales from '@/locales/useLocales';
 import { useGetMoviesQuery } from '@/redux/apiStore';
@@ -133,16 +133,16 @@ const MovieListPage = ({title, url}: Props) => {
           lg: "repeat(4, 1fr)",
         }}
       >
-        {isLoading || isFetching
-          ? [...Array(12)]
-          : data?.results.map(
-              (movie: Result, index: Key ) =>
-                movie ? (
-                  <MoviesListCard key={movie.id} movie={movie} type='movie'/>
-                ) : (
-                  <SkeletonMovieItem key={index} />
+         {isLoading || isFetching ? (
+            <SkeletonMovieList/>
+          ) : (
+            data?.results.map(
+              (movie: Result, index: Key | null | undefined) =>
+                movie && (
+                  <MoviesListCard key={movie.id} movie={movie} type="movie" />
                 )
-            )}
+            )
+          )}
       </Box>
 
      <Box sx={{ margin:"0 auto"}}>

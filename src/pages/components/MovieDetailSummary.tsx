@@ -34,6 +34,7 @@ import { useSnackbar } from "@/components/snackbar";
 import { PATH_DASHBOARD } from "@/routes/path";
 import { Link as RouterLink } from "react-router-dom";
 import { useGetVideoTrailersQuery } from "@/redux/apiStore";
+import { useAuthContext } from "@/auth/useAuthContext";
 
 // ---------------------------------------------------------------------------------------------
 
@@ -55,6 +56,8 @@ const MovieDetailSummary = ({ movie, type, ...other }: Props) => {
   const { id } = movie;
 
   const { translate } = useLocales();
+
+  const { user } = useAuthContext();
 
   const { data, isLoading } = useGetVideoTrailersQuery({ id, type });
 
@@ -88,19 +91,25 @@ const MovieDetailSummary = ({ movie, type, ...other }: Props) => {
   };
 
   const handleLike = () => {
-    setIsId(true);
-    const movieFavourite = {
-      id: movie.id,
-      name: movie.name,
-      title: movie.title,
-      backdrop_path: movie.backdrop_path,
-      vote_average: movie.vote_average,
-      popularity: movie.popularity,
-    };
-    dispatch(addToFavourite(movieFavourite));
-    return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
-      variant: "success",
-    });
+    if (!user) {
+      return enqueueSnackbar("Bạn cần đăng nhập để sử dụng tính năng này", {
+        variant: "warning",
+      });
+    } else {
+      setIsId(true);
+      const movieFavourite = {
+        id: movie.id,
+        name: movie.name,
+        title: movie.title,
+        backdrop_path: movie.backdrop_path,
+        vote_average: movie.vote_average,
+        popularity: movie.popularity,
+      };
+      dispatch(addToFavourite(movieFavourite));
+      return enqueueSnackbar("Đã thêm phim vào danh sách yêu thích", {
+        variant: "success",
+      });
+    }
   };
 
   const handleUnlike = () => {
@@ -122,12 +131,12 @@ const MovieDetailSummary = ({ movie, type, ...other }: Props) => {
   console.log(movie);
 
   const renderTime = () => {
-    if(type === "tv") {
-      return `Season ${movie?.number_of_seasons} / ${movie?.number_of_episodes} tập`
+    if (type === "tv") {
+      return `Season ${movie?.number_of_seasons} / ${movie?.number_of_episodes} tập`;
     } else {
-      return `${movie?.runtime} min`
+      return `${movie?.runtime} min`;
     }
-  }
+  };
   return (
     <>
       <Stack
@@ -168,7 +177,11 @@ const MovieDetailSummary = ({ movie, type, ...other }: Props) => {
                 { name: `${movie?.release_date || movie?.last_air_date}` },
                 { name: renderTime() },
                 {
-                  name: `${movie?.production_countries[0].name || movie?.production_companies[0].name  || movie?.origin_country[0]   }`,
+                  name: `${
+                    movie?.production_countries[0].name ||
+                    movie?.production_companies[0].name ||
+                    movie?.origin_country[0]
+                  }`,
                 },
               ]}
             />

@@ -12,6 +12,7 @@ import Main from "./Main";
 import NavVertical from "./nav/NavVertical";
 import NavHorizontal from "./nav/NavHorizontal";
 import NavMini from "./nav/NavMini";
+import Footer from "./nav/Footer";
 
 const DashboardLayout = () => {
   const { themeLayout } = useSettingsContext();
@@ -86,6 +87,8 @@ const DashboardLayout = () => {
           <Outlet />
         </Main>
       </Box>
+
+      <Footer/>
     </>
   );
 };

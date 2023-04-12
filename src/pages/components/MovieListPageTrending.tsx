@@ -12,9 +12,10 @@ import MovieListSort from "@/components/movie-sort/MovieListSort";
 import { useGetTrendingQuery } from "@/redux/apiStore";
 import { Result } from "@/interface/Movies";
 import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
-import { SkeletonMovieItem } from "@/components/skeleton";
+import { SkeletonMovieItem, SkeletonMovieList } from "@/components/skeleton";
 import Block from "@/components/settings/drawer/Block";
 import useLocales from "@/locales/useLocales";
+import SkeletonTopCast from "@/components/skeleton/SkeletonTopCast";
 
 // -------------------------------------------------------------------------------------------------------
 
@@ -84,18 +85,17 @@ const MovieListPageTrending = ({ title }: Props) => {
     setPage(value);
   };
 
-
   return (
     <FormProvider methods={methods}>
       <Container maxWidth={themeStretch ? false : "lg"}>
         <CustomBreadcrumbs
           heading={title}
           links={[
-            { name: `${translate('home')}`, href: PATH_DASHBOARD.root },
+            { name: `${translate("home")}`, href: PATH_DASHBOARD.root },
             {
               name: title,
             },
-            { name: `${translate('movie')}` },
+            { name: `${translate("movie")}` },
           ]}
         />
 
@@ -132,19 +132,19 @@ const MovieListPageTrending = ({ title }: Props) => {
             lg: "repeat(4, 1fr)",
           }}
         >
-          {isLoading || isFetching
-            ? [...Array(12)]
-            : data?.results.map(
-                (movie: Result, index: Key | null | undefined) =>
-                  movie ? (
-                    <MoviesListCard key={movie.id} movie={movie} type="movie"/>
-                  ) : (
-                    <SkeletonMovieItem key={index} />
-                  )
-              )}
+          {isLoading || isFetching ? (
+            <SkeletonMovieList/>
+          ) : (
+            data?.results.map(
+              (movie: Result, index: Key | null | undefined) =>
+                movie && (
+                  <MoviesListCard key={movie.id} movie={movie} type="movie" />
+                )
+            )
+          )}
         </Box>
 
-       <Box sx={{ margin:"0 auto"}}>
+        <Box sx={{ margin: "0 auto" }}>
           <Block title="" sx={style}>
             <Pagination
               onChange={handlePageChange}
@@ -153,7 +153,7 @@ const MovieListPageTrending = ({ title }: Props) => {
               shape="circular"
             />
           </Block>
-       </Box>
+        </Box>
       </Container>
     </FormProvider>
   );

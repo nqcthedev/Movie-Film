@@ -66,6 +66,38 @@ export const _socials = [
 ];
 
 
+export const _socialsAccount = [
+  {
+    value: 'facebook',
+    name: 'FaceBook',
+    icon: 'eva:facebook-fill',
+    color: '#1877F2',
+    path: 'https://www.facebook.com/nqc111/',
+  },
+  {
+    value: 'instagram',
+    name: 'Instagram',
+    icon: 'eva:github-fill',
+    color: '',
+    path: 'https://github.com/nqcthedev',
+  },
+  {
+    value: 'linkedin',
+    name: 'Linkedin',
+    icon: 'eva:linkedin-fill',
+    color: '#007EBB',
+    path: 'https://www.linkedin.com/in/nguyen-quoc-cuong-85539a22b/',
+  },
+  {
+    value: 'google',
+    name: 'Google',
+    icon: 'eva:google-fill',
+    color: '#DF3E30',
+    path: 'https://www.twitter.com/caitlyn.kerluke',
+  },
+];
+
+
 
 export const _iconComment = [
   {

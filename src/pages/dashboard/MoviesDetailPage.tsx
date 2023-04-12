@@ -20,13 +20,16 @@ import MovieDetailsTopCast from "../components/MovieDetailsTopCast";
 import Favourite from "@/sections/@dashboard/movies/Favourite";
 import { useSelector } from "@/redux/store";
 import SkeletonMovieDetails from "@/components/skeleton/SkeletonMovieDetail";
+import { useAuthContext } from "@/auth/useAuthContext";
 
 const MoviesDetailPage = () => {
   const { themeStretch } = useSettingsContext();
 
-  const { favourite } = useSelector((state) => state.persisted);
+  const { favourite } = useSelector((state: { persisted: any; }) => state.persisted);
 
   const { translate } = useLocales();
+
+  const { user } = useAuthContext();
 
   const { id, type } = useParams();
 
@@ -86,7 +89,7 @@ const MoviesDetailPage = () => {
             {
               name: `${translate("movie")}`,
             },
-            { name: detailMovie?.title },
+            { name: detailMovie?.title || detailMovie?.name },
           ]}
         />
 
@@ -145,7 +148,7 @@ const MoviesDetailPage = () => {
         )}
 
         {isLoading && <SkeletonMovieDetails />}
-        <Favourite totalItems={favourite.length} />
+       {user ? ( <Favourite totalItems={favourite.length} />) : null}
       </Container>
     </>
   );

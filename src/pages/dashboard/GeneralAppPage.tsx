@@ -18,11 +18,14 @@ import LoadingScreen from "@/components/loading-screen";
 import useLocales from "@/locales/useLocales";
 import Favourite from "@/sections/@dashboard/movies/Favourite";
 import { useSelector } from "@/redux/store";
+import { useAuthContext } from "@/auth/useAuthContext";
 
 const GeneralAppPage = () => {
   const { translate } = useLocales();
 
-  const {favourite} = useSelector((state) => state.persisted);
+  const {favourite} = useSelector((state: { persisted: any; }) => state.persisted);
+
+   const { user } = useAuthContext();
 
   const { themeStretch } = useSettingsContext();
 
@@ -72,7 +75,7 @@ const GeneralAppPage = () => {
 
         <HomeMovieTvToday title={`${translate('tvtoprate')}`} url="top_rated" path="tvTopRate"/>
       
-        <Favourite totalItems={favourite.length} />
+        {user ? (<Favourite totalItems={favourite.length} />) : null}
 
       </Container>
 

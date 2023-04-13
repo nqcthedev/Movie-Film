@@ -29,7 +29,7 @@ const HomeMovieTrending = ({ title, path }: Props) => {
   return (
     <>
       <Box display="flex" justifyContent={"space-between"} alignItems="end">
-        <Typography variant="h4" sx={{ mb: 1, }}>
+        <Typography variant="h4"  sx={{ mb: 1, mt: 5 }}>
           {title}
         </Typography>
         <Link

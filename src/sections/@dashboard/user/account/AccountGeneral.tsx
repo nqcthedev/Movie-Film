@@ -44,8 +44,6 @@ const AccountGeneral = () => {
 
   const { user } = useAuthContext();
 
-  console.log(user)
-
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),

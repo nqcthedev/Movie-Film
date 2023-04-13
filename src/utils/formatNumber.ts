@@ -14,6 +14,12 @@ export function fShortenNumber(number: InputValue) {
   return result(format, '.00');
 }
 
+export function fData(number: InputValue) {
+  const format = number ? numeral(number).format('0.0 b') : '';
+
+  return result(format, '.0');
+}
+
 
 function result(format: string, key = '.00') {
   const isInteger = format.includes(key);

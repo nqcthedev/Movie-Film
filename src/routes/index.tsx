@@ -23,6 +23,7 @@ import {
   WatchListPage,
   WatchMoviePage,
   Page404,
+  UserAccountPage,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
@@ -102,6 +103,11 @@ export default function Router() {
               element: <WatchMoviePage />,
             },
           ],
+        },
+        // User
+        {
+          path: "user",
+          children: [{ path: "account", element: <UserAccountPage /> }],
         },
       ],
     },

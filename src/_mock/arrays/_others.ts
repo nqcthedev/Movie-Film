@@ -75,8 +75,8 @@ export const _socialsAccount = [
     path: 'https://www.facebook.com/nqc111/',
   },
   {
-    value: 'instagram',
-    name: 'Instagram',
+    value: 'github',
+    name: 'Github',
     icon: 'eva:github-fill',
     color: '',
     path: 'https://github.com/nqcthedev',

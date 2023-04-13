@@ -61,6 +61,7 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, "/user"),
     account: path(ROOTS_DASHBOARD, "user/account"),
     edit: (name: string) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
+    profile:path(ROOTS_DASHBOARD, "coming-soon")
   },
 
   detail: {

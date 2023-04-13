@@ -78,7 +78,7 @@ export const _socialsAccount = [
     value: 'github',
     name: 'Github',
     icon: 'eva:github-fill',
-    color: '',
+    color: 'black',
     path: 'https://github.com/nqcthedev',
   },
   {

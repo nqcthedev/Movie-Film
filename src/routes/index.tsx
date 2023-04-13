@@ -24,6 +24,7 @@ import {
   WatchMoviePage,
   Page404,
   UserAccountPage,
+  ComingSoonPage,
 } from "./elements";
 // layouts
 import CompactLayout from "@/layouts/compact/CompactLayout";
@@ -85,7 +86,8 @@ export default function Router() {
         { path: "tvPopular", element: <TVTopPopularPage /> },
         { path: "tvTopRate", element: <TVTopRatePage /> },
         { path: "favourite", element: <FavouritePage /> },
-        { path: "watch-list", element: <WatchListPage /> },
+        { path: "watch-list", element: <ComingSoonPage /> },
+        { path: 'coming-soon', element: <ComingSoonPage /> },
         {
           path: "detail",
           children: [

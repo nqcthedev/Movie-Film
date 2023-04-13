@@ -45,5 +45,6 @@ export const WatchMoviePage = Loadable(lazy(() => import('@/pages/dashboard/Watc
 // MAIN
 
 export const Page404 = Loadable(lazy(() => import('../pages/Page404')));
+export const ComingSoonPage = Loadable(lazy(() => import('../pages/ComingSoonPage')));
 
 

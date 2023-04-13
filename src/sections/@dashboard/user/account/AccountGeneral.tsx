@@ -47,7 +47,7 @@ const AccountGeneral = () => {
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    photoURL: Yup.string().required('Avatar is required').nullable(true),
+    photoURL: Yup.string().required('Avatar is required').nullable(""),
     phoneNumber: Yup.string().required('Phone number is required'),
     country: Yup.string().required('Country is required'),
     address: Yup.string().required('Address is required'),

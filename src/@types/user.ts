@@ -20,7 +20,7 @@ export type IUserAccountNotificationSettings = {
 
  export type IUserSocialLink = {
   facebookLink: string;
-  githubLink: string;
+  githubLink?: string;
   linkedinLink: string;
   twitterLink: string;
 };

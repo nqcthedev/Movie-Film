@@ -22,7 +22,7 @@ import {
 
 const socialLinks = {
   facebookLink: `https://www.facebook.com/nqc111/`,
-  githubLink: `https://github.com/nqcthedev/`,
+  githubLink: `https://github.com/`,
   linkedinLink: `https://www.linkedin.com/in/nguyen-quoc-cuong-85539a22b/`,
   twitterLink: `https:/nqcthedev@gmail.com/`,
 }

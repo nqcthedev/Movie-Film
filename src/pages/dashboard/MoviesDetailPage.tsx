@@ -9,14 +9,14 @@ import { PATH_DASHBOARD } from "@/routes/path";
 import {
   useGetMovieOrTvDetailQuery,
   useGetReviewQuery,
-} from "@/redux/apiStore";
+} from "@/services/apiStore";
 import Image from "@/components/image/Image";
 import { TMDB_IMAGE, TMDB_IMAGE_W500 } from "@/utils/urlImage";
-import MovieDetailSummary from "../components/MovieDetailSummary";
-import MovieDetailsCarousel from "../components/MovieDetailsCarousel";
+import MovieDetailSummary from "../../sections/detail-movie/MovieDetailSummary";
+import MovieDetailsCarousel from "../../sections/detail-movie/MovieDetailsCarousel";
 import Markdown from "@/components/markdown/Markdown";
-import MovieDetailsReview from "../components/MovieDetailsReview";
-import MovieDetailsTopCast from "../components/MovieDetailsTopCast";
+import MovieDetailsReview from "../../sections/detail-movie/MovieDetailsReview";
+import MovieDetailsTopCast from "../../sections/detail-movie/MovieDetailsTopCast";
 import Favourite from "@/sections/@dashboard/movies/Favourite";
 import { useSelector } from "@/redux/store";
 import SkeletonMovieDetails from "@/components/skeleton/SkeletonMovieDetail";

@@ -33,7 +33,7 @@ import { useDispatch, useSelector } from "@/redux/store";
 import { useSnackbar } from "@/components/snackbar";
 import { PATH_DASHBOARD } from "@/routes/path";
 import { Link as RouterLink } from "react-router-dom";
-import { useGetVideoTrailersQuery } from "@/redux/apiStore";
+import { useGetVideoTrailersQuery } from "@/services/apiStore";
 import { useAuthContext } from "@/auth/useAuthContext";
 
 // ---------------------------------------------------------------------------------------------

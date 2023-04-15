@@ -25,7 +25,7 @@ import {
   useGetMovieAndTvQuery,
   useGetRecommmendQuery,
   useGetSimilarQuery,
-} from "@/redux/apiStore";
+} from "@/services/apiStore";
 import Label from "@/components/label/Label";
 import { sentenceCase } from "change-case";
 import { fShortenNumber } from "@/utils/formatNumber";

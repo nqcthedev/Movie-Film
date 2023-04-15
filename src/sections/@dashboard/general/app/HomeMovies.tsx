@@ -4,8 +4,8 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, BoxProps, Button, Typography, Link } from "@mui/material";
 // components
 import { SkeletonMovieItem } from "@/components/skeleton";
-import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
-import { useGetMoviesQuery } from "@/redux/apiStore";
+import { MoviesListCard } from "@/sections/@dashboard/movies/CardMovies";
+import { useGetMoviesQuery } from "@/services/apiStore";
 // interface
 import { Result } from "@/interface/Trending";
 import useLocales from "@/locales/useLocales";

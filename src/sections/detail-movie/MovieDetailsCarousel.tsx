@@ -10,7 +10,7 @@ import { bgGradient } from "@/utils/cssStyle";
 import Image from "@/components/image";
 // import Lightbox from "@/components/lightbox";
 import Carousel, {CarouselArrowIndex} from "@/components/carousel";
-import { useGetDetailCollectionQuery } from "@/redux/apiStore";
+import { useGetDetailCollectionQuery } from "@/services/apiStore";
 import { TMDB_IMAGE } from "@/utils/urlImage";
 import { Part } from "@/interface/DetailCollections";
 import Lightbox from "@/components/lightbox/Lightbox";

@@ -1,7 +1,7 @@
 import useLocales from "@/locales/useLocales";
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import MovieListPageTrending from "../components/MovieListPageTrending";
+import MovieListPageTrending from "../../sections/list-movie/MovieListPageTrending";
 
 const TrendingPage = () => {
   const { translate } = useLocales();

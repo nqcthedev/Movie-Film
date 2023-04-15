@@ -68,6 +68,4 @@ export const PATH_DASHBOARD = {
     view: (id: number, type: string) =>
       path(ROOTS_DASHBOARD, `detail/${type}/${id}`),
   },
- 
- 
 };

@@ -5,8 +5,8 @@ import { Key } from "react";
 import { Box, BoxProps, Button, Typography, Link } from "@mui/material";
 // components
 import { SkeletonMovieItem } from '@/components/skeleton';
-import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
-import {  useGetTvQuery } from '@/redux/apiStore';
+import { MoviesListCard } from "@/sections/@dashboard/movies/CardMovies";
+import {  useGetTvQuery } from '@/services/apiStore';
 // interface
 import { Result } from "@/interface/Trending";
 import useLocales from '@/locales/useLocales';

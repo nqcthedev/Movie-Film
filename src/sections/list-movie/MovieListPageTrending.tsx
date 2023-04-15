@@ -9,19 +9,18 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import MovieListSearch from "@/components/movie-list-search";
 import ShopFilterDrawer from "@/components/movie-filter/ShopFilterDrawer";
 import MovieListSort from "@/components/movie-sort/MovieListSort";
-import { useGetTvQuery } from "@/redux/apiStore";
+import { useGetTrendingQuery } from "@/services/apiStore";
 import { Result } from "@/interface/Movies";
-import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
+import { MoviesListCard } from "@/sections/@dashboard/movies/CardMovies";
 import { SkeletonMovieItem, SkeletonMovieList } from "@/components/skeleton";
 import Block from "@/components/settings/drawer/Block";
 import useLocales from "@/locales/useLocales";
+import SkeletonTopCast from "@/components/skeleton/SkeletonTopCast";
 
 // -------------------------------------------------------------------------------------------------------
 
 type Props = {
   title: string;
-  url: string;
-  type: string;
 };
 
 const style = {
@@ -32,16 +31,16 @@ const style = {
   "& > *": { my: 1 },
 } as const;
 
-const TiviListPage = ({ title, url, type }: Props) => {
-  const { translate } = useLocales();
-
+const MovieListPageTrending = ({ title }: Props) => {
   const { themeStretch } = useSettingsContext();
+
+  const { translate } = useLocales();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, isFetching } = useGetTvQuery({ page, url });
+  const { data, isLoading, isFetching } = useGetTrendingQuery({ page });
 
   const defaultValues = {
     category: "All",
@@ -134,12 +133,12 @@ const TiviListPage = ({ title, url, type }: Props) => {
           }}
         >
           {isLoading || isFetching ? (
-            <SkeletonMovieList />
+            <SkeletonMovieList/>
           ) : (
             data?.results.map(
               (movie: Result, index: Key | null | undefined) =>
                 movie && (
-                  <MoviesListCard key={movie.id} movie={movie} type={type} />
+                  <MoviesListCard key={movie.id} movie={movie} type="movie" />
                 )
             )
           )}
@@ -160,7 +159,7 @@ const TiviListPage = ({ title, url, type }: Props) => {
   );
 };
 
-export default TiviListPage;
+export default MovieListPageTrending;
 
 // ----------------------------------------------------------------------
 

@@ -10,7 +10,7 @@ import parse from "autosuggest-highlight/parse";
 import Image from "../image/Image";
 import { paramCase } from "change-case";
 import { PATH_DASHBOARD } from "@/routes/path";
-import { useGetListMoviesWithSearchQuery } from "@/redux/apiStore";
+import { useGetListMoviesWithSearchQuery } from "@/services/apiStore";
 import { TMDB_IMAGE } from "@/utils/urlImage";
 
 // -----------------------------------------------------------------------------

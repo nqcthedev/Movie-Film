@@ -1,7 +1,7 @@
 import useLocales from "@/locales/useLocales";
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import MovieListPage from "../components/MovieListPage";
+import MovieListPage from "../../sections/list-movie/MovieListPage";
 
 const PopularPage = () => {
   const { translate } = useLocales();

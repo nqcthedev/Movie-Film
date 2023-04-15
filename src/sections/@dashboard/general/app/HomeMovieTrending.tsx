@@ -3,9 +3,9 @@ import { Box, BoxProps, Button, Link, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 // components
 import { SkeletonMovieItem } from '@/components/skeleton';
-import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
+import { MoviesListCard } from "@/sections/@dashboard/movies/CardMovies";
 // query
-import { useGetTrendingQuery } from "@/redux/apiStore";
+import { useGetTrendingQuery } from "@/services/apiStore";
 // interface
 import { Result } from "@/interface/Trending";
 import { Key } from "react";

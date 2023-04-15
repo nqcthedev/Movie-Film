@@ -48,7 +48,8 @@ const en = {
   sorryDes:"Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Besure to check your spelling.",
   gotoHome:"Go to Home",
   noPermission:"No permission",
-  
+  comingSoon:"Coming Soon!",
+  hardWorking:"I'm currently working hard on this page!"
 };
 
 export default en;

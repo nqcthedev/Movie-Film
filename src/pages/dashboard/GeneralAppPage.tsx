@@ -13,7 +13,7 @@ import {
   HomeMovies,
   HomeMovieTvToday
 } from "@/sections/@dashboard/general/app";
-import { useGetBannerQuery } from "@/redux/apiStore";
+import { useGetBannerQuery } from "@/services/apiStore";
 import LoadingScreen from "@/components/loading-screen";
 import useLocales from "@/locales/useLocales";
 import Favourite from "@/sections/@dashboard/movies/Favourite";

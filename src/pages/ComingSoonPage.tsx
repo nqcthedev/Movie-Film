@@ -21,6 +21,7 @@ import Iconify from "../components/iconify";
 import { ComingSoonIllustration } from "@/assetss/illustrations/";
 import CustomTextField from "@/components/custom-input/CustomTextField";
 import { useSettingsContext } from "@/components/settings";
+import useLocales from "@/locales/useLocales";
 
 // --------------------------------------------------------------------------------
 const ComingSoonPage = () => {
@@ -30,19 +31,21 @@ const ComingSoonPage = () => {
 
   const { themeStretch } = useSettingsContext();
 
+  const { translate } = useLocales();
+
   return (
     <>
       <Helmet>
-        <title> Coming Soon | Minimal UI</title>
+        <title> Coming Soon | 4K Movie</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : "lg"}>
         <Typography variant="h3" paragraph>
-          Coming Soon!
+        {`${translate("comingSoon")}`}
         </Typography>
 
         <Typography sx={{ color: "text.secondary" }}>
-          We are currently working hard on this page!
+        {`${translate("hardWorking")}`}
         </Typography>
 
         <ComingSoonIllustration sx={{ my: 10, height: 240 }} />

@@ -6,7 +6,7 @@ import {
 } from "react-redux";
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import { movieApiSlice } from "./apiStore";
+import { movieApiSlice } from "../services/apiStore";
 import movieReducer from "@/redux/slices/movie";
 import rootReducer from "./slices/rootReducer";
 import { persistStore } from "redux-persist";

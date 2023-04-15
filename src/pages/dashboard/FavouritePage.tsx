@@ -5,7 +5,7 @@ import { Result } from "@/interface/Movies";
 import useLocales from "@/locales/useLocales";
 import { useSelector } from "@/redux/store";
 import { PATH_DASHBOARD } from "@/routes/path";
-import { MoviesListCard } from "@/sections/@dashboard/movies/trending";
+import { MoviesListCard } from "@/sections/@dashboard/movies/CardMovies";
 import { Box, Container } from "@mui/material";
 import React, { Key } from "react";
 import { Helmet } from "react-helmet-async";

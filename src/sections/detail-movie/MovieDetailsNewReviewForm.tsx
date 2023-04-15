@@ -24,7 +24,7 @@ import useLocales from "@/locales/useLocales";
 import {
   usePostRatingMutation,
   useCreateGuestSessionQuery,
-} from "@/redux/apiStore";
+} from "@/services/apiStore";
 import { useSnackbar } from "@/components/snackbar";
 import { ReviewSchema } from "@/utils/SchemaYup";
 

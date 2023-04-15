@@ -9,9 +9,9 @@ import Block from '@/components/settings/drawer/Block';
 import { SkeletonMovieItem, SkeletonMovieList } from '@/components/skeleton';
 import { Result } from '@/interface/Movies'
 import useLocales from '@/locales/useLocales';
-import { useGetMoviesQuery } from '@/redux/apiStore';
+import { useGetMoviesQuery } from '@/services/apiStore';
 import { PATH_DASHBOARD } from '@/routes/path';
-import { MoviesListCard } from '@/sections/@dashboard/movies/trending';
+import { MoviesListCard } from '@/sections/@dashboard/movies/CardMovies';
 import { Box, Container, Pagination, Stack } from '@mui/material';
 import React, { Key, useState } from 'react'
 import { useForm } from 'react-hook-form';

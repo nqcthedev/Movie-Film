@@ -1,7 +1,7 @@
 import useLocales from "@/locales/useLocales";
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import TiviListPage from "../components/TiviListPage";
+import TiviListPage from "../../sections/list-movie/TiviListPage";
 
 
 const TVTopRate = () => {

@@ -1,13 +1,4 @@
 const vi = {
-  demo: {
-    title:`Vietnamese`,
-    introduction: `Lorem Ipsum chỉ đơn giản là văn bản giả của ngành in ấn và sắp chữ. Lorem Ipsum đã trở thành văn bản giả tiêu chuẩn của ngành kể từ những năm 1500, khi một nhà in không xác định lấy một dãy loại và xáo trộn nó để tạo thành một cuốn sách mẫu. Nó đã tồn tại không chỉ năm thế kỷ, mà còn là bước nhảy vọt trong lĩnh vực sắp chữ điện tử, về cơ bản vẫn không thay đổi. Nó được phổ biến vào những năm 1960 với việc phát hành các tờ Letraset chứa các đoạn Lorem Ipsum, và gần đây hơn là với phần mềm xuất bản trên máy tính để bàn như Aldus PageMaker bao gồm các phiên bản của Lorem Ipsum.`, 
-  },
-  docs: {
-    hi: `Chào`,
-    description: `Cần giúp đỡ？\n Vui lòng xem tài liệu của chúng tôi.`,
-    documentation: `tài liệu`,
-  },
   home: `Trang chủ`,
   trending: `Xu hướng`,
   popular: `Phổ biến`,
@@ -54,6 +45,8 @@ const vi = {
   sorryDes:"Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm. Có lẽ bạn đã nhập sai URL? Hãy chắc chắn để kiểm tra chính tả.",
   gotoHome:"Đi đến trang chủ",
   noPermission:"Bạn cần Đăng nhập để truy cập vào trang này.",
+  comingSoon:"Sắp ra mắt!",
+  hardWorking:"Hiện tôi đang làm việc chăm chỉ trên trang này!"
 };
 
 export default vi;

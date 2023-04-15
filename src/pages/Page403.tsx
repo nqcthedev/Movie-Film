@@ -1,44 +1,42 @@
 import React from "react";
-import { m } from 'framer-motion';
+import { m } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { Link as RouterLink } from "react-router-dom";
 // @mui
 import { Button, Typography } from "@mui/material";
 // components
 import { MotionContainer, varBounce } from "../components/animate";
-// assets
-import { PageNotFoundIllustration } from "@/assetss/illustrations";
+import { ForbiddenIllustration } from "@/assetss/illustrations";
 import useLocales from "@/locales/useLocales";
+// assets
 
 // ----------------------------------------------------------------------
 
-const Page404 = () => {
+const Page403 = () => {
   const { translate } = useLocales();
   
+
   return (
     <>
-      <Helmet>404 Page Not Found | 4K Movie</Helmet>
+      <Helmet>
+        <title> 403 Forbidden | 4K Movie</title>
+      </Helmet>
 
       <MotionContainer>
         <m.div variants={varBounce().in}>
           <Typography variant="h3" paragraph>
-          {`${translate("sorry")}`}
+          {`${translate("noPermission")}`}
           </Typography>
         </m.div>
 
         <m.div variants={varBounce().in}>
-          <Typography sx={{ color: 'text.secondary' }}>
-          {`${translate("sorryDes")}`}
+          <Typography sx={{ color: "text.secondary" }}>
+          {`${translate("noPermission")}`}
           </Typography>
         </m.div>
 
         <m.div variants={varBounce().in}>
-          <PageNotFoundIllustration
-            sx={{
-              height: 260,
-              my: { xs: 5, sm: 10 },
-            }}
-          />
+          <ForbiddenIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
         </m.div>
 
         <Button component={RouterLink} to="/" size="large" variant="contained">
@@ -49,4 +47,4 @@ const Page404 = () => {
   );
 };
 
-export default Page404;
+export default Page403;

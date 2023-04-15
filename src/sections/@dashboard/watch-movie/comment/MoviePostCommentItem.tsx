@@ -84,7 +84,6 @@ const MoviePostCommentItem = ({
 
   const theme = useTheme();
 
-  console.log(openReaction);
 
   const defaultValues = {
     replyComment: "",

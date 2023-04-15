@@ -67,7 +67,6 @@ const MoviePostCommentForm = ({ movieId }: Props) => {
       const res = await addDoc(collection(DB, "comments"), newComment);
       enqueueSnackbar("Bình luận thành công", { variant: "success" });
       reset();
-      console.log("DATA", res);
       return {
         ...newComment,
         id: res.id,

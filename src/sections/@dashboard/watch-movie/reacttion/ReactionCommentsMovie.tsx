@@ -29,15 +29,11 @@ const ReactionCommentsMovie = ({
     if (reactions?.some((reaction) => reaction.userId === user?.uid)) {
       const newReaction = reactions.filter(
         (reaction) => reaction.userId !== user?.uid
-      );
-
-      console.log(newReaction);
+      )
 
       const userReactionType = reactions.find(
         (item) => item.userId === user?.uid
       ).nameReaction;
-
-      console.log(userReactionType);
 
       if (nameReaction === userReactionType) {
         updateDoc(docRef, {

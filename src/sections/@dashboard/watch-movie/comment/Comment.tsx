@@ -25,8 +25,6 @@ const Comment = ({ movieId }: Props) => {
 
   const { document, loading } = useFireStore("comments", conditional);
 
-  console.log("document", document);
-
   return (
     <>
       <Stack spacing={3} sx={{ py: 5, px: { md: 5 } }}>

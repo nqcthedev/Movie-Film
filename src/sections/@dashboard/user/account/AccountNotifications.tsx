@@ -67,7 +67,6 @@ export default function AccountNotifications() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       enqueueSnackbar('Update success!');
-      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

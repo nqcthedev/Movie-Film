@@ -82,8 +82,6 @@ const MovieDetailsCarousel = ({ id }: Props) => {
 
   const { data, isFetching } = useGetDetailCollectionQuery({ id });
 
-  console.log("detail", data);
-
   const carousel1 = useRef<Carousel | null>(null);
 
   const carousel2 = useRef<Carousel | null>(null);

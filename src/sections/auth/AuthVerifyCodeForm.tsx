@@ -49,7 +49,6 @@ const AuthVerifyCodeForm = () => {
   const onSubmit = async (data: FormValuesProps) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log("DATA", Object.values(data).join(""));
       enqueueSnackbar("Verify success!");
       navigate(PATH_AUTH.login);
     } catch (error: any) {

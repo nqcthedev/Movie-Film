@@ -8,7 +8,6 @@ import { Link, Typography, Autocomplete, InputAdornment } from "@mui/material";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import Image from "../image/Image";
-import { paramCase } from "change-case";
 import { PATH_DASHBOARD } from "@/routes/path";
 import { useGetListMoviesWithSearchQuery } from "@/services/apiStore";
 import { TMDB_IMAGE } from "@/utils/urlImage";

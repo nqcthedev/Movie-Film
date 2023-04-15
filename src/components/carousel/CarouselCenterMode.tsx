@@ -23,8 +23,6 @@ type Props = {
 const CarouselCenterMode = ({ dataTV, type, dataMovie }: Props) => {
   const carouselRef = useRef<Carousel | null>(null);
 
-  console.log(dataTV);
-
   const theme = useTheme();
 
   const carouselSettings = {

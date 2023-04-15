@@ -128,8 +128,6 @@ const MovieDetailSummary = ({ movie, type, ...other }: Props) => {
     });
   }, [favourite, movie]);
 
-  console.log(movie);
-
   const renderTime = () => {
     if (type === "tv") {
       return `Season ${movie?.number_of_seasons} / ${movie?.number_of_episodes} tập`;

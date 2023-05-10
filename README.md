@@ -7,6 +7,7 @@
 ## Screenshots
 
 <img width="100%" alt="image" src="https://github.com/nqcthedev/Movie-Film/assets/80628653/0f9bcec9-c68c-4d1e-921b-453f00b5a62a">
+<img width="100%" alt="image" src="https://github.com/nqcthedev/Movie-Film/assets/80628653/7d4abb7c-58b6-4c0d-b2fc-cc90e8cfd55b">
 
 
 ## Main technology used
